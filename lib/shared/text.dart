@@ -7,8 +7,8 @@ const kTitleStyle = TextStyle(
 );
 
 const kSubtitleStyle = TextStyle(
-  color: Color(0XFF5B62A7),
-  fontSize: 20,
+  color: Color(0XFF7086d4),
+  fontSize: 18,
   fontWeight: FontWeight.bold
 );
 
