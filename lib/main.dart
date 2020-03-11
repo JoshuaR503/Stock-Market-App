@@ -29,17 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
-
-      body:Container(
+      body: Container(
         color: Color(0XFF272628),
         padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 80.0),
         alignment: Alignment.center,
-        child: Column(
-          children: [
-            Portfolio()
-          ],
-        ),
+        child: Portfolio(),
       ),
     );
   }

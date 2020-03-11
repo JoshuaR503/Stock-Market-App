@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sma/models/share.dart';
 import 'package:sma/shared/text.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
+import 'package:sma/widgets/watchlist/widgets/tile.dart';
 
 class Portfolio extends StatelessWidget {
 
@@ -30,7 +31,7 @@ class Portfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,7 +52,23 @@ class Portfolio extends StatelessWidget {
               return PortfolioCard(stock: stocks[index]);
             },
           ),
-        )
+        ),
+        
+        SizedBox(height: 24),
+        WatchlistTile(),
+
+        SizedBox(height: 16),
+        WatchlistTile(),
+
+        SizedBox(height: 16),
+        WatchlistTile(),
+
+        SizedBox(height: 16),
+        WatchlistTile(),
+
+        SizedBox(height: 16),
+        WatchlistTile(),
+
       ],
     );
   }
