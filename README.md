@@ -1,4 +1,4 @@
-# sma
+# Stock Market App
 
 A new Flutter project.
 
