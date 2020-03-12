@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 
 class PortfolioCard extends StatelessWidget {
 
-
   final StockData stock;
 
   PortfolioCard({
@@ -17,6 +16,7 @@ class PortfolioCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -45,18 +45,14 @@ class PortfolioCard extends StatelessWidget {
     );
   }
 
-  
   @override
   Widget build(BuildContext context) {
-
-    final ShapeBorder shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(15));    
-
     return Padding(
       padding: EdgeInsets.only(right: 16),
       child: MaterialButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         color: stock.color,
         child: _buildCard(),
-        shape: shape,
         onPressed: () {},
       ),
     );

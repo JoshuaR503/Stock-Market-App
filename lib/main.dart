@@ -4,7 +4,6 @@ import 'package:sma/widgets/portfolio/portfolio.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,9 +30,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Container(
         color: Color(0XFF272628),
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 80.0),
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
         alignment: Alignment.center,
-        child: Portfolio(),
+        child: SafeArea(child: Portfolio())
       ),
     );
   }
