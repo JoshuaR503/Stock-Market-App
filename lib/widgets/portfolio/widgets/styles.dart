@@ -10,9 +10,11 @@ const kCompanyName = TextStyle(
 );
 
 const kPositiveChange = TextStyle(
-  color: Color(0XFF00c000)
+  color: Color(0XFF00c000),
+  fontWeight: FontWeight.w800
 );
 
 const kNegativeChange = TextStyle(
-  color: Color(0XFF9e3837)
+  color: Color(0XFFad3d3c),
+  fontWeight: FontWeight.w800
 );

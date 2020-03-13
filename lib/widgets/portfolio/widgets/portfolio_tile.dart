@@ -14,13 +14,16 @@ class PortfolioTitle extends StatelessWidget {
   void _onPressedHandler() {}
 
   List<Widget> _renderContent() {
+
+    final double height = 6.0;
+
     return [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Text(this.stock.tickerSymbol, style: kTickerSymbol),
-          SizedBox(height: 4),
+          SizedBox(height: height),
           Text(this.stock.name, style: kCompanyName)
         ], 
       ),
@@ -30,7 +33,7 @@ class PortfolioTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text('\$${stock.price}'),
-          SizedBox(height: 4),
+          SizedBox(height: height),
           Text(this.stock.change, style: kNegativeChange)
         ], 
       ),
