@@ -7,13 +7,11 @@ import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
 
 class Portfolio extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _renderUpperSide() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -36,14 +34,30 @@ class Portfolio extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Text('View List', style: kSubtitleStyle),
         ),
-
-        Expanded(
-          child: ListView.builder(
-            itemCount: stocks.length,
-            itemBuilder: (BuildContext context, int index) => PortfolioTitle(stock: stocks[index]),
-          ),
-        )
       ],
+    );
+  }
+
+  Widget _renderWatchList() {
+    return Container(
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: stocks.length,
+        itemBuilder: (BuildContext context, int index) => PortfolioTitle(stock: stocks[index]),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget> [
+
+        this._renderUpperSide(),
+        this._renderWatchList(),
+
+      ]
     );
   }
 }
