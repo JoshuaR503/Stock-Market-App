@@ -20,7 +20,7 @@ class StocksBloc extends Bloc<StocksEvent, StocksState> {
       
       yield StocksLoading();
 
-      Future.delayed(Duration(seconds: 5));
+      Future.delayed(Duration(seconds: 90));
 
       yield StocksLoaded(stocks: [
         StockModel(

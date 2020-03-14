@@ -8,7 +8,7 @@ class FetchStocks extends StocksEvent {
   final String symbol;
 
   FetchStocks({
-    @required this.symbol,
+    @required this.symbol
   });
   
 }
