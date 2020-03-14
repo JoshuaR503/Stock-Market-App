@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sma/bloc/bloc/stocks_bloc.dart';
-
 import 'package:sma/widgets/portfolio/portfolio.dart';
 
 class StockMarketApp extends StatelessWidget {
@@ -34,27 +31,7 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
           alignment: Alignment.center,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
-            child: BlocBuilder<StocksBloc, StocksState>(
-              builder: (BuildContext context, StocksState state) {
-                if (state is StocksInitial) {
-                  final symbols = 'AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
-
-                  BlocProvider
-                  .of<StocksBloc>(context)
-                  .add(FetchStocks(symbols: symbols));
-                }
-
-                if (state is StocksLoading) {
-                  return Center(child: CircularProgressIndicator());
-                }
-
-                if (state is StocksLoaded) {
-                  return Portfolio(stocks: state.stocks);
-                }
-
-                return Center(child: CircularProgressIndicator());    
-              },
-            ),
+            child: Portfolio()
           )
         )
       ),

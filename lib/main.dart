@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sma/bloc/bloc/stocks_bloc.dart';
+import 'package:sma/bloc/bloc/portfolio/portfolio_bloc.dart';
 import 'package:sma/widgets/home.dart';
 
 void main() async {
@@ -10,8 +10,8 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<StocksBloc>(
-          create: (context) => StocksBloc(),
+        BlocProvider<PortfolioBloc>(
+          create: (context) => PortfolioBloc(),
         ),
       ],
       child: StockMarketApp(),

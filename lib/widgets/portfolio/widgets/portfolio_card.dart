@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:sma/models/stock_profile.dart';
+import 'package:sma/models/market_index.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/text.dart';
 import 'package:meta/meta.dart';
 
 class PortfolioCard extends StatelessWidget {
 
-  final StockProfile stock;
+  final MarketIndex index;
 
   PortfolioCard({
-    @required this.stock
+    @required this.index
   });
 
   Widget _buildUpperSection() {
@@ -25,14 +25,14 @@ class PortfolioCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(stock.symbol, style: kTickerStyle),
+            Text(index.ticker, style: kTickerStyle),
             FaIcon(FontAwesomeIcons.sortUp, color: color)
           ]
         ),
 
         Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(stock.companyName, style: kNameStyle),
+          child: Text(index.indexName, style: kNameStyle),
         )
       ],
     );
@@ -44,7 +44,7 @@ class PortfolioCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('\$${stock.price}', style: kNameStyle),
+          Text(index.price.toString(), style: kNameStyle),
         ], 
       ),
     );

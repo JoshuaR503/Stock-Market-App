@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sma/bloc/bloc/portfolio/portfolio_bloc.dart';
+
+import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_profile.dart';
 import 'package:sma/shared/colors.dart';
 
@@ -8,13 +12,7 @@ import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class Portfolio extends StatelessWidget {
 
-  final List<StockProfile> stocks;
-
-  Portfolio({
-    @required this.stocks
-  });
-
-  Widget _renderUpperSide() {
+  Widget _renderUpperSide(List<MarketIndex> indexes) {
 
     final kSubtitleStyle = const TextStyle(
       color: kNegativeColor,
@@ -39,8 +37,8 @@ class Portfolio extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 18),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: stocks.length,
-            itemBuilder: (BuildContext context, int index) => PortfolioCard(stock: stocks[index]),
+            itemCount: indexes.length,
+            itemBuilder: (BuildContext context, int index) => PortfolioCard(index: indexes[index]),
           ),
         ),
 
@@ -52,7 +50,7 @@ class Portfolio extends StatelessWidget {
     );
   }
 
-  Widget _renderWatchList() {
+  Widget _renderWatchList(List<StockProfile> stocks) {
     return Container(
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
@@ -63,15 +61,39 @@ class Portfolio extends StatelessWidget {
     );
   }
 
+  
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget> [
 
-        this._renderUpperSide(),
-        this._renderWatchList(),
+    return BlocBuilder<PortfolioBloc, PortfolioState>(
+      builder: (BuildContext context, PortfolioState state) {
+        if (state is PortfolioInitial) {
 
-      ]
+          final stocks = 'AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
+          final indexes = '.DJI,.IXIC,.INX'.split(',');
+
+          BlocProvider
+          .of<PortfolioBloc>(context)
+          .add(FetchPortfoliData(
+            stockSymbols: stocks,
+            marketSymbols: indexes
+          ));
+        }
+
+        if (state is PortfolioLoading) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (state is PortfolioLoaded) {
+          return ListView(
+            children: <Widget> [
+              this._renderUpperSide(state.indexes),
+              this._renderWatchList(state.stocks),
+            ]
+          );
+        }
+        return Center(child: CircularProgressIndicator());    
+      },
     );
   }
 }
