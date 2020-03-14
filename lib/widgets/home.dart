@@ -29,10 +29,7 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
-            child: Portfolio()
-          )
+          child: Portfolio()
         )
       ),
     );

@@ -86,6 +86,7 @@ class Portfolio extends StatelessWidget {
 
         if (state is PortfolioLoaded) {
           return ListView(
+            padding: EdgeInsets.only(left: 18, right: 18, top: 6),
             children: <Widget> [
               this._renderUpperSide(state.indexes),
               this._renderWatchList(state.stocks),

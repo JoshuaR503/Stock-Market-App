@@ -73,7 +73,7 @@ class PortfolioCard extends StatelessWidget {
           _buildLowerSection(),
         ],
       ),
-      width: 110,
+      width: 100,
       padding: EdgeInsets.symmetric(vertical: 18),
     );
   }
