@@ -32,29 +32,30 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
-          child: BlocBuilder<StocksBloc, StocksState>(
-            builder: (BuildContext context, StocksState state) {
-              if (state is StocksInitial) {
-                final symbols = 'AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
+            child: BlocBuilder<StocksBloc, StocksState>(
+              builder: (BuildContext context, StocksState state) {
+                if (state is StocksInitial) {
+                  final symbols = 'AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
 
-                BlocProvider
-                .of<StocksBloc>(context)
-                .add(FetchStocks(symbols: symbols));
-              }
+                  BlocProvider
+                  .of<StocksBloc>(context)
+                  .add(FetchStocks(symbols: symbols));
+                }
 
-              if (state is StocksLoading) {
-                return Center(child: CircularProgressIndicator());
-              }
+                if (state is StocksLoading) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-              if (state is StocksLoaded) {
-                return Portfolio(stocks: state.stocks);
-              } 
+                if (state is StocksLoaded) {
+                  return Portfolio(stocks: state.stocks);
+                }
 
-              return Center(child: CircularProgressIndicator());    
-            },
-          ),
-
-          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+                return Center(child: CircularProgressIndicator());    
+              },
+            ),
+          )
         )
       ),
     );
