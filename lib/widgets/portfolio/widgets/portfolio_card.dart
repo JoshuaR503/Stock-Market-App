@@ -14,6 +14,9 @@ class PortfolioCard extends StatelessWidget {
   });
 
   Widget _buildUpperSection() {
+
+    final Color color = kNegativeColor;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -22,7 +25,7 @@ class PortfolioCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(stock.tickerSymbol, style: kTickerStyle),
-            FaIcon(FontAwesomeIcons.sortUp)
+            FaIcon(FontAwesomeIcons.sortUp, color: color)
           ]
         ),
 

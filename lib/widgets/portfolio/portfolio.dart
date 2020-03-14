@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:sma/data/stocks.dart';
+import 'package:sma/shared/colors.dart';
 
-import 'package:sma/shared/text.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
+import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class Portfolio extends StatelessWidget {
 
   Widget _renderUpperSide() {
+
+    final kSubtitleStyle = const TextStyle(
+      color: kNegativeColor,
+      fontSize: 18,
+      fontWeight: FontWeight.bold
+    );
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -15,7 +23,7 @@ class Portfolio extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text('Portfolio', style: kTitleStyle,),
+            Text('Portfolio', style: kTitleStyle),
             Text('Add Holding', style: kSubtitleStyle),
           ],
         ),
