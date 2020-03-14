@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sma/models/share.dart';
+import 'package:sma/models/stock_model.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/text.dart';
 import 'package:meta/meta.dart';
 
 class PortfolioCard extends StatelessWidget {
 
-  final StockData stock;
+  final StockModel stock;
 
   PortfolioCard({
     @required this.stock

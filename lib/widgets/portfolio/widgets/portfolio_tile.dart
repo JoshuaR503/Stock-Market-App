@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sma/models/share.dart';
+import 'package:sma/models/stock_model.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class PortfolioTitle extends StatelessWidget {
 
-  final StockData stock;
+  final StockModel stock;
 
   PortfolioTitle({
     @required this.stock

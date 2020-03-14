@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:sma/models/share.dart';
+import 'package:sma/models/stock_model.dart';
 
-final List<StockData> stocks = [
-  StockData(
+final List<StockModel> stocks = [
+  StockModel(
     color: Color(0XFF3d3d3d),
     change: '−9.91',
     name: 'Apple Inc.',
     tickerSymbol: 'AAPL',
     price: '288.95'
   ),
-  StockData(
+  StockModel(
     color: Color(0XFF3d3d3d),
     change: '-10.81',
     name: 'Mastercard Incorporated',
     tickerSymbol: 'MA',
     price: '287.01'
   ),
-  StockData(      
+  StockModel(      
     color: Color(0XFF3d3d3d),
     change: '-9.65',
     name: 'Visa Inc.',
     tickerSymbol: 'V',
     price: '184.36'
   ),
-  StockData(
+  StockModel(
     color: Color(0XFF3d3d3d),
     change: '−7.29',
     name: 'Microsoft Corporation.',
     tickerSymbol: 'MSFT',
     price: '153.63'
   ),
-  StockData(
+  StockModel(
     color: Color(0XFF3d3d3d),
     change: '−9.84',
     name: 'Johnson & Johnson',
