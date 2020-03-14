@@ -11,7 +11,7 @@ class StocksLoadingError extends StocksState {}
 
 class StocksLoaded extends StocksState {
 
-  final List<StockModel> stocks ;
+  final List<StockProfile> stocks;
 
   StocksLoaded({
     @required this.stocks

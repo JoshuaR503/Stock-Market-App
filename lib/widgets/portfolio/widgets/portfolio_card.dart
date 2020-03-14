@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sma/models/stock_model.dart';
+
+import 'package:sma/models/stock_profile.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/text.dart';
 import 'package:meta/meta.dart';
 
 class PortfolioCard extends StatelessWidget {
 
-  final StockModel stock;
+  final StockProfile stock;
 
   PortfolioCard({
     @required this.stock
@@ -24,14 +25,14 @@ class PortfolioCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(stock.tickerSymbol, style: kTickerStyle),
+            Text(stock.symbol, style: kTickerStyle),
             FaIcon(FontAwesomeIcons.sortUp, color: color)
           ]
         ),
 
         Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(stock.name, style: kNameStyle),
+          child: Text(stock.companyName, style: kNameStyle),
         )
       ],
     );

@@ -30,9 +30,11 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
       builder: (BuildContext context, StocksState state) {
 
         if (state is StocksInitial) {
+          final symbols = 'AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
+
           BlocProvider
           .of<StocksBloc>(context)
-          .add(FetchStocks(symbol: 'AAPL'));
+          .add(FetchStocks(symbols: symbols));
         }
         
         if (state is StocksLoading) {
@@ -40,7 +42,7 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
         }
 
         if (state is StocksLoaded) {
-          return Portfolio();
+          return Portfolio(stocks: state.stocks);
         } 
 
         return Center(child: CircularProgressIndicator());    

@@ -1,5 +1,6 @@
 
 class StockProfile {
+  final String symbol;
   final double price;
   final String beta;
   final String volAvg;
@@ -18,6 +19,7 @@ class StockProfile {
   final String image;
 
   StockProfile({
+    this.symbol,
     this.price,
     this.beta,
     this.volAvg,
@@ -36,8 +38,9 @@ class StockProfile {
     this.image
   });
 
-  factory StockProfile.fromJson(Map<String, dynamic> json) {
+  factory StockProfile.fromJson(Map<String, dynamic> json, String symbol) {
     return StockProfile(
+      symbol: symbol,
       price: json['price'],
       beta: json['beta'],
       volAvg: json['volAvg'],
@@ -60,6 +63,7 @@ class StockProfile {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data =  Map<String, dynamic>();
 
+    data['symbol'] = this.symbol;
     data['price'] = this.price;
     data['beta'] = this.beta;
     data['volAvg'] = this.volAvg;

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sma/models/stock_model.dart';
+
+import 'package:sma/models/stock_profile.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class PortfolioTitle extends StatelessWidget {
 
-  final StockModel stock;
+  final StockProfile stock;
 
   PortfolioTitle({
     @required this.stock
@@ -22,9 +23,9 @@ class PortfolioTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(this.stock.tickerSymbol, style: kTickerSymbol),
+          Text(this.stock.symbol, style: kTickerSymbol),
           SizedBox(height: height),
-          Text(this.stock.name, style: kCompanyName)
+          Text(this.stock.companyName, style: kCompanyName)
         ], 
       ),
 
@@ -34,7 +35,7 @@ class PortfolioTitle extends StatelessWidget {
         children: <Widget>[
           Text('\$${stock.price}'),
           SizedBox(height: height),
-          Text(this.stock.change, style: kNegativeChange)
+          Text(this.stock.changesPercentage, style: kNegativeChange)
         ], 
       ),
     ];

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sma/data/stocks.dart';
+import 'package:sma/models/stock_profile.dart';
 import 'package:sma/shared/colors.dart';
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
@@ -7,6 +7,12 @@ import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class Portfolio extends StatelessWidget {
+
+  final List<StockProfile> stocks;
+
+  Portfolio({
+    @required this.stocks
+  });
 
   Widget _renderUpperSide() {
 

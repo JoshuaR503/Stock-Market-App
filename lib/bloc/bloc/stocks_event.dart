@@ -5,10 +5,10 @@ abstract class StocksEvent {}
 
 class FetchStocks extends StocksEvent {
 
-  final String symbol;
+  final List<String> symbols;
 
   FetchStocks({
-    @required this.symbol
+    @required this.symbols
   });
   
 }
