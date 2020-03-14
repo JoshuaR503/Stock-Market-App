@@ -1,24 +1,37 @@
+import 'package:meta/meta.dart';
+
 class MarketIndex {
-  String ticker;
-  double changes;
-  double price;
-  String indexName;
+  final String symbol;
+  final String name;
+  final double price;
+  final double changesPercentage;
+  final double change;
 
-  MarketIndex({this.ticker, this.changes, this.price, this.indexName});
+  MarketIndex({
+    @required this.symbol,
+    @required this.name,
+    @required this.price,
+    @required this.changesPercentage,
+    @required this.change
+  });
 
-  MarketIndex.fromJson(Map<String, dynamic> json) {
-    ticker = json['ticker'];
-    changes = json['changes'];
-    price = json['price'];
-    indexName = json['indexName'];
+  factory MarketIndex.fromJson(Map<String, dynamic> json) {
+    return MarketIndex(
+      symbol: json['symbol'],
+      name: json['name'],
+      price: json['price'],
+      changesPercentage: json['changesPercentage'],
+      change: json['change'],
+    );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ticker'] = this.ticker;
-    data['changes'] = this.changes;
+    data['symbol'] = this.symbol;
+    data['name'] = this.name;
     data['price'] = this.price;
-    data['indexName'] = this.indexName;
+    data['changesPercentage'] = this.changesPercentage;
+    data['change'] = this.change;
     return data;
   }
 }

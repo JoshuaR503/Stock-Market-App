@@ -17,6 +17,14 @@ class PortfolioTitle extends StatelessWidget {
   List<Widget> _renderContent() {
 
     final double height = 6.0;
+    
+    final style = this.stock.changesPercentage < 0 
+    ? kNegativeChange
+    : kPositiveChange;
+
+    final change = stock.changesPercentage < 0 
+    ? '(-${this.stock.changesPercentage.toString()})'
+    : '(+${this.stock.changesPercentage.toString()})';
 
     return [
       Column(
@@ -25,7 +33,7 @@ class PortfolioTitle extends StatelessWidget {
         children: <Widget>[
           Text(this.stock.symbol, style: kTickerSymbol),
           SizedBox(height: height),
-          Text(this.stock.companyName, style: kCompanyName)
+          Text(this.stock.name, style: kCompanyName)
         ], 
       ),
 
@@ -33,9 +41,9 @@ class PortfolioTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('\$${stock.price}'),
+          Text('\$${this.stock.price}'),
           SizedBox(height: height),
-          Text(this.stock.changesPercentage, style: kNegativeChange)
+          Text(change, style: style)
         ], 
       ),
     ];

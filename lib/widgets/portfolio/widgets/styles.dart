@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:sma/shared/colors.dart';
 
-const kTitleStyle = TextStyle(
-  fontSize: 26,
+final kCompanyName = const TextStyle(
+  color: Color(0XFFc2c2c2)
+);
+
+final kTickerStyle = const TextStyle(
+  fontSize: 20,
   fontWeight: FontWeight.bold
 );
 
-const kTickerSymbol = TextStyle(
+final kTickerSymbol = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold
 );
 
-const kCompanyName = TextStyle(
-  color: Color(0XFFc2c2c2)
-);
-
-const kPositiveChange = TextStyle(
+final kPositiveChange = const TextStyle(
   color: kPositiveColor,
   fontWeight: FontWeight.w800
 );
 
-const kNegativeChange = TextStyle(
+final kNegativeChange = const TextStyle(
   color: kNegativeColor,
   fontWeight: FontWeight.w800
 );
