@@ -14,7 +14,6 @@ class StocksBloc extends Bloc<StocksEvent, StocksState> {
 
   final _repository = StocksRepository();
 
-
   @override
   StocksState get initialState => StocksInitial();
 
