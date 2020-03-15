@@ -40,6 +40,7 @@ class Portfolio extends StatelessWidget {
       height: 205,
       padding: EdgeInsets.symmetric(vertical: 18),
       child: ListView.builder(
+        physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: indexes.length,
         itemBuilder: (BuildContext context, int index) => PortfolioCard(index: indexes[index]),
@@ -93,7 +94,8 @@ class Portfolio extends StatelessWidget {
 
         if (state is PortfolioLoaded) {
           return ListView(
-            padding: EdgeInsets.only(left: 18, right: 18, top: 36),
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.only(left: 18, right: 18, top: 46),
             children: <Widget> [
               this._renderTop(),
               this._renderMarketIndexes(state.indexes),
