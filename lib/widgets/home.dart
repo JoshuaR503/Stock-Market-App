@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
 
 class StockMarketApp extends StatelessWidget {
@@ -25,7 +26,7 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF1e1e1e),
+      backgroundColor: kScaffoldBackground,
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
