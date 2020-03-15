@@ -6,11 +6,11 @@ import 'package:sma/respository/portfolio/api_client.dart';
 class PortfolioRepository {
 
   Future<StockProfile> fetchProfile({String symbol}) async {
-    return await PortfolioClient().fetchProfile(symbol: symbol);
+    return await PortfolioClient.fetchProfile(symbol: symbol);
   }
 
   Future<MarketIndex> fetchMarketIndex({String symbol}) async {
-    return await PortfolioClient().fetchMarketIndex(symbol: symbol);
+    return await PortfolioClient.fetchMarketIndex(symbol: symbol);
   }
   
 }
