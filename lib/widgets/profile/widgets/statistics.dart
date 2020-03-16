@@ -1,65 +1,74 @@
 
+import "package:intl/intl.dart";
 import 'package:flutter/material.dart';
+import 'package:sma/models/profile/quote.dart';
 
 class StatisticsWidget extends StatelessWidget {
+
+  final StockQuote quote;
+
+  StatisticsWidget({
+    @required this.quote
+  });
 
   List<Widget> _leftColumn() {
     return [
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Open'),
-        trailing: Text('264.89'),
+        trailing: Text('${quote.open}'),
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('High'),
-        trailing: Text('289.00'),
+        trailing: Text('${quote.dayHigh}'),
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Low'),
-        trailing: Text('328,09'),
+        trailing: Text('${quote.dayLow}'),
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('52 WK High'),
-        trailing: Text('232.9'),
+        trailing: Text('${quote.yearHigh}'),
       ),
 
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('52 WK Low'),
-        trailing: Text('82.9'),
+        trailing: Text('${quote.yearLow}'),
       ),
     ];
   }
 
   List<Widget> _rightColumn() {
+
     return [
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Volume'),
-        trailing: Text('83.9M'),
+        trailing: Text('${NumberFormat.compact().format(quote.volume)}'),
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('AVG Vol'),
-        trailing: Text('23.4M'),
+        title: Text('Avg Vol'),
+        trailing: Text('${NumberFormat.compact().format(quote.avgVolume)}'),
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('MKT Cap'),
-        trailing: Text('1.20T'),
+        trailing: Text('${NumberFormat.compact().format(quote.marketCap)}'),
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('P/E Ratio'),
-        trailing: Text('21.95'),
+        trailing: Text('${NumberFormat().format(quote.pe)}'),
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('EPS'),
-        trailing: Text('\$3.4'),
+        title: Text('EPS year'),
+        trailing: Text('${quote.eps}'),
       ),
     ];
   }
@@ -86,7 +95,7 @@ class StatisticsWidget extends StatelessWidget {
               child: Column(children: _leftColumn()),
             ),
 
-            SizedBox(width: 50),
+            SizedBox(width: 40),
 
             Expanded(
               flex: 1,
