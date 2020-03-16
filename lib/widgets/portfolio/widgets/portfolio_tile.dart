@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sma/bloc/profile/profile_bloc.dart';
 
 import 'package:sma/models/stock_profile.dart';
 import 'package:sma/shared/colors.dart';
@@ -20,8 +22,8 @@ class PortfolioTitle extends StatelessWidget {
 
     return Text(
       stock.changesPercentage < 0 
-      ? '(-${this.stock.changesPercentage.toString()})'
-      : '(+${this.stock.changesPercentage.toString()})',
+      ? '(-${this.stock.changesPercentage})'
+      : '(+${this.stock.changesPercentage})',
       
       style: style
     );
@@ -71,7 +73,14 @@ class PortfolioTitle extends StatelessWidget {
 
         onPressed: () {
           Navigator
-          .push(context, MaterialPageRoute(builder: (_) => Profile(symbol: 'AAPL',)));
+          .push(context, MaterialPageRoute(builder: (_) {
+
+            BlocProvider
+              .of<ProfileBloc>(context)
+              .add(FetchProfileData(symbol: stock.symbol));
+
+            return Profile(symbol: stock.symbol);
+          }));
         },
       ),
     );

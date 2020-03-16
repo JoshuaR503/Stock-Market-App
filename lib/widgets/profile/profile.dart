@@ -4,9 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/widgets/profile/widgets/profile.dart';
 import 'package:sma/widgets/profile/widgets/statistics.dart';
+import 'package:sma/widgets/profile/widgets/styles.dart';
 
-class Profile extends StatelessWidget { 
+class Profile extends StatefulWidget { 
 
   final String symbol;
 
@@ -14,35 +16,33 @@ class Profile extends StatelessWidget {
     @required this.symbol
   });
 
-  Widget _renderTop() {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+
+  Widget _renderTop({String name, double price}) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            Text('Apple Inc.',style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold
-            )),
-
+            Text(name, style: kProfileCompanyName, overflow: TextOverflow.ellipsis,),
             FaIcon(FontAwesomeIcons.solidCheckCircle, color: kPositiveColor,)
           ], 
         ),
 
         SizedBox(height: 8),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Text('\$274.50',style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2.0
-            )),
-          ], 
-        )
+        Text('\$$price',style: TextStyle(
+          fontSize: 26,
+          fontWeight: FontWeight.bold,
+        )) 
       ],
     );
   }
@@ -59,12 +59,6 @@ class Profile extends StatelessWidget {
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (BuildContext context, ProfileState state) {
 
-            if (state is ProfileInitial) {
-              BlocProvider
-              .of<ProfileBloc>(context)
-              .add(FetchProfileData(symbol: symbol));
-            }
-
             if (state is ProfileLoading) {
               return Center(child: CircularProgressIndicator());
             }
@@ -72,12 +66,18 @@ class Profile extends StatelessWidget {
             if (state is ProfileLoaded) {
               return ListView(
                 physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.only(left: 18, right: 18, top: 46),
+                padding: EdgeInsets.only(left: 26, right: 26, top: 46),
                 children: <Widget>[
-                  this._renderTop(),
+
+                  this._renderTop(
+                    name: state.quote.name, 
+                    price: state.quote.price
+                  ),
+
                   this._renderGraph(),
-                  SizedBox(height: 100),
-                  StatisticsWidget(quote: state.profile)
+
+                  StatisticsWidget(quote: state.quote),
+                  CompanyProfileWidget(profile: state.profile),
                 ],
               );
             }

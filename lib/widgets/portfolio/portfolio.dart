@@ -77,7 +77,7 @@ class Portfolio extends StatelessWidget {
       
         if (state is PortfolioInitial) {
 
-          final stocks = 'AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
+          final stocks = 'BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
           final indexes = '^DJI,^IXIC,^GSPC'.split(',');
 
           BlocProvider

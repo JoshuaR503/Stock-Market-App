@@ -11,9 +11,11 @@ class ProfileLoadingError extends ProfileState {}
 
 class ProfileLoaded extends ProfileState {
 
-  final StockQuote profile;
+  final StockQuote quote;
+  final CompanyProfile profile;
 
   ProfileLoaded({
+    @required this.quote,
     @required this.profile
   });
 }
