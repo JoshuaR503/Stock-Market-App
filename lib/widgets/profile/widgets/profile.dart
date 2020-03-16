@@ -37,7 +37,7 @@ class CompanyProfileWidget extends StatelessWidget {
 
         SizedBox(height: 8),
         Divider(
-          color: kLightGray,
+          color: kGray,
         ),
         ListTile(
           contentPadding: EdgeInsets.all(0),
@@ -45,7 +45,7 @@ class CompanyProfileWidget extends StatelessWidget {
           trailing: Text('${profile.ceo}'),
         ),
         Divider(
-          color: kLightGray,
+          color: kGray,
         ),
 
         ListTile(
@@ -54,7 +54,7 @@ class CompanyProfileWidget extends StatelessWidget {
           trailing: Text('${profile.sector}'),
         ),
         Divider(
-          color: kLightGray,
+          color: kGray,
         ),
 
         ListTile(
@@ -63,14 +63,11 @@ class CompanyProfileWidget extends StatelessWidget {
           trailing: Text('${profile.exchange}'),
         ),
         Divider(
-          color: kLightGray,
+          color: kGray,
         ),
 
         SizedBox(height: 30),
-
       ],
-
-
     );
   }
 }

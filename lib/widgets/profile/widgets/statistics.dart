@@ -6,42 +6,45 @@ import 'package:sma/shared/colors.dart';
 
 class StatisticsWidget extends StatelessWidget {
   
-  final style =  TextStyle(color: kLightGray);
+  final style =  TextStyle(color: kLighterGray);
   final StockQuote quote;
 
   StatisticsWidget({
     @required this.quote
   });
-  
 
+  static Text _renderText(dynamic text) {
+    return Text('${NumberFormat.compact().format(text)}');
+  }
+  
   List<Widget> _leftColumn() {
 
     return [
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Open', style: style),
-        trailing: Text('${quote.open}'),
+        trailing: _renderText(quote.open)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('High', style: style),
-        trailing: Text('${quote.dayHigh}'),
+        trailing: _renderText(quote.dayHigh)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Low', style: style),
-        trailing: Text('${quote.dayLow}'),
+        trailing: _renderText(quote.dayLow)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('52 WK High', style: style),
-        trailing: Text('${quote.yearHigh}'),
+        trailing: _renderText(quote.yearHigh)
       ),
 
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('52 WK Low', style: style),
-        trailing: Text('${quote.yearLow}'),
+        trailing: _renderText(quote.dayLow)
       ),
     ];
   }
@@ -51,27 +54,27 @@ class StatisticsWidget extends StatelessWidget {
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Volume', style: style),
-        trailing: Text('${NumberFormat.compact().format(quote.volume)}'),
+        trailing: _renderText(quote.volume)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Avg Vol', style: style),
-        trailing: Text('${NumberFormat.compact().format(quote.avgVolume)}'),
+        trailing: _renderText(quote.avgVolume)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('MKT Cap', style: style),
-        trailing: Text('${NumberFormat.compact().format(quote.marketCap)}'),
+        trailing: _renderText(quote.marketCap)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('P/E Ratio', style: style),
-        trailing: Text('${NumberFormat().format(quote.pe)}'),
+        trailing: _renderText(quote.pe)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('EPS year', style: style),
-        trailing: Text('${quote.eps}'),
+        trailing: _renderText(quote.eps)
       ),
     ];
   }

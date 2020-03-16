@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/shared/widgets/spinner.dart';
 import 'package:sma/widgets/profile/widgets/profile.dart';
 import 'package:sma/widgets/profile/widgets/statistics.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
@@ -11,9 +12,11 @@ import 'package:sma/widgets/profile/widgets/styles.dart';
 class Profile extends StatefulWidget { 
 
   final String symbol;
+  final Color color;
 
   Profile({
-    @required this.symbol
+    @required this.symbol,
+    @required this.color
   });
 
   @override
@@ -26,23 +29,23 @@ class _ProfileState extends State<Profile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            Text(name, style: kProfileCompanyName, overflow: TextOverflow.ellipsis,),
-            FaIcon(FontAwesomeIcons.solidCheckCircle, color: kPositiveColor,)
+
+            Text('\$${price.toStringAsFixed(2)}',style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+            )),
+
+            FaIcon(FontAwesomeIcons.solidCheckCircle, color: this.widget.color)
           ], 
         ),
 
         SizedBox(height: 8),
 
-        Text('\$$price',style: TextStyle(
-          fontSize: 26,
-          fontWeight: FontWeight.bold,
-        )) 
+        Text(name, style: kProfileCompanyName),
       ],
     );
   }
@@ -54,19 +57,21 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      appBar: AppBar(
+        title: Text(this.widget.symbol),
+        backgroundColor: this.widget.color,
+      ),
+      
       backgroundColor: kScaffoldBackground,
       body: SafeArea(
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (BuildContext context, ProfileState state) {
 
-            if (state is ProfileLoading) {
-              return Center(child: CircularProgressIndicator());
-            }
-
             if (state is ProfileLoaded) {
               return ListView(
                 physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.only(left: 26, right: 26, top: 46),
+                padding: EdgeInsets.only(left: 26, right: 26, top: 26),
                 children: <Widget>[
 
                   this._renderTop(
@@ -82,7 +87,7 @@ class _ProfileState extends State<Profile> {
               );
             }
 
-            return Center(child: CircularProgressIndicator());
+            return SpinnerWidget(color: this.widget.color);
           },
         )
       )

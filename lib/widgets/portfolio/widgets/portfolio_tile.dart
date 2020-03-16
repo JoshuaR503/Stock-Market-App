@@ -20,7 +20,7 @@ class PortfolioTitle extends StatelessWidget {
       // text
       stock.changesPercentage < 0 
       ? '(${this.stock.changesPercentage})'
-      : '(${this.stock.changesPercentage})',
+      : '(+${this.stock.changesPercentage})',
       // style
       style: this.stock.changesPercentage < 0 
       ? kNegativeChange
@@ -60,14 +60,14 @@ class PortfolioTitle extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: MaterialButton(
-
+        
         color: kTileColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: this._renderContent()
         ),
 
-        height: 100,
+        height: 95,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
 
         onPressed: () {
@@ -78,7 +78,12 @@ class PortfolioTitle extends StatelessWidget {
               .of<ProfileBloc>(context)
               .add(FetchProfileData(symbol: stock.symbol));
 
-            return Profile(symbol: stock.symbol);
+            return Profile(
+              symbol: stock.symbol,
+              color: this.stock.changesPercentage < 0 
+                ? kNegativeColor
+                : kPositiveColor
+            );
           }));
         },
       ),
