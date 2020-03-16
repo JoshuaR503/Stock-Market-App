@@ -77,14 +77,11 @@ class Portfolio extends StatelessWidget {
       
         if (state is PortfolioInitial) {
 
-          final stocks = 'BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
-          final indexes = '^DJI,^IXIC,^GSPC'.split(',');
-
           BlocProvider
           .of<PortfolioBloc>(context)
           .add(FetchPortfoliData(
-            stockSymbols: stocks,
-            marketSymbols: indexes
+            stockSymbols: 'BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(','),
+            marketSymbols: '^DJI,^IXIC,^GSPC'.split(',')
           ));
         }
 

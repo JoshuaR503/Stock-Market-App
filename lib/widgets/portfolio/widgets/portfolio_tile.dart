@@ -16,16 +16,15 @@ class PortfolioTitle extends StatelessWidget {
   });
 
   Widget _renderText() {
-    final style = this.stock.changesPercentage < 0 
-      ? kNegativeChange
-      : kPositiveChange;
-
     return Text(
+      // text
       stock.changesPercentage < 0 
-      ? '(-${this.stock.changesPercentage})'
-      : '(+${this.stock.changesPercentage})',
-      
-      style: style
+      ? '(${this.stock.changesPercentage})'
+      : '(${this.stock.changesPercentage})',
+      // style
+      style: this.stock.changesPercentage < 0 
+      ? kNegativeChange
+      : kPositiveChange
     );
   }
 

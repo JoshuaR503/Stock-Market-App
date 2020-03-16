@@ -15,14 +15,7 @@ class PortfolioCard extends StatelessWidget {
   });
 
   Widget _buildUpperSection() {
-    final color = index.change < 0 
-    ? kNegativeColor
-    : kPositiveColor;
     
-    final icon = index.change < 0 
-    ? FontAwesomeIcons.sortDown
-    : FontAwesomeIcons.sortUp;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -30,7 +23,17 @@ class PortfolioCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(index.symbol, style: kTickerStyle),
-            FaIcon(icon, color: color)
+            FaIcon(
+              // Icon
+              index.change < 0 
+                ? FontAwesomeIcons.sortDown
+                : FontAwesomeIcons.sortUp, 
+
+              // Color
+              color: index.change < 0 
+              ? kNegativeColor
+              : kPositiveColor
+            )
           ]
         ),
 
