@@ -1,41 +1,82 @@
-import 'package:bezier_chart/bezier_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class SimpleTimeSeriesChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      child: CustomMeasureTickCount.withSampleData()
+    );
+  }
+}
 
-      child: BezierChart(
-        bezierChartScale: BezierChartScale.CUSTOM,
-        xAxisCustomValues: [0, 5, 10, 15, 20, 25, 30, 35, 40],
+class CustomMeasureTickCount extends StatelessWidget {
+  final List<charts.Series> seriesList;
+  final bool animate;
 
-        series: [
-          BezierLine(
-            lineColor: kPositiveColor,
-            data: [
-              DataPoint<double>(value: 10, xAxis: 0),
-              DataPoint<double>(value: 130, xAxis: 5),
-              DataPoint<double>(value: 50, xAxis: 10),
-              DataPoint<double>(value: 150, xAxis: 15),
-              DataPoint<double>(value: 75, xAxis: 20),
-              DataPoint<double>(value: 0, xAxis: 25),
-              DataPoint<double>(value: 5, xAxis: 30),
-              DataPoint<double>(value: 45, xAxis: 35),
-              DataPoint<double>(value: 5, xAxis: 30),
-            ],
-          ),
+  CustomMeasureTickCount(this.seriesList, {this.animate});
 
-        ],
-        config: BezierChartConfig(
-          verticalIndicatorStrokeWidth: 3.0,
-          showVerticalIndicator: true,
-          xLinesColor: Colors.transparent,
-          backgroundColor: Colors.transparent
-        ),
+  /// Creates a [TimeSeriesChart] with sample data and no transition.
+  factory CustomMeasureTickCount.withSampleData() {
+    return CustomMeasureTickCount(
+      _createSampleData(),
+      // Disable animations for image tests.
+      animate: false,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return charts.TimeSeriesChart(
+      
+      seriesList,
+      animate: animate,
+    
+      primaryMeasureAxis: charts.NumericAxisSpec(
+        tickProviderSpec: charts.BasicNumericTickProviderSpec(desiredTickCount: 2),
+        renderSpec: new charts.NoneRenderSpec()
+      ),
+
+      domainAxis: charts.DateTimeAxisSpec(
+        showAxisLine: false,
+        renderSpec: new charts.NoneRenderSpec()
       ),
     );
   }
+
+  /// Create one series with sample hard coded data.
+  static List<charts.Series<MyRow, DateTime>> _createSampleData() {
+    final data = [
+      MyRow(DateTime(2017, 9, 25), 6),
+      MyRow(DateTime(2017, 9, 26), 8),
+      MyRow(DateTime(2017, 9, 27), 6),
+      MyRow(DateTime(2017, 9, 28), 9),
+      MyRow(DateTime(2017, 9, 29), 11),
+      MyRow(DateTime(2017, 9, 30), 15),
+      MyRow(DateTime(2017, 10, 01), 25),
+      MyRow(DateTime(2017, 10, 02), 33),
+      MyRow(DateTime(2017, 10, 03), 27),
+      MyRow(DateTime(2017, 10, 04), 31),
+      MyRow(DateTime(2017, 10, 05), 23),
+    ];
+
+    return [
+      charts.Series<MyRow, DateTime>(
+        id: 'Cost',
+        colorFn: (_, __) => charts.ColorUtil.fromDartColor(kPositiveColor),
+        domainFn: (MyRow row, _) => row.timeStamp,
+        measureFn: (MyRow row, _) => row.cost,
+        data: data,
+      )
+    ];
+  }
+}
+
+/// Sample time series data type.
+class MyRow {
+  final DateTime timeStamp;
+  final int cost;
+  MyRow(this.timeStamp, this.cost);
 }

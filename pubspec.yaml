@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_bloc: ^3.2.0
   font_awesome_flutter: ^8.7.0
-  bezier_chart: ^1.0.16
+  charts_flutter: ^0.9.0
 
 dev_dependencies:
   flutter_test:

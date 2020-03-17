@@ -1,4 +1,3 @@
-import 'package:bezier_chart/bezier_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,6 +6,7 @@ import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/widgets/spinner.dart';
 import 'package:sma/widgets/profile/widgets/graph.dart';
+
 import 'package:sma/widgets/profile/widgets/profile.dart';
 import 'package:sma/widgets/profile/widgets/statistics.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
@@ -56,35 +56,7 @@ class _ProfileState extends State<Profile> {
     return Container(
 
       height: 250,
-      child: BezierChart(
-        
-        bezierChartScale: BezierChartScale.CUSTOM,
-        xAxisCustomValues: [0, 5, 10, 15, 20, 25, 30, 35, 40],
-
-        series: [
-          BezierLine(
-            lineColor: this.widget.color,
-            data: [
-              DataPoint<double>(value: 10, xAxis: 0),
-              DataPoint<double>(value: 130, xAxis: 5),
-              DataPoint<double>(value: 50, xAxis: 10),
-              DataPoint<double>(value: 150, xAxis: 15),
-              DataPoint<double>(value: 75, xAxis: 20),
-              DataPoint<double>(value: 0, xAxis: 25),
-              DataPoint<double>(value: 5, xAxis: 30),
-              DataPoint<double>(value: 45, xAxis: 35),
-              DataPoint<double>(value: 5, xAxis: 30),
-            ],
-          ),
-
-        ],
-        config: BezierChartConfig(
-          verticalIndicatorStrokeWidth: 3.0,
-          showVerticalIndicator: true,
-          xLinesColor: Colors.transparent,
-          backgroundColor: Colors.transparent
-        ),
-      ),
+      child: SimpleTimeSeriesChart()
     );
   }
 
