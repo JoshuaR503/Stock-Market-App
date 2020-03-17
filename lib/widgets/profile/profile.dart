@@ -56,7 +56,7 @@ class _ProfileState extends State<Profile> {
     return Container(
 
       height: 250,
-      child: SimpleTimeSeriesChart()
+      child: SimpleTimeSeriesChart(color: widget.color)
     );
   }
 

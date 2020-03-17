@@ -84,7 +84,7 @@ class StatisticsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(height: 30),
+        SizedBox(height: 16),
 
         Text('Statistics',
         style: TextStyle(
@@ -108,7 +108,7 @@ class StatisticsWidget extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 30),
+        SizedBox(height: 36),
       ],
     );
   }
