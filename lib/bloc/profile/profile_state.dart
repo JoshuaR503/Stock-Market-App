@@ -7,7 +7,13 @@ class ProfileInitial extends ProfileState {}
 
 class ProfileLoading extends ProfileState {}
 
-class ProfileLoadingError extends ProfileState {}
+class ProfileLoadingError extends ProfileState {
+  final dynamic error;
+
+  ProfileLoadingError({
+    @required this.error
+  });
+}
 
 class ProfileLoaded extends ProfileState {
 

@@ -12,6 +12,7 @@ class StockMarketApp extends StatelessWidget {
       title: 'Stock Market App',
       theme: _darkTheme,
       home: StockMarketAppHome(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

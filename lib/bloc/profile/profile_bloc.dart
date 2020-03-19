@@ -33,8 +33,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         );
 
       } catch (e) {
-        print(e);
-        yield ProfileLoadingError();
+        yield ProfileLoadingError(error: e);
       }
     }
   }

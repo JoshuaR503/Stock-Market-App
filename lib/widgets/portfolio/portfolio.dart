@@ -6,13 +6,14 @@ import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_profile.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/widgets/portfolio/search_delegate.dart';
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
 
 class Portfolio extends StatelessWidget {
 
-  Widget _renderTop() {
+  Widget _renderTop(BuildContext context) {
     return Column(
       children: <Widget>[
         Row(
@@ -20,20 +21,25 @@ class Portfolio extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Text('Portfolio', style: const TextStyle(
-              fontSize: 26,
+              fontSize: 28,
               fontWeight: FontWeight.bold
             )),
 
-            Text('Add Holding', style: const TextStyle(
-              color: kLightGray,
-              fontSize: 16,
-              fontWeight: FontWeight.bold
-            )),
+            GestureDetector(
+              child: Text('Search', style: const TextStyle(
+                color: kLightGray,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              )),
+
+              onTap: () => showSearch(context: context, delegate: StockSearch()),
+            )
           ],
         ),
       ],
     );
   }
+
 
   Widget _renderMarketIndexes(List<MarketIndex> indexes) {
     return Container(
@@ -92,9 +98,9 @@ class Portfolio extends StatelessWidget {
         if (state is PortfolioLoaded) {
           return ListView(
             physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.only(left: 18, right: 18, top: 46),
+            padding: EdgeInsets.only(left: 18, right: 18, top: 26),
             children: <Widget> [
-              this._renderTop(),
+              this._renderTop(context),
               this._renderMarketIndexes(state.indexes),
               this._renderWatchlistText(),
               this._renderWatchList(state.stocks),
