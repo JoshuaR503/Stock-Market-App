@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+
 import 'package:meta/meta.dart';
 import 'package:sma/models/profile/profile.dart';
 
 import 'package:sma/models/profile/quote.dart';
+import 'package:sma/models/profile/rating.dart';
 import 'package:sma/respository/profile/repository.dart';
 
 part 'profile_event.dart';
@@ -26,7 +28,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       try {
         yield ProfileLoaded(
           quote: await this._repository.fetchQuote(symbol: event.symbol),
-          profile: await this._repository.fetchProfile(symbol: event.symbol)
+          profile: await this._repository.fetchProfile(symbol: event.symbol),
+          rating: await this._repository.fetchRating(symbol: event.symbol)
         );
 
       } catch (e) {
