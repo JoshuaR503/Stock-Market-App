@@ -1,4 +1,4 @@
-package com.example.sma
+package com.sma
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
