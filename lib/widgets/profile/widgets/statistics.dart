@@ -13,7 +13,13 @@ class StatisticsWidget extends StatelessWidget {
     @required this.quote
   });
 
+
   static Text _renderText(dynamic text) {
+
+    if (text == null) {
+      return Text('-');
+    }
+
     return Text('${NumberFormat.compact().format(text)}');
   }
   

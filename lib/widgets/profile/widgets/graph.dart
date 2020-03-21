@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sma/shared/colors.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class SimpleTimeSeriesChart extends StatelessWidget {

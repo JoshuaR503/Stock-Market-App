@@ -56,7 +56,7 @@ class StockQuote {
     return StockQuote(
       symbol: json['symbol'],
       name: json['name'],
-      price: json['price'].toDouble(),
+      price: json['price'],
       changesPercentage: json['changesPercentage'],
       change: json['change'],
       dayLow: json['dayLow'],

@@ -75,6 +75,9 @@ class _ProfileState extends State<Profile> {
           builder: (BuildContext context, ProfileState state) {
 
             if (state is ProfileLoaded) {
+
+              print(state.quote.toJson());
+
               return ListView(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.only(left: 26, right: 26, top: 26),

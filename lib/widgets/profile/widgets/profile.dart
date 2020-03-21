@@ -31,7 +31,7 @@ class CompanyProfileWidget extends StatelessWidget {
             color: kLightGray,
             height: 1.75
           ),
-          maxLines: 4,
+          maxLines: 10,
           overflow: TextOverflow.ellipsis,
         ),
 

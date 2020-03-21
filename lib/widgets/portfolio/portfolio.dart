@@ -5,8 +5,8 @@ import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
 import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_profile.dart';
-import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/search_delegate.dart';
+
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
@@ -27,12 +27,12 @@ class Portfolio extends StatelessWidget {
 
             GestureDetector(
               child: Text('Search', style: const TextStyle(
-                color: kLightGray,
+                color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               )),
 
-              onTap: () => showSearch(context: context, delegate: StockSearch()),
+              onTap: () => showSearch(context: context, delegate: StockSearchWidget()),
             )
           ],
         ),
@@ -58,7 +58,7 @@ class Portfolio extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Text('Watchlist', style: TextStyle(
-        color: kLightGray,
+        color: Colors.white,
         fontSize: 18,
         fontWeight: FontWeight.bold
       )),
