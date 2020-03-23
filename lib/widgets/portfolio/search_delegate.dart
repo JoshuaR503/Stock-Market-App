@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
@@ -12,25 +10,22 @@ class StockSearchWidget extends SearchDelegate {
 
   final SearchStockRepository _repository = SearchStockRepository();
 
-  final stocks = [
-    'ba',
-    'baba',
-    't',
-    'vz',
-    'blk',
-    'ibm',
-    'wm'
-  ];
+  final stocks = ['ba','baba','t','vz','blk','ibm','wm'];
+  final searched = ['jpm','bac','adbe','crm','mdb','dis','dal', 'wm'];
 
-  final searched = [
-    'jpm',
-    'bac',
-    'adbe',
-    'crm',
-    'mdb',
-    'dis',
-    'dal'
-  ];
+  void _tapHandler(context, String symbol) {
+    Navigator
+    .push(context, MaterialPageRoute(builder: (_) {
+      BlocProvider
+        .of<ProfileBloc>(context)
+        .add(FetchProfileData(symbol: symbol));
+
+      return Profile(
+        symbol: symbol.toUpperCase(),
+        color: kNegativeColor
+      );
+    }));
+  }
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -43,9 +38,7 @@ class StockSearchWidget extends SearchDelegate {
       IconButton(
         padding: EdgeInsets.zero,
         icon: Icon(Icons.clear), 
-        onPressed: () {
-          query = '';
-        }
+        onPressed: () => query = ''
       )
     ];
   }
@@ -60,9 +53,7 @@ class StockSearchWidget extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Center(
-      child: Container(),
-    );
+    return _buildSearchHistory(context);
   }
 
   @override
@@ -72,13 +63,12 @@ class StockSearchWidget extends SearchDelegate {
       return _buildSearchHistory(context);
     }
 
-
     return FutureBuilder(
       future: _repository.searchStock(symbol: query),
-      builder: (ctx, AsyncSnapshot<List<StockSearch>> snapshot) {
+      builder: (BuildContext ctx, AsyncSnapshot<List<StockSearch>> snapshot) {
         
         if (snapshot.hasData) {
-          return _buildSearchResults(data: snapshot.data, context: context);
+          return _buildSearchResults(data: snapshot.data, context: ctx);
         }
         
         return Center(
@@ -86,21 +76,6 @@ class StockSearchWidget extends SearchDelegate {
         );
       },
     );
-  }
-
-  void _tapHandler(context, String symbol) {
-
-    Navigator
-    .push(context, MaterialPageRoute(builder: (_) {
-      BlocProvider
-        .of<ProfileBloc>(context)
-        .add(FetchProfileData(symbol: symbol));
-
-      return Profile(
-        symbol: symbol.toUpperCase(),
-        color: kNegativeColor
-      );
-    }));
   }
 
   Widget _buildSearchResults({List<StockSearch> data, BuildContext context}) {
@@ -131,7 +106,7 @@ class StockSearchWidget extends SearchDelegate {
         },
 
         trailing: Icon(Icons.delete, color: kLighterGray,),
-      )
+      ) 
     );
   }
 }
