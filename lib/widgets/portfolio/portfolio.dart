@@ -6,10 +6,10 @@ import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
 import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_profile.dart';
+import 'package:sma/widgets/portfolio/search_delegate.dart';
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
-import 'package:sma/widgets/search/search_screen.dart';
 
 class Portfolio extends StatelessWidget {
 
@@ -28,9 +28,11 @@ class Portfolio extends StatelessWidget {
             GestureDetector(
               child: FaIcon(FontAwesomeIcons.search, size: 22,),
 
-              onTap: () => Navigator
-              .of(context)
-              .push(MaterialPageRoute(builder: (context) => SearchScreen()))
+              // onTap: () => Navigator
+              // .of(context)
+              // .push(MaterialPageRoute(builder: (context) => SearchScreen()))
+
+              onTap: () => showSearch(context: context, delegate: StockSearchWidget()),
             )
           ],
         ),
@@ -84,7 +86,7 @@ class Portfolio extends StatelessWidget {
           BlocProvider
           .of<PortfolioBloc>(context)
           .add(FetchPortfoliData(
-            stockSymbols: 'KR,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(','),
+            stockSymbols: 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(','),
             marketSymbols: '^DJI,^IXIC,^GSPC'.split(',')
           ));
         }
@@ -96,7 +98,7 @@ class Portfolio extends StatelessWidget {
         if (state is PortfolioLoaded) {
           return ListView(
             physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.only(left: 18, right: 18, top: 26),
+            padding: EdgeInsets.only(left: 18, right: 18, top: 14),
             children: <Widget> [
               this._renderTop(context),
               this._renderMarketIndexes(state.indexes),

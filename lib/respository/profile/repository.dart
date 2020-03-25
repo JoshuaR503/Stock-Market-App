@@ -6,27 +6,15 @@ import 'package:sma/respository/profile/client.dart';
 class ProfileRepository {
 
   Future<StockQuote> fetchQuote({String symbol}) async {
-    try {
-      return await ProfileClient.fetchQuote(symbol: symbol);
-    } catch (e) {
-      return null;
-    }
+    return await ProfileClient.fetchQuote(symbol: symbol.toUpperCase());
   }
   
   Future<CompanyProfile> fetchProfile({String symbol}) async {
-    try {
-      return await ProfileClient.fetchProfile(symbol: symbol);
-    } catch (e) {
-      return null;
-    }
+    return await ProfileClient.fetchProfile(symbol: symbol.toUpperCase());
   }
 
   Future<StockRating> fetchRating({String symbol}) async {
-    try {
-      return await ProfileClient.fetchRating(symbol: symbol);
-    } catch (e) {
-      return null;
-    }
+    return await ProfileClient.fetchRating(symbol: symbol.toUpperCase());
   }
 
 }

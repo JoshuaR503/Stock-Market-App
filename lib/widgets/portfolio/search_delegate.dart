@@ -11,7 +11,7 @@ class StockSearchWidget extends SearchDelegate {
   final SearchStockRepository _repository = SearchStockRepository();
 
   final stocks = ['ba','baba','t','vz','blk','ibm','wm'];
-  final searched = ['jpm','bac','adbe','crm','mdb','dis','dal', 'wm'];
+  final searched = ['brk-a','jpm','bac','adbe','crm','mdb','dis','dal', 'wm'];
 
   void _tapHandler(context, String symbol) {
     Navigator

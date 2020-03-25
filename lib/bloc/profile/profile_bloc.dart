@@ -29,10 +29,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         yield ProfileLoaded(
           quote: await this._repository.fetchQuote(symbol: event.symbol),
           profile: await this._repository.fetchProfile(symbol: event.symbol),
-          rating: await this._repository.fetchRating(symbol: event.symbol)
+          // rating: await this._repository.fetchRating(symbol: event.symbol)
         );
 
       } catch (e) {
+        print('There was an error @ profile_bloc: $e');
         yield ProfileLoadingError(error: e);
       }
     }

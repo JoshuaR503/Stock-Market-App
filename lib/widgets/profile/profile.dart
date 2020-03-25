@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/shared/colors.dart';
@@ -27,34 +28,45 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
 
-  Widget _renderTop({String name, double price}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _renderTop({String name}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-
-            Text('\$${price.toStringAsFixed(2)}',style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-            )),
-
-            FaIcon(FontAwesomeIcons.solidCheckCircle, color: this.widget.color)
-          ], 
+        Expanded(
+          child: Text(name, style: kProfileCompanyName),
+          flex: 11,
         ),
+        
+        Expanded(
+          child: IconButton(
+            icon: Icon(FontAwesomeIcons.solidCheckCircle, color: this.widget.color,), 
+            onPressed: () {}
+          ),
 
-        SizedBox(height: 8),
-
-        Text(name, style: kProfileCompanyName),
+          flex: 1,
+        )
       ],
+    );
+  }
+
+  Widget _renderChange({double price}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('\$${NumberFormat().format(price)}', style: TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+          )),
+        ],
+      ),
     );
   }
 
   Widget _renderGraph() {
     return Container(
-
       height: 250,
       child: SimpleTimeSeriesChart(color: widget.color)
     );
@@ -63,7 +75,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: Text(this.widget.symbol),
         backgroundColor: this.widget.color,
@@ -75,21 +86,14 @@ class _ProfileState extends State<Profile> {
           builder: (BuildContext context, ProfileState state) {
 
             if (state is ProfileLoaded) {
-
-              print(state.quote.toJson());
-
               return ListView(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.only(left: 26, right: 26, top: 26),
                 children: <Widget>[
-
-                  this._renderTop(
-                    name: state.quote.name, 
-                    price: state.quote.price
-                  ),
-
+                
+                  this._renderTop(name: state.quote.name),
+                  this._renderChange(price: state.quote.price),
                   this._renderGraph(),
-
                   StatisticsWidget(quote: state.quote),
                   CompanyProfileWidget(profile: state.profile),
                 ],

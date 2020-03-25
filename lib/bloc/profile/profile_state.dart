@@ -19,11 +19,11 @@ class ProfileLoaded extends ProfileState {
 
   final StockQuote quote;
   final CompanyProfile profile;
-  final StockRating rating;
+  // final StockRating rating;
 
   ProfileLoaded({
     @required this.quote,
     @required this.profile,
-    @required this.rating
+    // @required this.rating
   });
 }
