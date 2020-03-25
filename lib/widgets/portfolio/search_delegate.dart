@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
+
 import 'package:sma/respository/search/search.dart';
 import 'package:sma/models/search/search.dart';
 import 'package:sma/shared/colors.dart';
@@ -11,18 +12,20 @@ class StockSearchWidget extends SearchDelegate {
   final SearchStockRepository _repository = SearchStockRepository();
 
   final stocks = ['ba','baba','t','vz','blk','ibm','wm'];
-  final searched = ['brk-a','jpm','bac','adbe','crm','mdb','dis','dal', 'wm'];
+  final searched = ['bp','brk-a','jpm','bac','adbe','crm','mdb','dis','dal', 'wm'];
 
-  void _tapHandler(context, String symbol) {
+  void _tapHandler(context, String symbol) async {
+
     Navigator
     .push(context, MaterialPageRoute(builder: (_) {
+
       BlocProvider
-        .of<ProfileBloc>(context)
-        .add(FetchProfileData(symbol: symbol));
+      .of<ProfileBloc>(context)
+      .add(FetchProfileData(symbol: symbol));
 
       return Profile(
+        isSaved: false,
         symbol: symbol.toUpperCase(),
-        color: kNegativeColor
       );
     }));
   }

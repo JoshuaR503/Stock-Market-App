@@ -79,10 +79,8 @@ class PortfolioTitle extends StatelessWidget {
               .add(FetchProfileData(symbol: stock.symbol));
 
             return Profile(
+              isSaved: true,
               symbol: stock.symbol,
-              color: this.stock.changesPercentage < 0 
-                ? kNegativeColor
-                : kPositiveColor
             );
           }));
         },

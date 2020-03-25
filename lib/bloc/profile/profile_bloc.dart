@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 import 'package:sma/models/profile/profile.dart';
 
 import 'package:sma/models/profile/quote.dart';
-import 'package:sma/models/profile/rating.dart';
 import 'package:sma/respository/profile/repository.dart';
 
 part 'profile_event.dart';
