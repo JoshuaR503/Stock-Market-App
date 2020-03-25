@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
+import 'package:sma/widgets/widgets/base_screen.dart';
 
 class StockMarketApp extends StatelessWidget {
 
@@ -26,14 +27,6 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kScaffoldBackground,
-      body: SafeArea(
-        child: Container(
-          alignment: Alignment.center,
-          child: Portfolio()
-        )
-      ),
-    );
+    return BaseScreen(child: Portfolio());
   }
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
 import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_profile.dart';
-import 'package:sma/widgets/portfolio/search_delegate.dart';
-
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
+import 'package:sma/widgets/search/search_screen.dart';
 
 class Portfolio extends StatelessWidget {
 
@@ -26,13 +26,11 @@ class Portfolio extends StatelessWidget {
             )),
 
             GestureDetector(
-              child: Text('Search', style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              )),
+              child: FaIcon(FontAwesomeIcons.search, size: 22,),
 
-              onTap: () => showSearch(context: context, delegate: StockSearchWidget()),
+              onTap: () => Navigator
+              .of(context)
+              .push(MaterialPageRoute(builder: (context) => SearchScreen()))
             )
           ],
         ),
