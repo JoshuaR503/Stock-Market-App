@@ -34,8 +34,10 @@ class _ProfileState extends State<Profile> {
       children: <Widget>[
         Expanded(
           child: Text(name, style: kProfileCompanyName),
-          flex: 11,
+          flex: 10,
         ),
+
+        Expanded(child: Container()),
         
         Expanded(
           child: IconButton(
