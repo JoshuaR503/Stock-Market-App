@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
 import 'package:sma/widgets/widgets/base_screen.dart';
 

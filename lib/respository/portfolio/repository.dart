@@ -1,11 +1,11 @@
 
 import 'package:sma/models/market_index.dart';
-import 'package:sma/models/stock_profile.dart';
-import 'package:sma/respository/portfolio/api_client.dart';
+import 'package:sma/models/stock_overview.dart';
+import 'package:sma/respository/portfolio/client.dart';
 
 class PortfolioRepository {
 
-  Future<StockProfile> fetchProfile({String symbol}) async {
+  Future<StockOverview> fetchProfile({String symbol}) async {
     return await PortfolioClient.fetchProfile(symbol: symbol);
   }
 

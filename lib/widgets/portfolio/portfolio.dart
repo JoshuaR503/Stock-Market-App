@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
 import 'package:sma/models/market_index.dart';
-import 'package:sma/models/stock_profile.dart';
+import 'package:sma/models/stock_overview.dart';
 import 'package:sma/widgets/portfolio/search_delegate.dart';
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
@@ -66,7 +66,7 @@ class Portfolio extends StatelessWidget {
     );
   }
 
-  Widget _renderWatchList(List<StockProfile> stocks) {
+  Widget _renderWatchList(List<StockOverview> stocks) {
     return Container(
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),

@@ -1,7 +1,8 @@
 
 import "package:intl/intl.dart";
 import 'package:flutter/material.dart';
-import 'package:sma/models/profile/quote.dart';
+
+import 'package:sma/models/profile/stock_quote.dart';
 import 'package:sma/shared/colors.dart';
 
 class StatisticsWidget extends StatelessWidget {

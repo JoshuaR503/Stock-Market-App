@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:sma/models/profile/profile.dart';
+import 'package:sma/models/profile/stock_profile.dart';
 import 'package:sma/shared/colors.dart';
 
 class CompanyProfileWidget extends StatelessWidget {
 
-  final CompanyProfile profile;
+  final StockProfile profile;
 
   CompanyProfileWidget({
     @required this.profile

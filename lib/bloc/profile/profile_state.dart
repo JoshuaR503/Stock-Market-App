@@ -18,7 +18,7 @@ class ProfileLoadingError extends ProfileState {
 class ProfileLoaded extends ProfileState {
 
   final StockQuote quote;
-  final CompanyProfile profile;
+  final StockProfile profile;
   // final StockRating rating;
 
   ProfileLoaded({

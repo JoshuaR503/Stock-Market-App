@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sma/bloc/profile/profile_bloc.dart';
 
-import 'package:sma/models/stock_profile.dart';
+import 'package:sma/bloc/profile/profile_bloc.dart';
+import 'package:sma/models/stock_overview.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 import 'package:sma/widgets/profile/profile.dart';
 
 class PortfolioTitle extends StatelessWidget {
 
-  final StockProfile stock;
+  final StockOverview stock;
 
   PortfolioTitle({
     @required this.stock

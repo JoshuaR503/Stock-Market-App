@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
 import 'package:sma/models/market_index.dart';
-import 'package:sma/models/stock_profile.dart';
+import 'package:sma/models/stock_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 
 part 'portfolio_event.dart';
@@ -23,7 +23,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
       
       yield PortfolioLoading();
 
-      final List<StockProfile> stocks = await Future.wait(event.stockSymbols.map((symbol) async {
+      final List<StockOverview> stocks = await Future.wait(event.stockSymbols.map((symbol) async {
         return await this._repository.fetchProfile(symbol: symbol);
       }));
 

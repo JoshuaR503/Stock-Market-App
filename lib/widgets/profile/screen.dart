@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:sma/models/profile/profile.dart';
-import 'package:sma/models/profile/quote.dart';
+import 'package:sma/models/profile/index.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/graph.dart';
 import 'package:sma/widgets/profile/widgets/profile.dart';
@@ -15,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
 
   final Color color;
   final StockQuote quote;
-  final CompanyProfile profile;
+  final StockProfile profile;
 
   ProfileScreen({
     @required this.quote,

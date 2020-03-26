@@ -1,8 +1,6 @@
 import 'dart:ui';
 
-import 'package:sma/models/profile/profile.dart';
-import 'package:sma/models/profile/quote.dart';
-import 'package:sma/models/profile/rating.dart';
+import 'package:sma/models/profile/index.dart';
 import 'package:sma/respository/profile/client.dart';
 
 class ProfileRepository {
@@ -11,7 +9,7 @@ class ProfileRepository {
     return await ProfileClient.fetchQuote(symbol: symbol.toUpperCase());
   }
   
-  Future<CompanyProfile> fetchProfile({String symbol}) async {
+  Future<StockProfile> fetchProfile({String symbol}) async {
     return await ProfileClient.fetchProfile(symbol: symbol.toUpperCase());
   }
 
