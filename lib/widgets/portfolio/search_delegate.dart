@@ -6,6 +6,7 @@ import 'package:sma/respository/search/search.dart';
 import 'package:sma/models/search/search.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/profile.dart';
+import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class StockSearchWidget extends SearchDelegate {
 
@@ -74,15 +75,14 @@ class StockSearchWidget extends SearchDelegate {
           return _buildSearchResults(data: snapshot.data, context: ctx);
         }
         
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+        return LoadingIndicatorWidget();
       },
     );
   }
 
   Widget _buildSearchResults({List<StockSearch> data, BuildContext context}) {
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
       itemCount: data.length,
       itemBuilder: (BuildContext ctx, int i) => ListTile(
         leading: Icon(Icons.history),
@@ -98,6 +98,7 @@ class StockSearchWidget extends SearchDelegate {
 
   Widget _buildSearchHistory(BuildContext context) {
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
       itemCount: searched.length,
       itemBuilder: (BuildContext ctx, int i) => ListTile(
         leading: Icon(Icons.history),

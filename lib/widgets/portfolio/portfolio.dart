@@ -10,6 +10,7 @@ import 'package:sma/widgets/portfolio/search_delegate.dart';
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
+import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class Portfolio extends StatelessWidget {
 
@@ -92,7 +93,7 @@ class Portfolio extends StatelessWidget {
         }
 
         if (state is PortfolioLoading) {
-          return Center(child: CircularProgressIndicator());
+          return LoadingIndicatorWidget();
         }
 
         if (state is PortfolioLoaded) {
@@ -108,7 +109,7 @@ class Portfolio extends StatelessWidget {
           );
         }
 
-        return Center(child: CircularProgressIndicator());    
+        return LoadingIndicatorWidget();    
       },
     );
   }

@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
   Widget _renderChange() {
 
     final String text = this.quote.change < 0 
-      ? '${this.quote.change}  ${this.quote.changesPercentage}'
+      ? '${this.quote.change}  ${this.quote.changesPercentage}%'
       : '+${this.quote.change}  +${this.quote.changesPercentage}%';
 
     return Padding(
@@ -85,14 +85,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: Text(this.quote.symbol),
         backgroundColor: color,
       ),
 
       backgroundColor: kScaffoldBackground,
-
       body: ListView(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.only(left: 26, right: 26, top: 26),

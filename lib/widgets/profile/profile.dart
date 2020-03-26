@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/shared/colors.dart';
 
 import 'package:sma/widgets/profile/screen.dart';
+import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class Profile extends StatelessWidget {
 
@@ -27,17 +27,14 @@ class Profile extends StatelessWidget {
             profile: state.profile,
             quote: state.quote,
             color: state.profile.changes < 0 
-            ? kNegativeColor
-            : kPositiveColor
+              ? kNegativeColor
+              : kPositiveColor
           );
         }
 
         return Scaffold(
           backgroundColor: kScaffoldBackground,
-          body: SpinKitThreeBounce(
-            color: Colors.white,
-            size: 25.0
-          ),
+          body: LoadingIndicatorWidget()
         );
       }
     );
