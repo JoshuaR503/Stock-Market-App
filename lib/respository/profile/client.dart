@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:sma/helpers/http_client.dart';
+import 'package:sma/models/profile/profile.dart';
 
 import 'package:sma/models/profile/stock_color.dart';
 import 'package:sma/models/profile/stock_profile.dart';
@@ -13,18 +14,24 @@ class ProfileClient {
 
   static String _authority = 'financialmodelingprep.com';
 
-  static Future<StockQuote> fetchQuote({String symbol}) async {
-    final Uri uri = Uri.https(_authority, '/api/v3/quote/$symbol');
+  static Future<ProfileModel> fetchProfile({String symbol}) async {
+    final Uri quoteUri = Uri.https(_authority, '/api/v3/quote/$symbol');
+    final Uri profileUri = Uri.https(_authority, '/api/v3/company/profile/$symbol');
 
+    return ProfileModel(
+      stockQuote: await _fetchQuote(uri: quoteUri),
+      stockProfile: await _fetchProfile(uri: profileUri),
+    );
+  }
+
+  static Future<StockQuote> _fetchQuote({Uri uri}) async {
     final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
-    final quote = StockQuote.fromJson(response.data[0]);    
+    final quote = StockQuote.fromJson(response.data[0]);
 
     return quote;
   }
 
-  static Future<StockProfile> fetchProfile({String symbol}) async {
-    final Uri uri = Uri.https(_authority, '/api/v3/company/profile/$symbol');
-
+  static Future<StockProfile> _fetchProfile({Uri uri}) async {
     final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
     final profile = StockProfile.fromJson(response.data['profile']);
 

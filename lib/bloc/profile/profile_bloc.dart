@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
-import 'package:sma/models/profile/stock_profile.dart';
-import 'package:sma/models/profile/stock_quote.dart';
+import 'package:sma/models/profile/profile.dart';
 import 'package:sma/respository/profile/repository.dart';
 
 part 'profile_event.dart';
@@ -21,19 +20,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
     
     if (event is FetchProfileData) {
+
       yield ProfileLoading();
 
       try {
-        yield ProfileLoaded(
-          quote: await this._repository.fetchQuote(symbol: event.symbol),
-          profile: await this._repository.fetchProfile(symbol: event.symbol),
-          // rating: await this._repository.fetchRating(symbol: event.symbol)
-        );
+        final ProfileModel profile = await this._repository.fetchProfile(symbol: event.symbol);
+        yield ProfileLoaded(profileModel: profile);
 
       } catch (e) {
-        print('There was an error @ profile_bloc: $e');
-        yield ProfileLoadingError(error: e);
+        yield ProfileLoadingError(error: 'There was an unknown error.');
       }
+      
     }
   }
 }

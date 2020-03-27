@@ -1,15 +1,12 @@
 import 'dart:ui';
 
 import 'package:sma/models/profile/index.dart';
+import 'package:sma/models/profile/profile.dart';
 import 'package:sma/respository/profile/client.dart';
 
 class ProfileRepository {
 
-  Future<StockQuote> fetchQuote({String symbol}) async {
-    return await ProfileClient.fetchQuote(symbol: symbol.toUpperCase());
-  }
-  
-  Future<StockProfile> fetchProfile({String symbol}) async {
+  Future<ProfileModel> fetchProfile({String symbol}) async {
     return await ProfileClient.fetchProfile(symbol: symbol.toUpperCase());
   }
 

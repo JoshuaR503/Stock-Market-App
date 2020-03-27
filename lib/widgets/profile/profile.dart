@@ -22,11 +22,21 @@ class Profile extends StatelessWidget {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (BuildContext context, ProfileState state) {
 
+        if (state is ProfileLoadingError) {
+          return Scaffold(
+            backgroundColor: kScaffoldBackground,
+            body: Center(child: Text(state.error)),
+            appBar: AppBar(
+              backgroundColor: kNegativeColor,
+            ),
+          );
+        }
+
         if (state is ProfileLoaded) {
           return ProfileScreen(
-            profile: state.profile,
-            quote: state.quote,
-            color: state.profile.changes < 0 
+            profile: state.profileModel.stockProfile,
+            quote: state.profileModel.stockQuote,
+            color: state.profileModel.stockProfile.changes < 0 
               ? kNegativeColor
               : kPositiveColor
           );

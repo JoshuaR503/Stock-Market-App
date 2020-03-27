@@ -28,18 +28,19 @@ class ProfileScreen extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Text(this.quote.name, style: kProfileCompanyName),
-          flex: 10,
+          flex: 8,
         ),
 
-        Expanded(child: Container()),
+        Expanded(
+          child: Container(),
+          flex: 4,
+        ),
         
         Expanded(
           child: IconButton(
             icon: Icon(FontAwesomeIcons.solidCheckCircle, color: this.color,), 
             onPressed: () {}
           ),
-
-          flex: 1,
         )
       ],
     );
@@ -58,12 +59,11 @@ class ProfileScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text('\$${NumberFormat().format(this.quote.price)}', style: TextStyle(
-            fontSize: 24,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           )),
 
-          SizedBox(height: 8),
-
+          SizedBox(height: 4),
           Text(text, style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -95,6 +95,8 @@ class ProfileScreen extends StatelessWidget {
         padding: EdgeInsets.only(left: 26, right: 26, top: 26),
         children: <Widget>[
           this._renderTop(),
+
+          SizedBox(height: 4),
           this._renderChange(),
           this._renderGraph(),
           StatisticsWidget(quote: this.quote),
