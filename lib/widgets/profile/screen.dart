@@ -1,22 +1,25 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+
 import 'package:sma/models/profile/index.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/graph.dart';
+import 'package:sma/widgets/profile/widgets/price.dart';
 import 'package:sma/widgets/profile/widgets/profile.dart';
 import 'package:sma/widgets/profile/widgets/statistics.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
 
 class ProfileScreen extends StatelessWidget {
 
+  final bool isMarketOpen;
+  final bool isSaved;
   final Color color;
   final StockQuote quote;
   final StockProfile profile;
 
   ProfileScreen({
+    @required this.isMarketOpen,
+    @required this.isSaved,
     @required this.quote,
     @required this.profile,
     @required this.color
@@ -46,34 +49,11 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _renderChange() {
-
-    final String text = this.quote.change < 0 
-      ? '${this.quote.change}  ${this.quote.changesPercentage}%'
-      : '+${this.quote.change}  +${this.quote.changesPercentage}%';
-
-    final priceStyle = TextStyle(
-      fontSize: 22,
-      fontWeight: FontWeight.bold,
-    );
-
-    final changeStyle = TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: this.color
-    );
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('\$${NumberFormat().format(this.quote.price)}', style: priceStyle),
-          SizedBox(height: 4),
-          Text(text, style: changeStyle),
-        ],
-      ),
+  Widget _renderPrice() {
+    return  ProfilePrice(
+      isMarketOpen: this.isMarketOpen,
+      color: this.color,
+      quote: this.quote,
     );
   }
 
@@ -99,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
         children: <Widget>[
           this._renderTop(),
           SizedBox(height: 4),
-          this._renderChange(),
+          this._renderPrice(),
           SizedBox(height: 4),
           this._renderGraph(),
           StatisticsWidget(quote: this.quote),

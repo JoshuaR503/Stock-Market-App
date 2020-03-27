@@ -14,6 +14,13 @@ class ProfileClient {
 
   static String _authority = 'financialmodelingprep.com';
 
+  static Future<bool> isMarketOpen() async {
+    final Uri uri = Uri.https(_authority, '/api/v3/is-the-market-open');
+    final response = await FetchClient.fetchData(uri: uri);
+
+    return response.data['isTheStockMarketOpen'];
+  }
+
   static Future<ProfileModel> fetchProfile({String symbol}) async {
     final Uri quoteUri = Uri.https(_authority, '/api/v3/quote/$symbol');
     final Uri profileUri = Uri.https(_authority, '/api/v3/company/profile/$symbol');

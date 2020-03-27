@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sma/models/profile/stock_quote.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/widgets/profile/widgets/styles.dart';
 
 class StatisticsWidget extends StatelessWidget {
   
@@ -14,14 +15,13 @@ class StatisticsWidget extends StatelessWidget {
     @required this.quote
   });
 
-
   static Text _renderText(dynamic text) {
 
-    if (text == null) {
-      return Text('-');
+    if (text != null) {
+      return Text('${NumberFormat.compact().format(text)}');
     }
 
-    return Text('${NumberFormat.compact().format(text)}');
+    return Text('-');
   }
   
   List<Widget> _leftColumn() {
@@ -93,12 +93,7 @@ class StatisticsWidget extends StatelessWidget {
       children: <Widget>[
         SizedBox(height: 16),
 
-        Text('Statistics',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold
-        )),
-
+        Text('Statistics',style: kProfileScreenSectionTitle),
         SizedBox(height: 8),
 
         Row(

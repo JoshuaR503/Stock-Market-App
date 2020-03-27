@@ -6,6 +6,10 @@ import 'package:sma/respository/profile/client.dart';
 
 class ProfileRepository {
 
+  Future<bool> isMarketOpen() async {
+    return await ProfileClient.isMarketOpen();
+  }
+
   Future<ProfileModel> fetchProfile({String symbol}) async {
     return await ProfileClient.fetchProfile(symbol: symbol.toUpperCase());
   }

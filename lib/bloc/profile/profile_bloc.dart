@@ -24,8 +24,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield ProfileLoading();
 
       try {
+        final bool isMarketOpen = await this._repository.isMarketOpen();
         final ProfileModel profile = await this._repository.fetchProfile(symbol: event.symbol);
-        yield ProfileLoaded(profileModel: profile);
+        
+        yield ProfileLoaded(
+          profileModel: profile,
+          isMarketOpen: isMarketOpen
+        );
 
       } catch (e) {
         yield ProfileLoadingError(error: 'There was an unknown error.');

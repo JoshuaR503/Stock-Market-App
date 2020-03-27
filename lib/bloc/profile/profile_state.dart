@@ -18,8 +18,10 @@ class ProfileLoadingError extends ProfileState {
 class ProfileLoaded extends ProfileState {
 
   final ProfileModel profileModel;
+  final bool isMarketOpen;
 
   ProfileLoaded({
     @required this.profileModel,
+    @required this.isMarketOpen
   });
 }
