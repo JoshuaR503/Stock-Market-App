@@ -6,10 +6,11 @@ import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
 import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_overview.dart';
-import 'package:sma/widgets/portfolio/search_delegate.dart';
 
-import 'package:sma/widgets/portfolio/widgets/portfolio_card.dart';
-import 'package:sma/widgets/portfolio/widgets/portfolio_tile.dart';
+import 'package:sma/widgets/portfolio/widgets/portfolio_indexes.dart';
+import 'package:sma/widgets/portfolio/widgets/portfolio_search.dart';
+import 'package:sma/widgets/portfolio/widgets/portfolio_watchlist.dart';
+import 'package:sma/widgets/portfolio/widgets/styles.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class Portfolio extends StatelessWidget {
@@ -21,26 +22,17 @@ class Portfolio extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            Text('Portfolio', style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold
-            )),
+            Text('Portfolio', style: kPortfolioScreenTitle),
 
             GestureDetector(
               child: FaIcon(FontAwesomeIcons.search, size: 22,),
-
-              // onTap: () => Navigator
-              // .of(context)
-              // .push(MaterialPageRoute(builder: (context) => SearchScreen()))
-
-              onTap: () => showSearch(context: context, delegate: StockSearchWidget()),
+              onTap: () => showSearch(context: context, delegate: PortfolioSearch()),
             )
           ],
         ),
       ],
     );
   }
-
 
   Widget _renderMarketIndexes(List<MarketIndex> indexes) {
     return Container(
@@ -50,7 +42,7 @@ class Portfolio extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: indexes.length,
-        itemBuilder: (BuildContext context, int index) => PortfolioCard(index: indexes[index]),
+        itemBuilder: (BuildContext context, int index) => PortfolioIndexes(index: indexes[index]),
       ),
     );
   }
@@ -58,11 +50,7 @@ class Portfolio extends StatelessWidget {
   Widget _renderWatchlistText() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
-      child: Text('Watchlist', style: TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.bold
-      )),
+      child: Text('Watchlist', style: kPortfolioScreenSubtitle),
     );
   }
 
@@ -72,7 +60,7 @@ class Portfolio extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: stocks.length,
-        itemBuilder: (BuildContext context, int index) => PortfolioTitle(stock: stocks[index]),
+        itemBuilder: (BuildContext context, int index) => PortfolioWatchList(stock: stocks[index]),
       ),
     );
   }
@@ -83,17 +71,12 @@ class Portfolio extends StatelessWidget {
       builder: (BuildContext context, PortfolioState state) {
       
         if (state is PortfolioInitial) {
-
           BlocProvider
           .of<PortfolioBloc>(context)
           .add(FetchPortfoliData(
             stockSymbols: 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.toUpperCase().split(','),
             marketSymbols: '^DJI,^IXIC,^GSPC'.split(',')
           ));
-        }
-
-        if (state is PortfolioLoading) {
-          return LoadingIndicatorWidget();
         }
 
         if (state is PortfolioLoaded) {
@@ -107,6 +90,10 @@ class Portfolio extends StatelessWidget {
               this._renderWatchList(state.stocks),
             ]
           );
+        }
+
+        if (state is PortfolioLoadingError) {
+          return Center(child: Text(state.error));
         }
 
         return LoadingIndicatorWidget();    

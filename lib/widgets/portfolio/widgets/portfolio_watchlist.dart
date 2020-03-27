@@ -7,37 +7,30 @@ import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 import 'package:sma/widgets/profile/profile.dart';
 
-class PortfolioTitle extends StatelessWidget {
+class PortfolioWatchList extends StatelessWidget {
 
   final StockOverview stock;
 
-  PortfolioTitle({
+  PortfolioWatchList({
     @required this.stock
   });
-
-  Widget _renderText() {
-    return Text(
-      // text
-      stock.changesPercentage < 0 
-      ? '(${this.stock.changesPercentage})'
-      : '(+${this.stock.changesPercentage})',
-      // style
-      style: this.stock.changesPercentage < 0 
-      ? kNegativeChange
-      : kPositiveChange
-    );
-  }
 
   List<Widget> _renderContent() {
 
     final double height = 6.0;
-    
+    final String text = stock.changesPercentage < 0 
+      ? '(${this.stock.changesPercentage})'
+      : '(+${this.stock.changesPercentage})';
+
+    final TextStyle style = this.stock.changesPercentage < 0 
+      ? kNegativeChange
+      : kPositiveChange;
+
     return [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(this.stock.symbol, style: kTickerSymbol),
+          Text(this.stock.symbol, style: kStockTickerSymbol),
           SizedBox(height: height),
           Text(this.stock.name, style: kCompanyName)
         ], 
@@ -45,11 +38,10 @@ class PortfolioTitle extends StatelessWidget {
 
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text('\$${this.stock.price}'),
           SizedBox(height: height),
-          this._renderText()
+          Text(text, style: style)
         ], 
       ),
     ];
@@ -75,8 +67,8 @@ class PortfolioTitle extends StatelessWidget {
           .push(context, MaterialPageRoute(builder: (_) {
 
             BlocProvider
-              .of<ProfileBloc>(context)
-              .add(FetchProfileData(symbol: stock.symbol));
+            .of<ProfileBloc>(context)
+            .add(FetchProfileData(symbol: stock.symbol));
 
             return Profile(
               isSaved: true,
@@ -87,5 +79,6 @@ class PortfolioTitle extends StatelessWidget {
       ),
     );
   }
+
 }
 

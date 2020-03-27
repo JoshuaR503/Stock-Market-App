@@ -23,18 +23,24 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
       
       yield PortfolioLoading();
 
-      final List<StockOverview> stocks = await Future.wait(event.stockSymbols.map((symbol) async {
-        return await this._repository.fetchProfile(symbol: symbol);
-      }));
+      try {
 
-      final List<MarketIndex> indexes = await Future.wait(event.marketSymbols.map((symbol) async {
-        return await this._repository.fetchMarketIndex(symbol: symbol);
-      }));
+        final List<StockOverview> stocks = await Future
+        .wait(event.stockSymbols
+        .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
 
-      yield PortfolioLoaded(
-        stocks: stocks,
-        indexes: indexes
-      );
+        final List<MarketIndex> indexes = await Future
+        .wait(event.marketSymbols
+        .map((symbol) async => await this._repository.fetchMarketIndex(symbol: symbol)));
+
+        yield PortfolioLoaded(
+          stocks: stocks,
+          indexes: indexes
+        );
+
+      } catch (e) {
+        yield PortfolioLoadingError(error: e.toString());
+      }
     }
   }
 }

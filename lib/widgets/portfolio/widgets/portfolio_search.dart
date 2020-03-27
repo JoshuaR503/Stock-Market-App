@@ -8,7 +8,7 @@ import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/profile.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
-class StockSearchWidget extends SearchDelegate {
+class PortfolioSearch extends SearchDelegate {
 
   final SearchStockRepository _repository = SearchStockRepository();
 

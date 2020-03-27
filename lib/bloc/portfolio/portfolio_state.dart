@@ -7,7 +7,14 @@ class PortfolioInitial extends PortfolioState {}
 
 class PortfolioLoading extends PortfolioState {}
 
-class PortfolioLoadingError extends PortfolioState {}
+class PortfolioLoadingError extends PortfolioState {
+
+  final dynamic error;
+
+  PortfolioLoadingError({
+    @required this.error
+  });
+}
 
 class PortfolioLoaded extends PortfolioState {
 
