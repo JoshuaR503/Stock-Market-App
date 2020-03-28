@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
@@ -16,7 +17,10 @@ import 'package:sma/widgets/widgets/loading_indicator.dart';
 class Portfolio extends StatelessWidget {
 
   Widget _renderTop(BuildContext context) {
+    final String formatted = DateFormat('MMMMd').format(DateTime.now());
+
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,6 +34,7 @@ class Portfolio extends StatelessWidget {
             )
           ],
         ),
+        Text(formatted, style: kPortfolioScreenDate),
       ],
     );
   }

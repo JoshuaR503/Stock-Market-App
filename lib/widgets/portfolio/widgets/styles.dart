@@ -7,6 +7,12 @@ final kPortfolioScreenTitle = const TextStyle(
   fontWeight: FontWeight.bold
 );
 
+final kPortfolioScreenDate = const TextStyle(
+  color: kGray,
+  fontSize: 24,
+  fontWeight: FontWeight.w800
+);
+
 final kPortfolioScreenSubtitle = const TextStyle(
   color: Colors.white,
   fontSize: 18,
