@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:sentry/sentry.dart';
 
-import 'package:sma/keys.dart';
+import 'package:sma/key.dart';
 
 class FetchClient {
   static Future<Response> fetchData({Uri uri}) async {

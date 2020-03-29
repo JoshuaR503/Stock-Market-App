@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:sma/key.dart';
 
-import 'package:sma/keys.dart';
 import 'package:sma/models/search/search.dart';
 
 class SearchClient {
