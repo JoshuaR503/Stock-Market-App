@@ -84,6 +84,10 @@ class Portfolio extends StatelessWidget {
           ));
         }
 
+        if (state is PortfolioEmpty) {
+          return Center(child: Text('There are no stock symbols added'));
+        }
+
         if (state is PortfolioLoaded) {
           return ListView(
             physics: BouncingScrollPhysics(),

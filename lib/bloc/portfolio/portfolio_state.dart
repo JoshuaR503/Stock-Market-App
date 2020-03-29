@@ -5,6 +5,8 @@ abstract class PortfolioState {}
 
 class PortfolioInitial extends PortfolioState {}
 
+class PortfolioEmpty extends PortfolioState {}
+
 class PortfolioLoading extends PortfolioState {}
 
 class PortfolioLoadingError extends PortfolioState {
