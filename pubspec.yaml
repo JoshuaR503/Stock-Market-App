@@ -32,6 +32,7 @@ dependencies:
   font_awesome_flutter: ^8.7.0
   charts_flutter: ^0.9.0
   flutter_spinkit: "^4.1.2"
+  sentry: ^3.0.1
 
 dev_dependencies:
   flutter_test:

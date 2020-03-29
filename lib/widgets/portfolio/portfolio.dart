@@ -79,7 +79,7 @@ class Portfolio extends StatelessWidget {
           BlocProvider
           .of<PortfolioBloc>(context)
           .add(FetchPortfoliData(
-            stockSymbols: 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.toUpperCase().split(','),
+            stockSymbols: 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(','),
             marketSymbols: '^DJI,^IXIC,^GSPC'.split(',')
           ));
         }
