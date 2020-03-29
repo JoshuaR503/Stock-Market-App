@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/sentry.dart';
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/respository/profile/repository.dart';
 
@@ -32,7 +33,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           isMarketOpen: isMarketOpen
         );
 
-      } catch (e) {
+      } catch (e, stack) {
+
+        await SentryHelper(
+          exception: e, 
+          stackTrace: stack
+        ).report();
+
         yield ProfileLoadingError(error: 'There was an unknown error.');
       }
       

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/sentry.dart';
 import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
@@ -38,7 +39,13 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
           indexes: indexes
         );
 
-      } catch (e) {
+      } catch (e, stack) {
+        
+        await SentryHelper(
+          exception: e, 
+          stackTrace: stack
+        ).report();
+        
         yield PortfolioLoadingError(error: e.toString());
       }
     }
