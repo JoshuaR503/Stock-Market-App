@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:sma/models/profile/index.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/graph.dart';
 import 'package:sma/widgets/profile/widgets/price.dart';
 import 'package:sma/widgets/profile/widgets/profile.dart';
+import 'package:sma/widgets/profile/widgets/save_button.dart';
 import 'package:sma/widgets/profile/widgets/statistics.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
 
@@ -39,11 +39,9 @@ class ProfileScreen extends StatelessWidget {
           flex: 4,
         ),
         
-        Expanded(
-          child: IconButton(
-            icon: Icon(FontAwesomeIcons.solidCheckCircle, color: this.color,), 
-            onPressed: () {}
-          ),
+        SaveButtonProfile(
+          color: this.color,
+          isSaved: this.isSaved,
         )
       ],
     );
