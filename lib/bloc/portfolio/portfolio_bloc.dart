@@ -13,7 +13,6 @@ part 'portfolio_state.dart';
 
 class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   
-  final _repository = PortfolioRepository();
   final _databaseRepository = DatabaseRepository();
   
   @override
@@ -55,9 +54,11 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   }
 
   Future<List<StockOverview>> _fetchFromNetwork({List<String> symbols}) async {
+    final repository = PortfolioRepository();
+
     return await Future
     .wait(symbols
-    .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
+    .map((symbol) async => await repository.fetchProfile(symbol: symbol)));
   }
 
 }
