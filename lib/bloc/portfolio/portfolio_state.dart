@@ -26,3 +26,16 @@ class PortfolioLoaded extends PortfolioState {
     @required this.stocks,
   });
 }
+
+class ProfileSaving extends PortfolioState {}
+
+class ProfileSavingError extends PortfolioState {
+  final dynamic error;
+
+  ProfileSavingError({
+    @required this.error
+  });
+}
+
+class ProfileSaved extends PortfolioState {}
+

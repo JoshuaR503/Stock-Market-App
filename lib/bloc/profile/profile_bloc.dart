@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:sma/helpers/sentry.dart';
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/respository/profile/repository.dart';
+import 'package:sma/respository/storage/storage.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
@@ -13,7 +14,7 @@ part 'profile_state.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   
   final _repository = ProfileRepository();
-
+  
   @override
   ProfileState get initialState => ProfileInitial();
 
@@ -32,7 +33,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           profileModel: profile,
           isMarketOpen: isMarketOpen
         );
-
       } catch (e, stack) {
 
         await SentryHelper(
@@ -42,7 +42,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
         yield ProfileLoadingError(error: 'There was an unknown error.');
       }
-      
     }
   }
 }

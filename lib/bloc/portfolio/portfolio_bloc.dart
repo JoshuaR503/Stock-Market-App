@@ -21,35 +21,43 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
   @override
   Stream<PortfolioState> mapEventToState(PortfolioEvent event) async* {
+
     if (event is FetchPortfoliData) {
-      
+
       yield PortfolioLoading();
+      yield* _fetchSymbols();
+    }
 
-      try {
+    if (event is SaveProfile) {
 
-        final symbolsStored = await _databaseRepository.fetch();
-
-        if (symbolsStored.length == 0) {
-          yield PortfolioEmpty();
-          
-        } else {
-          
-          final List<StockOverview> stocks = await Future
-          .wait(symbolsStored
-          .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
-
-          yield PortfolioLoaded(stocks: stocks);
-        }
-
-      } catch (e, stack) {
-        
-        await SentryHelper(
-          exception: e, 
-          stackTrace: stack
-        ).report();
-        
-        yield PortfolioLoadingError(error: e.toString());
-      }
+      yield PortfolioLoading();
+      await this._databaseRepository.save(symbol: event.symbol);
+      yield* _fetchSymbols();
     }
   }
+
+  Stream<PortfolioState> _fetchSymbols() async* {
+    try {
+
+      final symbolsStored = await _databaseRepository.fetch();
+
+      if (symbolsStored.isNotEmpty) {
+        yield PortfolioLoaded(stocks: await _fetchFromNetwork(symbols: symbolsStored));
+      } else {
+        yield PortfolioEmpty();
+      }
+
+    } catch (e, stack) {
+  
+      await SentryHelper(exception: e, stackTrace: stack).report();
+      yield PortfolioLoadingError(error: e);
+    }
+  }
+
+  Future<List<StockOverview>> _fetchFromNetwork({List<String> symbols}) async {
+    return await Future
+    .wait(symbols
+    .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
+  }
+
 }

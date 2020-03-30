@@ -42,6 +42,7 @@ class ProfileScreen extends StatelessWidget {
         SaveButtonProfile(
           color: this.color,
           isSaved: this.isSaved,
+          symbol: this.quote.symbol,
         )
       ],
     );

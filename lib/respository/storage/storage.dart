@@ -10,6 +10,9 @@ class DatabaseRepository {
     return await this._client.fetch();
   }
 
+  Future<int> save({String symbol}) async {
+    return await this._client.save(symbol: symbol);
+  }
 
 
 }
