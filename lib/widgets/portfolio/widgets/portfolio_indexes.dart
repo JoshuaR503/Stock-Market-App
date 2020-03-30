@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:sma/bloc/indexes/indexes_bloc.dart';
 
 import 'package:sma/models/market_index.dart';
 import 'package:sma/shared/colors.dart';
-import 'package:meta/meta.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
+import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class PortfolioIndexes extends StatelessWidget {
 
-  final MarketIndex index;
-
-  PortfolioIndexes({
-    @required this.index,
-  });
-
-  List<Widget> _buildUpperSection() {
+  List<Widget> _buildUpperSection(MarketIndex index) {
 
     final icon = index.change < 0 
       ? FontAwesomeIcons.sortDown
@@ -45,33 +41,67 @@ class PortfolioIndexes extends StatelessWidget {
         ],
       ),
 
-      Text(NumberFormat().format(this.index.price), style: kStockTickerSymbol)  
+      Text(NumberFormat().format(index.price), style: kStockTickerSymbol)  
     ];
   }
 
-  Widget _buildCard() {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: _buildUpperSection(),
-      ),
-      width: 100,
-      padding: EdgeInsets.symmetric(vertical: 18),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _renderContent(MarketIndex index) {
     return Padding(
       padding: EdgeInsets.only(right: 16),
       child: MaterialButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         color: kTileColor,
-        child: _buildCard(),
-        // TODO: Add handler for Indexes.
+        child: Container(
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: _buildUpperSection(index),
+          ),
+
+          width: 100,
+          padding: EdgeInsets.symmetric(vertical: 18),
+        ),
+
         onPressed: () {},
       ),
+    );
+  }
+
+  Widget _build(IndexesLoaded state) {
+    return Container(
+      height: 205,
+      padding: EdgeInsets.symmetric(vertical: 18),
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: state.indexes.length,
+        itemBuilder: (BuildContext context, int index) => this._renderContent(state.indexes[index]),
+      ),
+    ); 
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<IndexesBloc, IndexesState>(
+      builder: (BuildContext context, IndexesState state) {
+
+        if (state is IndexesInitial) {
+          BlocProvider
+          .of<IndexesBloc>(context)
+          .add(FetchIndexes());
+        }
+
+        if (state is IndexesLoaded) {
+          return _build(state); 
+        }
+
+        if (state is IndexesLoadingError) {
+          return Center(child: Text(state.error));
+        }
+
+        return LoadingIndicatorWidget();
+      }
     );
   }
 }

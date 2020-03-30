@@ -21,10 +21,8 @@ class PortfolioLoadingError extends PortfolioState {
 class PortfolioLoaded extends PortfolioState {
 
   final List<StockOverview> stocks;
-  final List<MarketIndex> indexes;
 
   PortfolioLoaded({
     @required this.stocks,
-    @required this.indexes,
   });
 }

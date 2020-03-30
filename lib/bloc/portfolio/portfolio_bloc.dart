@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
 import 'package:sma/helpers/sentry.dart';
-import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 import 'package:sma/respository/storage/storage.dart';
@@ -28,24 +27,20 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
       try {
 
-        final symbolsStored = await _databaseRepository.fetch();
+        final stonks = 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
+        // final symbolsStored = await _databaseRepository.fetch();
 
-        if (symbolsStored.length == 0) {
-          yield PortfolioEmpty();
-        }
+        // if (symbolsStored.length == 0) {
+        //   yield PortfolioEmpty();
+        // }
 
-        // final List<StockOverview> stocks = await Future
-        // .wait(event.stockSymbols
-        // .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
 
-        // final List<MarketIndex> indexes = await Future
-        // .wait(event.marketSymbols
-        // .map((symbol) async => await this._repository.fetchMarketIndex(symbol: symbol)));
+        final List<StockOverview> stocks = await Future
+        .wait(stonks
+        .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
 
-        // yield PortfolioLoaded(
-        //   stocks: stocks,
-        //   indexes: indexes
-        // );
+
+        yield PortfolioLoaded(stocks: stocks);
 
       } catch (e, stack) {
         

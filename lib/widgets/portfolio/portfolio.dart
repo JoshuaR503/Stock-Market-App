@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-
-import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
-
-import 'package:sma/models/market_index.dart';
-import 'package:sma/models/stock_overview.dart';
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_indexes.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_search.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_watchlist.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
-import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class Portfolio extends StatelessWidget {
 
@@ -39,17 +32,8 @@ class Portfolio extends StatelessWidget {
     );
   }
 
-  Widget _renderMarketIndexes(List<MarketIndex> indexes) {
-    return Container(
-      height: 205,
-      padding: EdgeInsets.symmetric(vertical: 18),
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: indexes.length,
-        itemBuilder: (BuildContext context, int index) => PortfolioIndexes(index: indexes[index]),
-      ),
-    );
+  Widget _renderMarketIndexes() {
+    return PortfolioIndexes();
   }
 
   Widget _renderWatchlistText() {
@@ -59,54 +43,62 @@ class Portfolio extends StatelessWidget {
     );
   }
 
-  Widget _renderWatchList(List<StockOverview> stocks) {
-    return Container(
-      child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: stocks.length,
-        itemBuilder: (BuildContext context, int index) => PortfolioWatchList(stock: stocks[index]),
-      ),
-    );
+  Widget _renderWatchList() {
+    return PortfolioWatchList();
   }
   
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PortfolioBloc, PortfolioState>(
-      builder: (BuildContext context, PortfolioState state) {
+
+    return ListView(
+
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.only(left: 18, right: 18, top: 14),
       
-        if (state is PortfolioInitial) {
-          BlocProvider
-          .of<PortfolioBloc>(context)
-          .add(FetchPortfoliData(
-            stockSymbols: 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(','),
-            marketSymbols: '^DJI,^IXIC,^GSPC'.split(',')
-          ));
-        }
-
-        if (state is PortfolioEmpty) {
-          return Center(child: Text('There are no stock symbols added'));
-        }
-
-        if (state is PortfolioLoaded) {
-          return ListView(
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.only(left: 18, right: 18, top: 14),
-            children: <Widget> [
-              this._renderTop(context),
-              this._renderMarketIndexes(state.indexes),
-              this._renderWatchlistText(),
-              this._renderWatchList(state.stocks),
-            ]
-          );
-        }
-
-        if (state is PortfolioLoadingError) {
-          return Center(child: Text(state.error));
-        }
-
-        return LoadingIndicatorWidget();    
-      },
+      children: <Widget>[
+        this._renderTop(context),
+        this._renderMarketIndexes(),
+        this._renderWatchlistText(),
+        this._renderWatchList()
+      ],
     );
+
+
+    // return BlocBuilder<PortfolioBloc, PortfolioState>(
+    //   builder: (BuildContext context, PortfolioState state) {
+      
+    //     if (state is PortfolioInitial) {
+    //       BlocProvider
+    //       .of<PortfolioBloc>(context)
+    //       .add(FetchPortfoliData(
+    //         stockSymbols: 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(','),
+    //         marketSymbols: '^DJI,^IXIC,^GSPC'.split(',')
+    //       ));
+    //     }
+
+    //     if (state is PortfolioEmpty) {
+    //       return Center(child: Text('There are no stock symbols added'));
+    //     }
+
+    //     if (state is PortfolioLoaded) {
+    //       return ListView(
+    //         physics: BouncingScrollPhysics(),
+    //         padding: EdgeInsets.only(left: 18, right: 18, top: 14),
+    //         children: <Widget> [
+    //           this._renderTop(context),
+    //           this._renderMarketIndexes(state.indexes),
+    //           this._renderWatchlistText(),
+    //           this._renderWatchList(state.stocks),
+    //         ]
+    //       );
+    //     }
+
+    //     if (state is PortfolioLoadingError) {
+    //       return Center(child: Text(state.error));
+    //     }
+
+    //     return LoadingIndicatorWidget();    
+    //   },
+    // );
   }
 }
