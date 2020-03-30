@@ -7,11 +7,12 @@ import 'package:sma/models/stock_overview.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 import 'package:sma/widgets/profile/profile.dart';
+import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class PortfolioWatchList extends StatelessWidget {
 
-  List<Widget> _renderContent(StockOverview stock) {
+  List<Widget> _renderIndexCard(StockOverview stock) {
 
     final double height = 6.0;
     final String text = stock.changesPercentage < 0 
@@ -51,7 +52,7 @@ class PortfolioWatchList extends StatelessWidget {
         color: kTileColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: _renderContent(stock)
+          children: _renderIndexCard(stock)
         ),
 
         height: 95,
@@ -87,11 +88,12 @@ class PortfolioWatchList extends StatelessWidget {
         }
 
         if (state is PortfolioEmpty) {
-          return Center(child: Text('There are no stock symbols added'));
+          return EmptyScreen(message: 'Your watchlist is empty.');
         }
 
         if (state is PortfolioLoaded) {
           return Container(
+            padding: EdgeInsets.only(top: 10),
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,

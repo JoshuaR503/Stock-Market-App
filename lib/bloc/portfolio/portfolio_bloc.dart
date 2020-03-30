@@ -27,20 +27,19 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
       try {
 
-        final stonks = 'BAC,DAL,BRK-B,AAPL,MSFT,V,MA,FB,JNJ,CVX'.split(',');
-        // final symbolsStored = await _databaseRepository.fetch();
+        final symbolsStored = await _databaseRepository.fetch();
 
-        // if (symbolsStored.length == 0) {
-        //   yield PortfolioEmpty();
-        // }
+        if (symbolsStored.length == 0) {
+          yield PortfolioEmpty();
+          
+        } else {
+          
+          final List<StockOverview> stocks = await Future
+          .wait(symbolsStored
+          .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
 
-
-        final List<StockOverview> stocks = await Future
-        .wait(stonks
-        .map((symbol) async => await this._repository.fetchProfile(symbol: symbol)));
-
-
-        yield PortfolioLoaded(stocks: stocks);
+          yield PortfolioLoaded(stocks: stocks);
+        }
 
       } catch (e, stack) {
         
