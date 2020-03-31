@@ -2,4 +2,4 @@
 
 A simple, non-real time watchlist. 
 
-![Stock Market App](/images/pic1.png)
+![Stock Market App](/images/pic2.png)
