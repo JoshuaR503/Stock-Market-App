@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sma/models/profile/stock_quote.dart';
+import 'package:sma/respository/profile/repository.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
 
 class ProfilePrice extends StatefulWidget {
@@ -31,12 +31,13 @@ class _ProfilePriceState extends State<ProfilePrice> {
 
   void fetch() async {
 
-    final response = await Dio().get('https://financialmodelingprep.com/api/v3/quote/${this.widget.quote.symbol}');
+    final repository = ProfileRepository();
+    final response = await repository.fetchChanges(symbol: this.widget.quote.symbol);
 
     setState(() {
-      price = response.data[0]['price'];
-      change = response.data[0]['change'];
-      changesPercentage = response.data[0]['changesPercentage'];
+      price = response['price'];
+      change = response['change'];
+      changesPercentage = response['changesPercentage'];
     });
   }
 
@@ -56,8 +57,6 @@ class _ProfilePriceState extends State<ProfilePrice> {
   @override
   void dispose() {
 
-    print('Market is open: ${this.widget.isMarketOpen}');
-
     if (this.widget.isMarketOpen) {
       timer.cancel();
     }
@@ -76,15 +75,11 @@ class _ProfilePriceState extends State<ProfilePrice> {
   @override
   Widget build(BuildContext context) {
 
-    final changeStyle = TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: this.widget.color
-    );
-
+    final negativeChange = '${_formatText(this.change)}  ${_formatText(this.changesPercentage)}%';
+    final positiveChange = '+${_formatText(this.change)}  +${_formatText(this.changesPercentage)}%';
     final String text = this.change < 0 
-      ? '${_formatText(this.change)}  ${_formatText(this.changesPercentage)}%'
-      : '+${_formatText(this.change)}  +${_formatText(this.changesPercentage)}%';
+      ? negativeChange
+      : positiveChange;
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
@@ -94,7 +89,12 @@ class _ProfilePriceState extends State<ProfilePrice> {
         children: <Widget>[
           Text('\$${_formatText(this.price)}', style: priceStyle),
           SizedBox(height: 4),
-          Text(text, style: changeStyle),
+          
+          Text(text, style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: this.widget.color
+          )),
         ],
       ),
     );

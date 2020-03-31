@@ -3,23 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
-class SaveButtonProfile extends StatefulWidget {
+class WatchlistButtonWidget extends StatefulWidget {
 
   final Color color;
   final bool isSaved;
   final String symbol;
 
-  SaveButtonProfile({
+  WatchlistButtonWidget({
     this.color,
     this.isSaved,
     this.symbol
   });
 
   @override
-  _SaveButtonProfileState createState() => _SaveButtonProfileState();
+  _WatchlistButtonWidgetState createState() => _WatchlistButtonWidgetState();
 }
 
-class _SaveButtonProfileState extends State<SaveButtonProfile> {
+class _WatchlistButtonWidgetState extends State<WatchlistButtonWidget> {
 
   bool isSaved;
   Color color;
@@ -27,18 +27,18 @@ class _SaveButtonProfileState extends State<SaveButtonProfile> {
   @override
   void initState() {
     this.isSaved = this.widget.isSaved;
-    this.color = this.isSaved 
-      ? this.widget.color
-      : Colors.grey;
+    this.color = this.isSaved ? this.widget.color : Colors.grey;
 
     super.initState();
   }
 
   @override
   void dispose() {
+    this.isSaved = null;
+    this.color = null;
+
     super.dispose();
   }
-
 
   void changeState({bool isSaved, Color color}) {
     setState(() {
@@ -52,19 +52,16 @@ class _SaveButtonProfileState extends State<SaveButtonProfile> {
     if (this.isSaved) {
       changeState(isSaved: false, color: Colors.grey);
 
-      print(this.widget.symbol);
-
       BlocProvider
       .of<PortfolioBloc>(context)
       .add(DeleteProfile(symbol: this.widget.symbol));
-      
-    } else {
-      changeState(isSaved: true, color: this.widget.color);
-    
-      BlocProvider
-      .of<PortfolioBloc>(context)
-      .add(SaveProfile(symbol: this.widget.symbol));
     }
+
+    changeState(isSaved: true, color: this.widget.color);
+  
+    BlocProvider
+    .of<PortfolioBloc>(context)
+    .add(SaveProfile(symbol: this.widget.symbol));
   }
 
   @override

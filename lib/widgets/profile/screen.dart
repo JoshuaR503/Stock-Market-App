@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
           flex: 4,
         ),
         
-        SaveButtonProfile(
+        WatchlistButtonWidget(
           color: this.color,
           isSaved: this.isSaved,
           symbol: this.quote.symbol,
