@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:dio/dio.dart';
-import 'package:sma/helpers/http_client.dart';
+import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/models/profile/profile.dart';
 
 import 'package:sma/models/profile/stock_color.dart';

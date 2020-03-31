@@ -5,18 +5,18 @@ class SimpleTimeSeriesChart extends StatelessWidget {
 
   final Color color;
   final data = [
-      MyRow(DateTime(2017, 9, 25), 6),
-      MyRow(DateTime(2017, 9, 26), 8),
-      MyRow(DateTime(2017, 9, 27), 6),
-      MyRow(DateTime(2017, 9, 28), 9),
-      MyRow(DateTime(2017, 9, 29), 11),
-      MyRow(DateTime(2017, 9, 30), 15),
-      MyRow(DateTime(2017, 10, 01), 25),
-      MyRow(DateTime(2017, 10, 02), 33),
-      MyRow(DateTime(2017, 10, 03), 27),
-      MyRow(DateTime(2017, 10, 04), 31),
-      MyRow(DateTime(2017, 10, 05), 23),
-    ];
+    RowData(DateTime(2017, 9, 25), 6),
+    RowData(DateTime(2017, 9, 26), 8),
+    RowData(DateTime(2017, 9, 27), 6),
+    RowData(DateTime(2017, 9, 28), 9),
+    RowData(DateTime(2017, 9, 29), 11),
+    RowData(DateTime(2017, 9, 30), 15),
+    RowData(DateTime(2017, 10, 01), 25),
+    RowData(DateTime(2017, 10, 02), 33),
+    RowData(DateTime(2017, 10, 03), 27),
+    RowData(DateTime(2017, 10, 04), 31),
+    RowData(DateTime(2017, 10, 05), 23),
+  ];
 
   SimpleTimeSeriesChart({
     @required this.color
@@ -27,11 +27,11 @@ class SimpleTimeSeriesChart extends StatelessWidget {
     return charts.TimeSeriesChart(
       
       [
-        charts.Series<MyRow, DateTime>(
+        charts.Series<RowData, DateTime>(
           id: 'Cost',
           colorFn: (_, __) => charts.ColorUtil.fromDartColor(color),
-          domainFn: (MyRow row, _) => row.timeStamp,
-          measureFn: (MyRow row, _) => row.cost,
+          domainFn: (RowData row, _) => row.timeStamp,
+          measureFn: (RowData row, _) => row.cost,
           data: data,
         ),
       ],
@@ -49,13 +49,11 @@ class SimpleTimeSeriesChart extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 /// Sample time series data type.
-class MyRow {
+class RowData {
   final DateTime timeStamp;
   final int cost;
-  MyRow(this.timeStamp, this.cost);
+  RowData(this.timeStamp, this.cost);
 }

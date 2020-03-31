@@ -1,5 +1,5 @@
 import 'package:sembast/sembast.dart';
-import 'package:sma/helpers/database.dart';
+import 'package:sma/helpers/database_helper.dart';
 
 class DatabaseClient {
 

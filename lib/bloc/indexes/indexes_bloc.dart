@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sma/helpers/sentry.dart';
+import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/market_index.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 

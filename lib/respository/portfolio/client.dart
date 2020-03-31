@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:sma/helpers/http_client.dart';
+import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/models/market_index.dart';
 import 'package:sma/models/stock_overview.dart';
 

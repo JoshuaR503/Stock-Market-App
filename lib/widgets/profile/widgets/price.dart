@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/profile/stock_quote.dart';
 import 'package:sma/respository/profile/repository.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
@@ -68,15 +69,11 @@ class _ProfilePriceState extends State<ProfilePrice> {
     super.dispose();
   }
 
-  String _formatText(dynamic text ) {
-    return  NumberFormat().format(text);
-  }
-
   @override
   Widget build(BuildContext context) {
 
-    final negativeChange = '${_formatText(this.change)}  ${_formatText(this.changesPercentage)}%';
-    final positiveChange = '+${_formatText(this.change)}  +${_formatText(this.changesPercentage)}%';
+    final negativeChange = '${formatText(this.change)}  ${formatText(this.changesPercentage)}%';
+    final positiveChange = '+${formatText(this.change)}  +${formatText(this.changesPercentage)}%';
     final String text = this.change < 0 
       ? negativeChange
       : positiveChange;
@@ -87,7 +84,7 @@ class _ProfilePriceState extends State<ProfilePrice> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('\$${_formatText(this.price)}', style: priceStyle),
+          Text('\$${formatText(this.price)}', style: priceStyle),
           SizedBox(height: 4),
           
           Text(text, style: TextStyle(
