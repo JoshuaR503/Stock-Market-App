@@ -13,3 +13,12 @@ class SaveProfile extends PortfolioEvent {
     @required this.symbol
   });
 }
+
+class DeleteProfile extends PortfolioEvent {
+
+  final String symbol;
+
+  DeleteProfile({
+    @required this.symbol
+  });
+}

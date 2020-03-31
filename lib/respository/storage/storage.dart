@@ -14,5 +14,8 @@ class DatabaseRepository {
     return await this._client.save(symbol: symbol);
   }
 
+  Future<int> delete({String symbol}) async {
+    return await this._client.delete(symbol: symbol);
+  }
 
 }

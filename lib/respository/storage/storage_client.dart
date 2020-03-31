@@ -3,7 +3,7 @@ import 'package:sma/helpers/database.dart';
 
 class DatabaseClient {
 
-  final  StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('d');
+  final  StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('dd');
 
   // Sembast Database.
   Future<Database> get _database async => await DatabaseManager.instance.database;
@@ -24,16 +24,17 @@ class DatabaseClient {
   }
 
   Future<int> save({String symbol}) async {
+    // TODO: ensure that we don't save the same symbol more than once.
     final int response = await _store.add(await _database, {'symbol': symbol});
     return response;
   }
 
-  Future<void> delete({String symbol}) async {
+  Future<int> delete({String symbol}) async {
 
     final Finder finder = Finder(
       filter: Filter.equals('symbol', symbol)
     );
 
-    await _store.delete(await _database, finder: finder);
+    return await _store.delete(await _database, finder: finder);
   }
 }

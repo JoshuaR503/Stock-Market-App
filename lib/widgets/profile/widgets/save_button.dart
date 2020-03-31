@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
-import 'package:sma/bloc/profile/profile_bloc.dart';
 
 class SaveButtonProfile extends StatefulWidget {
 
@@ -35,32 +34,36 @@ class _SaveButtonProfileState extends State<SaveButtonProfile> {
     super.initState();
   }
 
-  void triggerProviders() {
-
-    BlocProvider
-    .of<PortfolioBloc>(context)
-    .add(SaveProfile(symbol: this.widget.symbol));
+  @override
+  void dispose() {
+    super.dispose();
   }
 
+
+  void changeState({bool isSaved, Color color}) {
+    setState(() {
+      this.isSaved = isSaved;
+      this.color = color;
+    });
+  }
 
   void onPressedHandler() {
 
     if (this.isSaved) {
-      setState(() {
-        this.isSaved = false;
-        this.color = Colors.grey;
-      });
-    } 
+      changeState(isSaved: false, color: Colors.grey);
+
+      print(this.widget.symbol);
+
+      BlocProvider
+      .of<PortfolioBloc>(context)
+      .add(DeleteProfile(symbol: this.widget.symbol));
+      
+    } else {
+      changeState(isSaved: true, color: this.widget.color);
     
-    else {
-
-      setState(() {
-        this.isSaved = true;
-        this.color = this.widget.color;
-      });
-
-      triggerProviders();
-      // Trigger save event and write in database.
+      BlocProvider
+      .of<PortfolioBloc>(context)
+      .add(SaveProfile(symbol: this.widget.symbol));
     }
   }
 

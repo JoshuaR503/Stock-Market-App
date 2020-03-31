@@ -22,17 +22,22 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   Stream<PortfolioState> mapEventToState(PortfolioEvent event) async* {
 
     if (event is FetchPortfoliData) {
-
       yield PortfolioLoading();
       yield* _fetchSymbols();
     }
 
     if (event is SaveProfile) {
-
       yield PortfolioLoading();
       await this._databaseRepository.save(symbol: event.symbol);
       yield* _fetchSymbols();
     }
+
+    if (event is DeleteProfile) {
+
+      yield PortfolioLoading();
+      await this._databaseRepository.delete(symbol: event.symbol);
+      yield* _fetchSymbols();
+    } 
   }
 
   Stream<PortfolioState> _fetchSymbols() async* {

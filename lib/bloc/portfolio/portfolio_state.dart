@@ -27,8 +27,6 @@ class PortfolioLoaded extends PortfolioState {
   });
 }
 
-class ProfileSaving extends PortfolioState {}
-
 class ProfileSavingError extends PortfolioState {
   final dynamic error;
 
@@ -39,3 +37,12 @@ class ProfileSavingError extends PortfolioState {
 
 class ProfileSaved extends PortfolioState {}
 
+class ProfileDeletingError extends PortfolioState {
+  final dynamic error;
+
+  ProfileDeletingError({
+    @required this.error
+  });
+}
+
+class ProfileDeleted extends PortfolioState {}

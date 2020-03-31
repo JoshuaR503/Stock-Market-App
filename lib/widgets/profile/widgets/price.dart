@@ -33,8 +33,6 @@ class _ProfilePriceState extends State<ProfilePrice> {
 
     final response = await Dio().get('https://financialmodelingprep.com/api/v3/quote/${this.widget.quote.symbol}');
 
-    print('Refresh');
-
     setState(() {
       price = response.data[0]['price'];
       change = response.data[0]['change'];
@@ -58,9 +56,15 @@ class _ProfilePriceState extends State<ProfilePrice> {
   @override
   void dispose() {
 
+    print('Market is open: ${this.widget.isMarketOpen}');
+
     if (this.widget.isMarketOpen) {
       timer.cancel();
     }
+
+    this.price = null;
+    this.change = null; 
+    this.changesPercentage = null;
 
     super.dispose();
   }
