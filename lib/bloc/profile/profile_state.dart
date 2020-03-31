@@ -19,9 +19,11 @@ class ProfileLoaded extends ProfileState {
 
   final ProfileModel profileModel;
   final bool isMarketOpen;
+  final bool isSymbolSaved;
 
   ProfileLoaded({
     @required this.profileModel,
-    @required this.isMarketOpen
+    @required this.isMarketOpen,
+    @required this.isSymbolSaved,
   });
 }

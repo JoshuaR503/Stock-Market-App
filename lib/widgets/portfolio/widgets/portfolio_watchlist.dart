@@ -66,10 +66,7 @@ class PortfolioWatchList extends StatelessWidget {
               .of<ProfileBloc>(context)
               .add(FetchProfileData(symbol: stock.symbol));
 
-            return Profile(
-              isSaved: true,
-              symbol: stock.symbol,
-            );
+            return Profile(symbol: stock.symbol);
           }));
         },
       ),

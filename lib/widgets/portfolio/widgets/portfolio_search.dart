@@ -24,10 +24,7 @@ class PortfolioSearch extends SearchDelegate {
       .of<ProfileBloc>(context)
       .add(FetchProfileData(symbol: symbol));
 
-      return Profile(
-        isSaved: false,
-        symbol: symbol.toUpperCase(),
-      );
+      return Profile( symbol: symbol.toUpperCase());
     }));
   }
 
@@ -89,7 +86,7 @@ class PortfolioSearch extends SearchDelegate {
         title: Text(data[i].s1Symbol),
         
         onTap: () {
-          _tapHandler(context, data[i].s1Symbol);
+          _tapHandler(context, data[i].s1Symbol.toUpperCase());
           showResults(context);
         },
       )
@@ -105,7 +102,7 @@ class PortfolioSearch extends SearchDelegate {
         title: Text(searched[i].toUpperCase()),
         
         onTap: () {
-          _tapHandler(context, searched[i]);
+          _tapHandler(context, searched[i].toUpperCase());
           showResults(context);
         },
 

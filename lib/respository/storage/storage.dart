@@ -10,12 +10,19 @@ class DatabaseRepository {
     return await this._client.fetch();
   }
 
+  // Save symbol in database.
   Future<int> save({String symbol}) async {
     return await this._client.save(symbol: symbol);
   }
 
+  // Delete symbol from databse.
   Future<int> delete({String symbol}) async {
     return await this._client.delete(symbol: symbol);
+  }
+
+  // Check if symbols exists in databse.
+  Future<bool> symbolExists({String symbol}) async {
+    return await this._client.symbolExists(symbol: symbol);
   }
 
 }

@@ -10,11 +10,9 @@ import 'package:sma/widgets/widgets/loading_indicator.dart';
 class Profile extends StatelessWidget {
 
   final String symbol;
-  final bool isSaved;
   
   Profile({
     @required this.symbol,
-    @required this.isSaved,
   });
 
   @override
@@ -36,7 +34,7 @@ class Profile extends StatelessWidget {
 
           return ProfileScreen(
             isMarketOpen: state.isMarketOpen,
-            isSaved: this.isSaved,
+            isSaved: state.isSymbolSaved,
             profile: state.profileModel.stockProfile,
             quote: state.profileModel.stockQuote,
             color: state.profileModel.stockProfile.changes < 0 
