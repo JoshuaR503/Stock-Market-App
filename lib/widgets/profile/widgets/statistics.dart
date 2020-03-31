@@ -18,7 +18,7 @@ class StatisticsWidget extends StatelessWidget {
   static Text _renderText(dynamic text) {
 
     if (text != null) {
-      return Text(formatText(text));
+      return Text(compactText(text));
     }
 
     return Text('-');
@@ -80,8 +80,8 @@ class StatisticsWidget extends StatelessWidget {
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('EPS year', style: style),
-        trailing: _renderText(quote.eps)
+        title: Text('EPS', style: style),
+        trailing: _renderText(quote.eps / 4)
       ),
     ];
   }

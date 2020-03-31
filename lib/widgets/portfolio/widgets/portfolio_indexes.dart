@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:sma/bloc/indexes/indexes_bloc.dart';
+import 'package:sma/helpers/text_helper.dart';
 
 import 'package:sma/models/market_index.dart';
 import 'package:sma/shared/colors.dart';
@@ -41,7 +41,7 @@ class PortfolioIndexes extends StatelessWidget {
         ],
       ),
 
-      Text(NumberFormat().format(index.price), style: kStockTickerSymbol)  
+      Text(formatText(index.price), style: kStockTickerSymbol)  
     ];
   }
 

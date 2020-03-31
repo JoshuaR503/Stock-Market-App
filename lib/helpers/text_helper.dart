@@ -9,3 +9,11 @@ String formatText(dynamic text ) {
     return '-';
   }
 }
+
+String compactText(dynamic text ) {
+  if (text != null) {
+    return NumberFormat.compact().format(text);
+  } else {
+    return '-';
+  }
+}
