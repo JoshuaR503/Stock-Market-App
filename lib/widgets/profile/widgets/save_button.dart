@@ -55,13 +55,13 @@ class _WatchlistButtonWidgetState extends State<WatchlistButtonWidget> {
       BlocProvider
       .of<PortfolioBloc>(context)
       .add(DeleteProfile(symbol: this.widget.symbol));
-    }
+    } else {
+      changeState(isSaved: true, color: this.widget.color);
 
-    changeState(isSaved: true, color: this.widget.color);
-  
-    BlocProvider
-    .of<PortfolioBloc>(context)
-    .add(SaveProfile(symbol: this.widget.symbol));
+      BlocProvider
+      .of<PortfolioBloc>(context)
+      .add(SaveProfile(symbol: this.widget.symbol));
+    }
   }
 
   @override
