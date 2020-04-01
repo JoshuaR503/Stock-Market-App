@@ -39,11 +39,7 @@ class PortfolioSearch extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        padding: EdgeInsets.zero,
-        icon: Icon(Icons.clear), 
-        onPressed: () => query = ''
-      )
+      Container()
     ];
   }
 
@@ -80,26 +76,14 @@ class PortfolioSearch extends SearchDelegate {
     );
   }
 
-  Widget _renderListTile({BuildContext context, String text}) {
-    return ListTile(
-      title: Text(text.toUpperCase()),
-      leading: Icon(Icons.history),
-      onTap: () {
-        _tapHandler(context, text.toUpperCase());
-        showResults(context);
-      },
-    );
-  }
-
   Widget _buildSearchResults({List<StockSearch> data, BuildContext context}) {
-
-
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: data.length,
       itemBuilder: (BuildContext ctx, int i) => ListTile(
+        
+        leading: Icon(Icons.search),
         title: Text(data[i].s1Symbol.toUpperCase()),
-        leading: Icon(Icons.history),
         onTap: () {
           BlocProvider
           .of<SearchBloc>(context)
@@ -108,6 +92,25 @@ class PortfolioSearch extends SearchDelegate {
           _tapHandler(context, data[i].s1Symbol.toUpperCase());
           showResults(context);
         },
+      )
+    );
+  }
+
+  Widget _searchHistoryHelper(BuildContext context, String text) {
+    return ListTile(
+      leading: Icon(Icons.history),
+      title: Text(text),
+
+      onTap: () {
+        _tapHandler(context, text);
+        showResults(context);
+      },
+
+      trailing: IconButton(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        icon: Icon(Icons.clear), 
+        onPressed: () {}
       )
     );
   }
@@ -127,9 +130,9 @@ class PortfolioSearch extends SearchDelegate {
           return ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: state.symbols.length,
-            itemBuilder: (BuildContext ctx, int i) => _renderListTile(
-              context: context, 
-              text: state.symbols[i]
+            itemBuilder: (BuildContext ctx, int i) => _searchHistoryHelper(
+              context, 
+              state.symbols[i].toUpperCase()
             )
           );
         } 
