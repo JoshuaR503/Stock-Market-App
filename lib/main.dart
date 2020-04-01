@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sma/bloc/bloc/search_bloc.dart';
 import 'package:sma/bloc/indexes/indexes_bloc.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
@@ -20,6 +21,9 @@ void main() async {
         ),
         BlocProvider<ProfileBloc>(
           create: (context) => ProfileBloc(),
+        ),
+        BlocProvider<SearchBloc>(
+          create: (context) => SearchBloc(),
         ),
       ],
       child: StockMarketApp(),

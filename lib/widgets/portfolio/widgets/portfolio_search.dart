@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sma/bloc/bloc/search_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
 
 import 'package:sma/respository/search/search.dart';
 import 'package:sma/models/search/search.dart';
-import 'package:sma/shared/colors.dart';
+
 import 'package:sma/widgets/profile/profile.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class PortfolioSearch extends SearchDelegate {
 
   final SearchStockRepository _repository = SearchStockRepository();
-
-  final stocks = ['ba','baba','t','vz','blk','ibm','wm'];
-  final searched = ['bp','brk-a','jpm','bac','adbe','crm','mdb','dis','dal', 'wm'];
 
   void _tapHandler(context, String symbol) async {
 
@@ -24,6 +22,11 @@ class PortfolioSearch extends SearchDelegate {
       .of<ProfileBloc>(context)
       .add(FetchProfileData(symbol: symbol));
 
+      BlocProvider
+      .of<ProfileBloc>(context)
+      .add(FetchProfileData(symbol: symbol));
+
+    
       return Profile( symbol: symbol.toUpperCase());
     }));
   }
@@ -77,15 +80,31 @@ class PortfolioSearch extends SearchDelegate {
     );
   }
 
+  Widget _renderListTile({BuildContext context, String text}) {
+    return ListTile(
+      title: Text(text.toUpperCase()),
+      leading: Icon(Icons.history),
+      onTap: () {
+        _tapHandler(context, text.toUpperCase());
+        showResults(context);
+      },
+    );
+  }
+
   Widget _buildSearchResults({List<StockSearch> data, BuildContext context}) {
+
+
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: data.length,
       itemBuilder: (BuildContext ctx, int i) => ListTile(
+        title: Text(data[i].s1Symbol.toUpperCase()),
         leading: Icon(Icons.history),
-        title: Text(data[i].s1Symbol),
-        
         onTap: () {
+          BlocProvider
+          .of<SearchBloc>(context)
+          .add(SaveSearch(symbol: data[i].s1Symbol.toUpperCase()));
+
           _tapHandler(context, data[i].s1Symbol.toUpperCase());
           showResults(context);
         },
@@ -94,20 +113,29 @@ class PortfolioSearch extends SearchDelegate {
   }
 
   Widget _buildSearchHistory(BuildContext context) {
-    return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: searched.length,
-      itemBuilder: (BuildContext ctx, int i) => ListTile(
-        leading: Icon(Icons.history),
-        title: Text(searched[i].toUpperCase()),
-        
-        onTap: () {
-          _tapHandler(context, searched[i].toUpperCase());
-          showResults(context);
-        },
+    return BlocBuilder<SearchBloc, SearchState>(
 
-        trailing: Icon(Icons.delete, color: kLighterGray,),
-      ) 
+      builder: (BuildContext context, SearchState state) {
+
+        if (state is SearchInitial) {
+          BlocProvider
+          .of<SearchBloc>(context)
+          .add(FetchSearchHistory());
+        }
+
+        if (state is SearchLoaded) {
+          return ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: state.symbols.length,
+            itemBuilder: (BuildContext ctx, int i) => _renderListTile(
+              context: context, 
+              text: state.symbols[i]
+            )
+          );
+        } 
+
+        return Container();
+      }
     );
   }
 }
