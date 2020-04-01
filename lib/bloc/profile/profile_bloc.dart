@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/respository/profile/repository.dart';
@@ -27,7 +28,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield ProfileLoading();
 
       try {
-        final bool isMarketOpen = await this._repository.isMarketOpen();
+        final bool isMarketOpen = await FetchClient.isMarketOpen();
         final bool isSymbolSaved = await this._databaseRepository.symbolExists(symbol: event.symbol);
         final ProfileModel profile = await this._repository.fetchProfile(symbol: event.symbol);
 

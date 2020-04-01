@@ -21,9 +21,11 @@ class PortfolioLoadingError extends PortfolioState {
 class PortfolioLoaded extends PortfolioState {
 
   final List<StockOverview> stocks;
+  final bool isMarketOpen;
 
   PortfolioLoaded({
     @required this.stocks,
+    @required this.isMarketOpen
   });
 }
 

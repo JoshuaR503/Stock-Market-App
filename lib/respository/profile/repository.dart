@@ -9,10 +9,6 @@ class ProfileRepository {
     return await ProfileClient.fetchChanges(symbol: symbol);
   }
 
-  Future<bool> isMarketOpen() async {
-    return await ProfileClient.isMarketOpen();
-  }
-
   Future<ProfileModel> fetchProfile({String symbol}) async {
     return await ProfileClient.fetchProfile(symbol: symbol.toUpperCase());
   }
@@ -20,5 +16,5 @@ class ProfileRepository {
   Future<Color> fetchChange({String symbol}) async {
     return await ProfileClient.fetchChange(symbol: symbol);
   }
-
+  
 }
