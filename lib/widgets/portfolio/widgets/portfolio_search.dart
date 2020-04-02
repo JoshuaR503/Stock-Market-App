@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/bloc/search_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
+import 'package:sma/models/search/search_history.dart';
 
 import 'package:sma/respository/search/search.dart';
 import 'package:sma/models/search/search.dart';
@@ -14,18 +15,12 @@ class PortfolioSearch extends SearchDelegate {
   final SearchStockRepository _repository = SearchStockRepository();
 
   void _tapHandler(context, String symbol) async {
-
     Navigator
     .push(context, MaterialPageRoute(builder: (_) {
 
       BlocProvider
       .of<ProfileBloc>(context)
       .add(FetchProfileData(symbol: symbol));
-
-      BlocProvider
-      .of<ProfileBloc>(context)
-      .add(FetchProfileData(symbol: symbol));
-
     
       return Profile( symbol: symbol.toUpperCase());
     }));
@@ -96,13 +91,13 @@ class PortfolioSearch extends SearchDelegate {
     );
   }
 
-  Widget _searchHistoryHelper(BuildContext context, String text) {
+  Widget _searchHistoryHelper({BuildContext context, SearchHistory data}) {
     return ListTile(
       leading: Icon(Icons.history),
-      title: Text(text),
+      title: Text(data.symbol),
 
       onTap: () {
-        _tapHandler(context, text);
+        _tapHandler(context, data.symbol);
         showResults(context);
       },
 
@@ -110,7 +105,12 @@ class PortfolioSearch extends SearchDelegate {
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         icon: Icon(Icons.clear), 
-        onPressed: () {}
+        onPressed: () {
+
+          BlocProvider
+          .of<SearchBloc>(context)
+          .add(DeleteSearch(symbol: data));
+        }
       )
     );
   }
@@ -131,11 +131,23 @@ class PortfolioSearch extends SearchDelegate {
             physics: BouncingScrollPhysics(),
             itemCount: state.symbols.length,
             itemBuilder: (BuildContext ctx, int i) => _searchHistoryHelper(
-              context, 
-              state.symbols[i].toUpperCase()
+              context: context,
+              data: state.symbols[i] 
             )
           );
         } 
+
+        if (state is SearchEmpty) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Center(
+                child: Text('No recent seaches'),
+              )
+            ],
+          );
+        }
 
         return Container();
       }

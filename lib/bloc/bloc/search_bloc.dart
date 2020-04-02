@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sma/models/search/search_history.dart';
 import 'package:sma/respository/search/search.dart';
 
 part 'search_event.dart';
@@ -9,7 +10,7 @@ part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
-  final _searchStockRepository = SearchStockRepository();
+  final _repository = SearchStockRepository();
   
   @override
   SearchState get initialState => SearchInitial();
@@ -23,24 +24,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     if (event is SaveSearch) {
-      await this._searchStockRepository.save(symbol: event.symbol);
+      await this._repository.save(symbol: event.symbol);
       yield* _fetch();
     }
 
+    if (event is DeleteSearch) {
+      await this._repository.delete(symbol: event.symbol);
+      yield* _fetch();
+    }
   }
 
   Stream<SearchState> _fetch() async* {
-
-    final data = await _fetchStoredData();
+    final data = await this._repository.fetch();
 
     if (data.isNotEmpty) {
       yield SearchLoaded(symbols: data);
+    } else {
+      yield SearchEmpty();
     }
-
   }
-
-  Future<List<String>> _fetchStoredData() async {
-    return await this._searchStockRepository.fetch();
-  }
-
 }

@@ -4,10 +4,11 @@ import 'package:sma/helpers/database_helper.dart';
 import 'package:sma/key.dart';
 
 import 'package:sma/models/search/search.dart';
+import 'package:sma/models/search/search_history.dart';
 
 class SearchClient {
 
-  static StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('hh');
+  static StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('hhh');
 
   static Future<List<StockSearch>> searchStock({String symbol}) async {
 
@@ -17,39 +18,41 @@ class SearchClient {
       'apikey': alphavantageKey
     });
 
-
     final response = await Dio().getUri(uri);
     final data = response.data['bestMatches'];
 
     return StockSearch.convertToList(data);
   }
   
-  Future<Database> get _database async => await DatabaseManager.instance.database;
-
-  Future<List<String>> fetch() async {
-
-    final Finder finder = Finder(sortOrders: [SortOrder(Field.key, false)]);
-    final response = await _store.find(await _database, finder: finder);
-
-    return response
-    .map((x) => x.value['symbol'].toString())
-    .toList();
+  static Future<Database> get _database async {
+    return await DatabaseManager.instance.database;
   }
 
-  Future<void> save({String symbol}) async {
+  static Future<void> save({String symbol}) async {
     await _store.add(await _database, {'symbol': symbol});
   }
 
-  Future<void> delete({String symbol}) async {
-    // Delete symbol from history.
-    // final filter = Filter.equals('symbol', symbol);
-    // final Finder finder = Finder( filter: filter);
+  static Future<List<SearchHistory>> fetch() async {
 
-    // final result = await _store.delete(await _database, finder: finder);
+    final finder = Finder(sortOrders: [SortOrder(Field.key, false)]);
+    final response = await _store.find(await _database, finder: finder);
 
-    // print(result);
+    return response
+    .map((snapshot) => SearchHistory(
+      symbol: snapshot.value['symbol'].toString(), 
+      id: snapshot.key
+    ))
+    .toList();
   }
 
+  static Future<void> delete({SearchHistory symbol}) async {
+    // Delete symbol from history.
+    final filter = Filter.byKey(symbol.id);
+    final finder = Finder( filter: filter);
 
+    final result = await _store.delete(await _database, finder: finder);
 
+    print(result);
+  }
+  
 }

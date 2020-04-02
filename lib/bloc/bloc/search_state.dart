@@ -5,17 +5,18 @@ abstract class SearchState {}
 
 class SearchInitial extends SearchState {}
 
+class Search extends SearchState {}
+
 class SearchLoading extends SearchState {}
 
-class Search extends SearchState {}
+class SearchEmpty extends SearchState {}
 
 class SearchLoaded extends SearchState {
 
-  final List<String> symbols;
+  final List<SearchHistory> symbols;
 
   SearchLoaded({
     @required this.symbols
   });
 
 }
-
