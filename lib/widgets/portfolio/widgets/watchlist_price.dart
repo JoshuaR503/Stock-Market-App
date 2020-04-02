@@ -37,8 +37,8 @@ class _WatchlistStockPriceState extends State<WatchlistStockPrice> {
 
   String renderText() {
     return changesPercentage < 0 
-      ? '${formatText(changesPercentage)}'
-      : '+${formatText(changesPercentage)}';
+      ? '${formatText(changesPercentage)}%'
+      : '+${formatText(changesPercentage)}%';
   }
 
   void fetch() async {
