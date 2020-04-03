@@ -31,7 +31,6 @@ class Profile extends StatelessWidget {
         }
 
         if (state is ProfileLoaded) {
-
           return ProfileScreen(
             profile: state.profileModel,
 

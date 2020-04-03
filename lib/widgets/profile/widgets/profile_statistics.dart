@@ -8,7 +8,7 @@ import 'package:sma/widgets/profile/widgets/styles.dart';
 
 class StatisticsWidget extends StatelessWidget {
   
-  final style =  TextStyle(color: kLighterGray);
+  final style = TextStyle(color: kLighterGray);
   final StockQuote quote;
 
   StatisticsWidget({

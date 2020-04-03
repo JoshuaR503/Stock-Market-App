@@ -73,8 +73,8 @@ class _ProfilePriceState extends State<ProfilePrice> {
   @override
   Widget build(BuildContext context) {
 
-    final negativeChange = '${formatText(this.change)}  ${formatText(this.changesPercentage)}%';
-    final positiveChange = '+${formatText(this.change)}  +${formatText(this.changesPercentage)}%';
+    final negativeChange = '${formatText(this.change)}   ${formatText(this.changesPercentage)}%';
+    final positiveChange = '+${formatText(this.change)}   +${formatText(this.changesPercentage)}%';
     final String text = this.change < 0 
       ? negativeChange
       : positiveChange;
