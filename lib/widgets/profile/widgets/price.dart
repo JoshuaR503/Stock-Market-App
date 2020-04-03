@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/profile/stock_quote.dart';
+
 import 'package:sma/respository/profile/repository.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
 

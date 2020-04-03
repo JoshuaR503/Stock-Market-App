@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:sma/models/profile/index.dart';
-import 'package:sma/models/profile/stock_chart.dart';
+import 'package:sma/models/profile/profile.dart';
+
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/graph.dart';
 import 'package:sma/widgets/profile/widgets/price.dart';
@@ -15,18 +15,13 @@ class ProfileScreen extends StatelessWidget {
   final bool isMarketOpen;
   final bool isSaved;
   final Color color;
-  final StockQuote quote;
-  final StockProfile profile;
-  final List<StockChart> chart;
+  final ProfileModel profile;
 
   ProfileScreen({
     @required this.isMarketOpen,
     @required this.isSaved,
-    @required this.quote,
     @required this.profile,
     @required this.color,
-    @required this.chart
-
   });
 
   Widget _renderTop() {
@@ -34,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
-          child: Text(this.quote.name, style: kProfileCompanyName),
+          child: Text(this.profile.stockQuote.name, style: kProfileCompanyName),
           flex: 8,
         ),
 
@@ -46,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
         WatchlistButtonWidget(
           color: this.color,
           isSaved: this.isSaved,
-          symbol: this.quote.symbol,
+          symbol: this.profile.stockQuote.symbol,
         )
       ],
     );
@@ -56,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
     return  ProfilePrice(
       isMarketOpen: this.isMarketOpen,
       color: this.color,
-      quote: this.quote,
+      quote: this.profile.stockQuote,
     );
   }
 
@@ -64,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       height: 250,
       child: SimpleTimeSeriesChart(
-        chart: this.chart,
+        chart: this.profile.stockChart,
         color: this.color
       )
     );
@@ -74,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.quote.symbol),
+        title: Text(this.profile.stockQuote.symbol),
         backgroundColor: color,
       ),
 
@@ -88,8 +83,8 @@ class ProfileScreen extends StatelessWidget {
           this._renderPrice(),
           SizedBox(height: 4),
           this._renderGraph(),
-          StatisticsWidget(quote: this.quote),
-          CompanyProfileWidget(profile: this.profile),
+          StatisticsWidget(quote: this.profile.stockQuote),
+          CompanyProfileWidget(profile: this.profile.stockProfile),
         ],
       ),
     );

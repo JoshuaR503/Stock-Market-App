@@ -1,4 +1,3 @@
-
 class StockProfile {
   final double price;
   final String beta;

@@ -17,13 +17,11 @@ class ProfileLoadingError extends ProfileState {
 
 class ProfileLoaded extends ProfileState {
 
-  final List<StockChart> chart;
   final ProfileModel profileModel;
   final bool isMarketOpen;
   final bool isSymbolSaved;
 
   ProfileLoaded({
-    @required this.chart,
     @required this.profileModel,
     @required this.isMarketOpen,
     @required this.isSymbolSaved,
