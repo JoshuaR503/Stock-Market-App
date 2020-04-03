@@ -33,6 +33,7 @@ class Profile extends StatelessWidget {
         if (state is ProfileLoaded) {
 
           return ProfileScreen(
+            chart: state.chart,
             isMarketOpen: state.isMarketOpen,
             isSaved: state.isSymbolSaved,
             profile: state.profileModel.stockProfile,

@@ -12,8 +12,11 @@ class SentryHelper {
   });
 
   Future<void> report() async {
-    await SentryClient(dsn: sentryDNS)
-    .captureException(
+
+    print(this.exception);
+    print(this.stackTrace);
+
+    await SentryClient(dsn: sentryDNS).captureException(
       exception: exception,
       stackTrace: stackTrace
     );

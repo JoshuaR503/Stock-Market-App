@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:sma/models/profile/stock_chart.dart';
 
 class SimpleTimeSeriesChart extends StatelessWidget {
+  final List<StockChart> chart;
 
   final Color color;
-  final data = [
-    RowData(DateTime(2017, 9, 25), 6),
-    RowData(DateTime(2017, 9, 26), 8),
-    RowData(DateTime(2017, 9, 27), 6),
-    RowData(DateTime(2017, 9, 28), 9),
-    RowData(DateTime(2017, 9, 29), 11),
-    RowData(DateTime(2017, 9, 30), 15),
-    RowData(DateTime(2017, 10, 01), 25),
-    RowData(DateTime(2017, 10, 02), 33),
-    RowData(DateTime(2017, 10, 03), 27),
-    RowData(DateTime(2017, 10, 04), 31),
-    RowData(DateTime(2017, 10, 05), 23),
-  ];
 
   SimpleTimeSeriesChart({
+    @required this.chart,
     @required this.color
   });
 
+  List<RowData> _parseData() {
+
+    return this.chart
+    .map((item) => RowData(
+      timeStamp: DateTime.parse(item.date),
+      cost: item.close
+    ))
+    .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return charts.TimeSeriesChart(
       
       [
@@ -32,7 +33,7 @@ class SimpleTimeSeriesChart extends StatelessWidget {
           colorFn: (_, __) => charts.ColorUtil.fromDartColor(color),
           domainFn: (RowData row, _) => row.timeStamp,
           measureFn: (RowData row, _) => row.cost,
-          data: data,
+          data: _parseData(),
         ),
       ],
       
@@ -54,6 +55,6 @@ class SimpleTimeSeriesChart extends StatelessWidget {
 /// Sample time series data type.
 class RowData {
   final DateTime timeStamp;
-  final int cost;
-  RowData(this.timeStamp, this.cost);
+  final double cost;
+  RowData({this.timeStamp, this.cost});
 }

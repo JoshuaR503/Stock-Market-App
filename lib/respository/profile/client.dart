@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/helpers/variables.dart';
 import 'package:sma/models/profile/profile.dart';
+import 'package:sma/models/profile/stock_chart.dart';
 
 import 'package:sma/models/profile/stock_color.dart';
 import 'package:sma/models/profile/stock_profile.dart';
@@ -11,6 +12,19 @@ import 'package:sma/models/profile/stock_quote.dart';
 import 'package:sma/shared/colors.dart';
 
 class ProfileClient {
+
+  static Future<List<StockChart>> fetchChart({String symbol}) async {
+
+    final Uri uri = Uri.https(authority, '/api/v3/historical-price-full/$symbol', {
+      'from': '2019-04-01',
+      'to': '2020-04-02'
+    });
+    
+    final response = await FetchClient.fetchData(uri: uri);
+    final data = StockChart.toList(response.data['historical']);
+
+    return data;
+  }
 
   static Future<Map<String, dynamic>> fetchChanges({String symbol}) async {
     final Uri uri = Uri.https(authority, '/api/v3/quote/$symbol');

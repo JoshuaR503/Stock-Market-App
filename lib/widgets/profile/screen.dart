@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:sma/models/profile/index.dart';
+import 'package:sma/models/profile/stock_chart.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/graph.dart';
 import 'package:sma/widgets/profile/widgets/price.dart';
@@ -16,13 +17,16 @@ class ProfileScreen extends StatelessWidget {
   final Color color;
   final StockQuote quote;
   final StockProfile profile;
+  final List<StockChart> chart;
 
   ProfileScreen({
     @required this.isMarketOpen,
     @required this.isSaved,
     @required this.quote,
     @required this.profile,
-    @required this.color
+    @required this.color,
+    @required this.chart
+
   });
 
   Widget _renderTop() {
@@ -59,7 +63,10 @@ class ProfileScreen extends StatelessWidget {
   Widget _renderGraph() {
     return Container(
       height: 250,
-      child: SimpleTimeSeriesChart(color: this.color)
+      child: SimpleTimeSeriesChart(
+        chart: this.chart,
+        color: this.color
+      )
     );
   }
 
