@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/profile/stock_quote.dart';
-import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
 
 class StatisticsWidget extends StatelessWidget {
   
-  final style = TextStyle(color: kLighterGray);
   final StockQuote quote;
 
   StatisticsWidget({
@@ -28,33 +26,33 @@ class StatisticsWidget extends StatelessWidget {
     return [
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Open', style: style),
+        title: Text('Open', style: subtitleStyle),
         trailing: _renderText(quote.open)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Prev close', style: style),
+        title: Text('Prev close', style: subtitleStyle),
         trailing: _renderText(quote.previousClose)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Day High', style: style),
+        title: Text('Day High', style: subtitleStyle),
         trailing: _renderText(quote.dayHigh)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Day Low', style: style),
+        title: Text('Day Low', style: subtitleStyle),
         trailing: _renderText(quote.dayLow)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('52 WK High', style: style),
+        title: Text('52 WK High', style: subtitleStyle),
         trailing: _renderText(quote.yearHigh)
       ),
 
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('52 WK Low', style: style),
+        title: Text('52 WK Low', style: subtitleStyle),
         trailing: _renderText(quote.dayLow)
       ),
     ];
@@ -64,32 +62,32 @@ class StatisticsWidget extends StatelessWidget {
     return [
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Outstanding Shares', style: style),
+        title: Text('Outstanding Shares', style: subtitleStyle),
         trailing: _renderText(quote.sharesOutstanding)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Volume', style: style),
+        title: Text('Volume', style: subtitleStyle),
         trailing: _renderText(quote.volume)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Avg Vol', style: style),
+        title: Text('Avg Vol', style: subtitleStyle),
         trailing: _renderText(quote.avgVolume)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('MKT Cap', style: style),
+        title: Text('MKT Cap', style: subtitleStyle),
         trailing: _renderText(quote.marketCap)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('P/E Ratio', style: style),
+        title: Text('P/E Ratio', style: subtitleStyle),
         trailing: _renderText(quote.pe)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('EPS', style: style),
+        title: Text('EPS', style: subtitleStyle),
         trailing: _renderText(quote.eps)
       ),
     ];

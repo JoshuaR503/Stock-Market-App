@@ -22,21 +22,21 @@ class CompanyProfileWidget extends StatelessWidget {
 
         ListTile(
           contentPadding: EdgeInsets.all(0),
-          title: Text('CEO'),
+          title: Text('CEO', style: subtitleStyle),
           trailing: Text('${profile.ceo}'),
         ),
         Divider(),
 
         ListTile(
           contentPadding: EdgeInsets.all(0),
-          title: Text('Sector'),
+          title: Text('Sector', style: subtitleStyle),
           trailing: Text('${profile.sector}'),
         ),
         Divider(),
 
         ListTile(
           contentPadding: EdgeInsets.all(0),
-          title: Text('Exchange'),
+          title: Text('Exchange', style: subtitleStyle),
           trailing: Text('${profile.exchange}'),
         ),
         Divider(),

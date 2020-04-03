@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sma/shared/colors.dart';
 
 const kProfileCompanyName = const TextStyle(
   fontSize: 28,
@@ -13,4 +14,8 @@ const kProfileScreenSectionTitle = const TextStyle(
 const priceStyle = const TextStyle(
   fontSize: 26,
   fontWeight: FontWeight.bold,
+);
+
+const subtitleStyle = const TextStyle(
+  color: kLighterGray
 );
