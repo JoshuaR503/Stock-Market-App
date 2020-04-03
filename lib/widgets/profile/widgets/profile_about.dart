@@ -17,24 +17,8 @@ class CompanyProfileWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        Text('About ${profile.companyName}',
-          style: kProfileScreenSectionTitle
-        ),
-
+        Text(profile.companyName, style: kProfileScreenSectionTitle),
         SizedBox(height: 8),
-
-        Text('About ${profile.description}',
-          style: TextStyle(
-            fontSize: 16,
-            color: kLightGray,
-            height: 1.75
-          ),
-          maxLines: 10,
-          overflow: TextOverflow.ellipsis,
-        ),
-
-        SizedBox(height: 8),
-        Divider(),
 
         ListTile(
           contentPadding: EdgeInsets.all(0),
@@ -54,6 +38,15 @@ class CompanyProfileWidget extends StatelessWidget {
           contentPadding: EdgeInsets.all(0),
           title: Text('Exchange'),
           trailing: Text('${profile.exchange}'),
+        ),
+        Divider(),
+
+        Text('About ${profile.description}',
+          style: TextStyle(
+            fontSize: 16,
+            color: kLightGray,
+            height: 1.75
+          ),
         ),
         Divider(),
 

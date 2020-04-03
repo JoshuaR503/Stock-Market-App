@@ -25,12 +25,4 @@ class StockChart {
     );
   }
 
-  Map<dynamic, dynamic> toJson() {
-    final data = <String, dynamic> {}; // DO use collection literals when possible.
-
-    data['date'] = this.date;
-    data['close'] = this.close;
-    data['label'] = this.label;
-    return data;
-  }
 }

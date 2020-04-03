@@ -11,9 +11,5 @@ class StockChangeColor {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['changesPercentage'] = this.changesPercentage;
-    return data;
-  }
+
 }

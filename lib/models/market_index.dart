@@ -25,14 +25,4 @@ class MarketIndex {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    
-    final Map<String, dynamic> data = <String, dynamic> {}; // DO use collection literals when possible.
-    data['symbol'] = this.symbol;
-    data['name'] = this.name;
-    data['price'] = this.price;
-    data['changesPercentage'] = this.changesPercentage;
-    data['change'] = this.change;
-    return data;
-  }
 }

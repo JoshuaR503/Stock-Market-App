@@ -25,7 +25,6 @@ class StatisticsWidget extends StatelessWidget {
   }
   
   List<Widget> _leftColumn() {
-
     return [
       ListTile(
         contentPadding: EdgeInsets.all(0),
@@ -34,12 +33,17 @@ class StatisticsWidget extends StatelessWidget {
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('High', style: style),
+        title: Text('Prev close', style: style),
+        trailing: _renderText(quote.previousClose)
+      ),
+      ListTile(
+        contentPadding: EdgeInsets.all(0),
+        title: Text('Day High', style: style),
         trailing: _renderText(quote.dayHigh)
       ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text('Low', style: style),
+        title: Text('Day Low', style: style),
         trailing: _renderText(quote.dayLow)
       ),
       ListTile(
@@ -58,6 +62,11 @@ class StatisticsWidget extends StatelessWidget {
 
   List<Widget> _rightColumn() {
     return [
+      ListTile(
+        contentPadding: EdgeInsets.all(0),
+        title: Text('Outstanding Shares', style: style),
+        trailing: _renderText(quote.sharesOutstanding)
+      ),
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('Volume', style: style),
@@ -81,7 +90,7 @@ class StatisticsWidget extends StatelessWidget {
       ListTile(
         contentPadding: EdgeInsets.all(0),
         title: Text('EPS', style: style),
-        trailing: _renderText(quote.eps / 4)
+        trailing: _renderText(quote.eps)
       ),
     ];
   }
