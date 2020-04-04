@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
-import 'package:sma/helpers/http_helper.dart';
+
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/respository/profile/repository.dart';

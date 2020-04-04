@@ -4,14 +4,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sma/helpers/text_helper.dart';
+import 'package:sma/models/data_overview.dart';
 
-import 'package:sma/models/stock_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class WatchlistStockPrice extends StatefulWidget {
 
-  final StockOverview stock;
+  final DataOverview stock;
   final bool isMarketOpen;
 
   WatchlistStockPrice({
@@ -27,9 +27,9 @@ class _WatchlistStockPriceState extends State<WatchlistStockPrice> {
 
   Timer timer;
 
-  Future<StockOverview> _future() async {
+  Future<DataOverview> _future() async {
     if (this.widget.isMarketOpen) {
-      return await PortfolioRepository().fetchProfile(symbol: this.widget.stock.symbol);
+      return await PortfolioRepository().fetchData(symbol: this.widget.stock.symbol);
     } else {
       return this.widget.stock;
     }
@@ -70,7 +70,7 @@ class _WatchlistStockPriceState extends State<WatchlistStockPrice> {
     return FutureBuilder(
 
       future: this._future(),
-      builder: (BuildContext context, AsyncSnapshot<StockOverview> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<DataOverview> snapshot) {
 
         if (snapshot.hasData) {
 

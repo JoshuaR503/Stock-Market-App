@@ -16,7 +16,7 @@ class IndexesLoadingError extends IndexesState {
 }
 
 class IndexesLoaded extends IndexesState {
-  final List<MarketIndex> indexes;
+  final List<DataOverview> indexes;
   final bool isMarketOpen;
 
   IndexesLoaded({

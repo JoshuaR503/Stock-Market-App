@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
+import 'package:sma/models/data_overview.dart';
 
-import 'package:sma/models/stock_overview.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/widgets/watchlist_price.dart';
 import 'package:sma/widgets/profile/profile.dart';
@@ -12,7 +12,7 @@ import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class PortfolioWatchList extends StatelessWidget {
 
-  Widget _build({BuildContext context, StockOverview stock, bool isMarketOpen}) {
+  Widget _build({BuildContext context, DataOverview stock, bool isMarketOpen}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: MaterialButton(

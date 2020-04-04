@@ -1,13 +1,13 @@
 import 'package:meta/meta.dart';
 
-class MarketIndex {
+class DataOverview {
   final String symbol;
   final String name;
   final double price;
   final double changesPercentage;
   final double change;
 
-  MarketIndex({
+  DataOverview({
     @required this.symbol,
     @required this.name,
     @required this.price,
@@ -15,8 +15,8 @@ class MarketIndex {
     @required this.change
   });
 
-  factory MarketIndex.fromJson(Map<String, dynamic> json) {
-    return MarketIndex(
+  factory DataOverview.fromJson(Map<String, dynamic> json) {
+    return DataOverview(
       symbol: json['symbol'],
       name: json['name'],
       price: json['price'],
@@ -24,5 +24,4 @@ class MarketIndex {
       change: json['change'],
     );
   }
-
 }

@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/bloc/indexes/indexes_bloc.dart';
+import 'package:sma/models/data_overview.dart';
 
-import 'package:sma/models/market_index.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_idx_price.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class PortfolioIndexes extends StatelessWidget {
 
-  List<Widget> _buildUpperSection({MarketIndex index, bool isMarketOpen}) {
+  List<Widget> _buildUpperSection({
+    DataOverview index, 
+    bool isMarketOpen
+  }) {
 
     final icon = index.change < 0 ? FontAwesomeIcons.sortDown : FontAwesomeIcons.sortUp;
     final color = index.change < 0  ? kNegativeColor: kPositiveColor;
@@ -42,7 +45,7 @@ class PortfolioIndexes extends StatelessWidget {
     ];
   }
 
-  Widget _buildCard({MarketIndex index, bool isMarketOpen}) {
+  Widget _buildCard({DataOverview index, bool isMarketOpen}) {
     return Padding(
       padding: EdgeInsets.only(right: 16),
       child: MaterialButton(

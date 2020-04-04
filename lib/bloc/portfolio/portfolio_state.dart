@@ -20,7 +20,7 @@ class PortfolioLoadingError extends PortfolioState {
 
 class PortfolioLoaded extends PortfolioState {
 
-  final List<StockOverview> stocks;
+  final List<DataOverview> stocks;
   final bool isMarketOpen;
 
   PortfolioLoaded({

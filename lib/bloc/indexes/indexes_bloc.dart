@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sma/helpers/sentry_helper.dart';
-import 'package:sma/models/market_index.dart';
+import 'package:sma/models/data_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 
 part 'indexes_event.dart';
@@ -36,11 +36,11 @@ class IndexesBloc extends Bloc<IndexesEvent, IndexesState> {
     }
   }
 
-  Future<List<MarketIndex>> _fetchFromNetwork() async {
+  Future<List<DataOverview>> _fetchFromNetwork() async {
     final indexes = '^DJI,^IXIC,^GSPC'.split(',');        
 
     return await Future
       .wait(indexes
-      .map((symbol) async => await _repository.fetchMarketIndex(symbol: symbol)));
+      .map((symbol) async => await _repository.fetchData(symbol: symbol)));
   }
 }

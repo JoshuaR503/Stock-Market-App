@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sma/helpers/text_helper.dart';
-import 'package:sma/models/market_index.dart';
+import 'package:sma/models/data_overview.dart';
 
 import 'package:sma/respository/portfolio/repository.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class ProfileIndexPrice extends StatefulWidget {
 
-  final MarketIndex index;
+  final DataOverview index;
   final bool isMarketOpen;
 
   ProfileIndexPrice({
@@ -25,9 +25,9 @@ class _ProfileIndexPriceState extends State<ProfileIndexPrice> {
 
   Timer timer;
 
-  Future<MarketIndex> _future() async {
+  Future<DataOverview> _future() async {
     if (this.widget.isMarketOpen) {
-      return await PortfolioRepository().fetchMarketIndex(symbol: this.widget.index.symbol);
+      return await PortfolioRepository().fetchData(symbol: this.widget.index.symbol);
     } else {
       return this.widget.index;
     }
@@ -53,7 +53,7 @@ class _ProfileIndexPriceState extends State<ProfileIndexPrice> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: this._future(),
-      builder: (BuildContext context, AsyncSnapshot<MarketIndex> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<DataOverview> snapshot) {
 
         if (snapshot.hasError) {
           return Text('error');

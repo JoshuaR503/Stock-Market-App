@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import 'package:sma/helpers/sentry_helper.dart';
-import 'package:sma/models/stock_overview.dart';
+import 'package:sma/models/data_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 import 'package:sma/respository/storage/storage.dart';
 
@@ -64,10 +64,10 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
     }
   }
 
-  Future<List<StockOverview>> _fetchFromNetwork({List<String> symbols}) async {
+  Future<List<DataOverview>> _fetchFromNetwork({List<String> symbols}) async {
     return await Future
     .wait(symbols
-    .map((symbol) async => await _repository.fetchProfile(symbol: symbol)));
+    .map((symbol) async => await _repository.fetchData(symbol: symbol)));
   }
 
 }
