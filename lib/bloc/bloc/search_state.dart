@@ -13,7 +13,7 @@ class SearchEmpty extends SearchState {}
 
 class SearchLoaded extends SearchState {
 
-  final List<SearchHistory> symbols;
+  final List<StockSearch> symbols;
 
   SearchLoaded({
     @required this.symbols

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/bloc/search_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
-import 'package:sma/models/search/search_history.dart';
 
 import 'package:sma/respository/search/search.dart';
 import 'package:sma/models/search/search.dart';
@@ -63,7 +62,24 @@ class PortfolioSearch extends SearchDelegate {
       builder: (BuildContext ctx, AsyncSnapshot<List<StockSearch>> snapshot) {
         
         if (snapshot.hasData) {
-          return _buildSearchResults(data: snapshot.data, context: ctx);
+
+          return ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: snapshot.data.length,
+            itemBuilder: (BuildContext ctx, int i) => ListTile(
+
+              leading: Icon(Icons.search),
+              title: Text(snapshot.data[i].symbol.toUpperCase()),
+              onTap: () {
+                BlocProvider
+                .of<SearchBloc>(context)
+                .add(SaveSearch(symbol: snapshot.data[i].symbol.toUpperCase()));
+
+                _tapHandler(context, snapshot.data[i].symbol.toUpperCase());
+                showResults(context);
+              },
+            )
+          );
         }
         
         return LoadingIndicatorWidget();
@@ -71,27 +87,8 @@ class PortfolioSearch extends SearchDelegate {
     );
   }
 
-  Widget _buildSearchResults({List<StockSearch> data, BuildContext context}) {
-    return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: data.length,
-      itemBuilder: (BuildContext ctx, int i) => ListTile(
-        
-        leading: Icon(Icons.search),
-        title: Text(data[i].s1Symbol.toUpperCase()),
-        onTap: () {
-          BlocProvider
-          .of<SearchBloc>(context)
-          .add(SaveSearch(symbol: data[i].s1Symbol.toUpperCase()));
-
-          _tapHandler(context, data[i].s1Symbol.toUpperCase());
-          showResults(context);
-        },
-      )
-    );
-  }
-
-  Widget _searchHistoryHelper({BuildContext context, SearchHistory data}) {
+ 
+  Widget _searchHistoryHelper({BuildContext context, StockSearch data}) {
     return ListTile(
       leading: Icon(Icons.history),
       title: Text(data.symbol),
@@ -109,7 +106,7 @@ class PortfolioSearch extends SearchDelegate {
 
           BlocProvider
           .of<SearchBloc>(context)
-          .add(DeleteSearch(symbol: data));
+          .add(DeleteSearch(symbol: data.symbol));
         }
       )
     );

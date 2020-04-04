@@ -4,11 +4,11 @@ import 'package:sma/helpers/database_helper.dart';
 import 'package:sma/key.dart';
 
 import 'package:sma/models/search/search.dart';
-import 'package:sma/models/search/search_history.dart';
 
 class SearchClient {
 
   static StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('hhh');
+  static Future<Database> get _database async => await DatabaseManager.instance.database;
 
   static Future<List<StockSearch>> searchStock({String symbol}) async {
 
@@ -21,36 +21,33 @@ class SearchClient {
     final response = await Dio().getUri(uri);
     final data = response.data['bestMatches'];
 
-    return StockSearch.convertToList(data);
-  }
-  
-  static Future<Database> get _database async {
-    return await DatabaseManager.instance.database;
+    return StockSearch.convertToList(
+      items: data,
+      key: '1. symbol'
+    );
   }
 
   static Future<void> save({String symbol}) async {
     await _store.add(await _database, {'symbol': symbol});
   }
 
-  static Future<List<SearchHistory>> fetch() async {
+  static Future<List<StockSearch>> fetch() async {
 
     final finder = Finder(sortOrders: [SortOrder(Field.key, false)]);
     final response = await _store.find(await _database, finder: finder);
 
     return response
-    .map((snapshot) => SearchHistory(
-      symbol: snapshot.value['symbol'].toString(), 
-      id: snapshot.key
-    ))
+    .map((snapshot) => StockSearch(symbol: snapshot.value['symbol'].toString() ))
     .toList();
   }
 
-  static Future<void> delete({SearchHistory symbol}) async {
-    // Delete symbol from history.
-    final filter = Filter.byKey(symbol.id);
-    final finder = Finder( filter: filter);
+  static Future<void> delete({String symbol}) async {
 
-    final result = await _store.delete(await _database, finder: finder);
+    final finder = Finder(filter: Filter.matches('symbol', symbol));
+    final response = await _store.findKey(await _database, finder: finder);
+    final deleteFinder = Finder(filter: Filter.byKey(response));
+
+    final result = await _store.delete(await _database, finder: deleteFinder);
 
     print(result);
   }

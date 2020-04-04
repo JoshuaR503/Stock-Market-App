@@ -1,32 +1,26 @@
+import 'package:meta/meta.dart';
+
 class StockSearch {
-  final String s1Symbol;
+  final String symbol;
 
   StockSearch({
-    this.s1Symbol,
+    @required this.symbol,
   });
 
-  static List<StockSearch> convertToList(List<dynamic> json) {
-    
-    final List<StockSearch> list = [];
-
-    json.forEach((data) {
-      final StockSearch stock = StockSearch.fromJson(data);
-      list.add(stock);
-    });
-
-    return list;
+  static List<StockSearch> convertToList({
+    @required List<dynamic> items, 
+    @required String key
+  }) {
+    return items
+    .map((item) => StockSearch.fromJson(json: item, key: key))
+    .toList();
+  }
+  
+  factory StockSearch.fromJson({
+    @required Map<String, dynamic> json,
+    @required String key
+  }) {
+    return StockSearch(symbol: json[key]);
   }
 
-  factory StockSearch.fromJson(Map<String, dynamic> json) {
-    return StockSearch(
-      s1Symbol:json['1. symbol'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
-    data['1. symbol'] = this.s1Symbol;
-
-    return data;
-  }
 }

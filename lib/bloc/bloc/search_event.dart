@@ -16,7 +16,7 @@ class SaveSearch extends SearchEvent {
 
 class DeleteSearch extends SearchEvent {
 
-  final SearchHistory symbol;
+  final String symbol;
 
   DeleteSearch({
     @required this.symbol

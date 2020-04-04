@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sma/models/search/search_history.dart';
+import 'package:sma/models/search/search.dart';
 import 'package:sma/respository/search/search.dart';
 
 part 'search_event.dart';
