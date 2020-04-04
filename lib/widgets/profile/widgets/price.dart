@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/profile/stock_quote.dart';
-
 import 'package:sma/respository/profile/repository.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
 
@@ -27,20 +26,12 @@ class ProfilePrice extends StatefulWidget {
 class _ProfilePriceState extends State<ProfilePrice> {
   Timer timer;
 
-  double price;
-  double change; 
-  double changesPercentage;
-
-  void fetch() async {
-
-    final repository = ProfileRepository();
-    final response = await repository.fetchChanges(symbol: this.widget.quote.symbol);
-
-    setState(() {
-      price = response['price'];
-      change = response['change'];
-      changesPercentage = response['changesPercentage'];
-    });
+  Future<StockQuote> _future() async {
+    if (this.widget.isMarketOpen) {
+      return await ProfileRepository().fetchProfileChanges(symbol: this.widget.quote.symbol);
+    } else {
+      return this.widget.quote;
+    }
   }
 
   @override
@@ -48,53 +39,51 @@ class _ProfilePriceState extends State<ProfilePrice> {
     super.initState();
     
     if (this.widget.isMarketOpen) {
-      timer = Timer.periodic(Duration(milliseconds: 2000), (_) => fetch());
+      timer = Timer.periodic(Duration(milliseconds: 2000), (_) => setState(() {}));
     }
-
-    price = widget.quote.price;
-    change = widget.quote.change;
-    changesPercentage = widget.quote.changesPercentage;
   }
 
   @override
   void dispose() {
-
-    if (this.widget.isMarketOpen) {
-      timer.cancel();
-    }
-
-    this.price = null;
-    this.change = null; 
-    this.changesPercentage = null;
-
+    timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    return FutureBuilder(
 
-    final negativeChange = '${formatText(this.change)}   ${formatText(this.changesPercentage)}%';
-    final positiveChange = '+${formatText(this.change)}   +${formatText(this.changesPercentage)}%';
-    final String text = this.change < 0 
-      ? negativeChange
-      : positiveChange;
+      future: this._future(),
+      builder: (BuildContext context, AsyncSnapshot<StockQuote> snapshot) {
 
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('\$${formatText(this.price)}', style: priceStyle),
-          SizedBox(height: 4),
-          
-          Text(text, style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: this.widget.color
-          )),
-        ],
-      ),
+        if (snapshot.hasData) {
+
+          final String text = snapshot.data.change < 0 
+            ? '${formatText(snapshot.data.change)}   ${formatText(snapshot.data.changesPercentage)}%'
+            : '+${formatText(snapshot.data.change)}   +${formatText(snapshot.data.changesPercentage)}%';
+
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+
+                Text('\$${formatText(snapshot.data.price)}', style: priceStyle),
+                SizedBox(height: 4),
+                Text(text, style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: this.widget.color
+                )),
+              ],
+            ),
+          );
+        }
+
+        return Container();
+      }
     );
   }
 }

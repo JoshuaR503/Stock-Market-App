@@ -5,7 +5,7 @@ import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/models/data_overview.dart';
 
 import 'package:sma/shared/colors.dart';
-import 'package:sma/widgets/portfolio/widgets/watchlist_price.dart';
+import 'package:sma/widgets/portfolio/widgets/portfolio_watchlist_price.dart';
 import 'package:sma/widgets/profile/profile.dart';
 import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';

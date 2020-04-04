@@ -75,8 +75,8 @@ class _WatchlistStockPriceState extends State<WatchlistStockPrice> {
         if (snapshot.hasData) {
 
           final String text = snapshot.data.changesPercentage < 0 
-            ? '${formatText(snapshot.data.changesPercentage)}%'
-            : '+${formatText(snapshot.data.changesPercentage)}%';
+            ? '${formatText(snapshot.data.change)}'
+            : '+${formatText(snapshot.data.change)}';
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.end,

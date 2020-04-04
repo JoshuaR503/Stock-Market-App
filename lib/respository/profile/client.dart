@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:dio/dio.dart';
 
 import 'package:sma/helpers/http_helper.dart';
@@ -6,36 +5,19 @@ import 'package:sma/helpers/variables.dart';
 
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/models/profile/stock_chart.dart';
-import 'package:sma/models/profile/stock_color.dart';
+
 import 'package:sma/models/profile/stock_profile.dart';
 import 'package:sma/models/profile/stock_quote.dart';
 
-import 'package:sma/shared/colors.dart';
-
 class ProfileClient {
 
-  // TODO: FIX THIS SHIT.
-  Future<Map<String, dynamic>> fetchChanges({String symbol}) async {
+  Future<StockQuote> fetchProfileChanges({String symbol}) async {
+    
     final Uri uri = Uri.https(authority, '/api/v3/quote/$symbol');
     final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
 
-    return {
-      'price': response.data[0]['price'],
-      'change': response.data[0]['change'],
-      'changesPercentage': response.data[0]['changesPercentage'],
-    };
-  }
-  
-  Future<Color> fetchChange({String symbol}) async {
-    final Uri uri = Uri.https(authority, '/api/v3/quote/$symbol');
-    final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
-    final quote = StockChangeColor.fromJson(response.data[0]);
+    return StockQuote.fromJson(response.data[0]);
 
-    if (quote.changesPercentage < 0) {
-      return kNegativeColor;
-    }
-
-    return kPositiveColor;
   }
   
   // This methodd makes http calls and returns the response.
