@@ -1,20 +1,20 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-
 import 'package:meta/meta.dart';
 
 import 'package:sma/helpers/sentry_helper.dart';
+
 import 'package:sma/models/data_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
-import 'package:sma/respository/storage/storage.dart';
+import 'package:sma/respository/portfolio/storage/storage.dart';
 
 part 'portfolio_event.dart';
 part 'portfolio_state.dart';
 
 class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   
-  final _databaseRepository = DatabaseRepository();
+  final _databaseRepository = PortfolioStorageRepository();
   final _repository = PortfolioRepository();
 
   @override

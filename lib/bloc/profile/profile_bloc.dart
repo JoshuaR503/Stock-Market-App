@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-
 import 'package:meta/meta.dart';
 
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/profile/profile.dart';
+import 'package:sma/respository/portfolio/storage/storage.dart';
 import 'package:sma/respository/profile/repository.dart';
-import 'package:sma/respository/storage/storage.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
@@ -15,7 +14,7 @@ part 'profile_state.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   
   final _repository = ProfileRepository();
-  final _databaseRepository = DatabaseRepository();
+  final _databaseRepository = PortfolioStorageRepository();
 
   @override
   ProfileState get initialState => ProfileInitial();

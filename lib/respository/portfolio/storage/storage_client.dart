@@ -1,7 +1,7 @@
 import 'package:sembast/sembast.dart';
 import 'package:sma/helpers/database_helper.dart';
 
-class DatabaseClient {
+class PortfolioStorageClient {
 
   final StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('hisss');
 
@@ -38,7 +38,7 @@ class DatabaseClient {
       final int response = await _store.add(await _database, data);
 
       return response;
-    } 
+    }
 
     return 1;
   }
