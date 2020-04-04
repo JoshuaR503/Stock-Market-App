@@ -8,12 +8,12 @@ class PortfolioStorageRepository {
   }
 
   // Save symbol in database.
-  Future<int> save({String symbol}) async {
+  Future<void> save({String symbol}) async {
     return await PortfolioStorageClient().save(symbol: symbol);
   }
 
   // Delete symbol from databse.
-  Future<int> delete({String symbol}) async {
+  Future<void> delete({String symbol}) async {
     return await PortfolioStorageClient().delete(symbol: symbol);
   }
 

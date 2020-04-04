@@ -8,7 +8,7 @@ class PortfolioStorageClient {
   // Sembast Database.
   Future<Database> get _database async => await DatabaseManager.instance.database;
 
-  // Gets all the symbols storaged.
+  // Gets all the symbols stored.
   Future<List<String>> fetch() async {
 
     final Finder finder = Finder(sortOrders: [SortOrder(Field.key, false)]);
@@ -29,22 +29,17 @@ class PortfolioStorageClient {
   }
 
   // Saves a symbol in the database.
-  Future<int> save({String symbol}) async {
-
+  Future<void> save({String symbol}) async {
+    
     final bool isSaved = await symbolExists(symbol: symbol);
 
     if (!isSaved) {
-      final Map<String, String> data = {'symbol': symbol};
-      final int response = await _store.add(await _database, data);
-
-      return response;
+      await _store.add(await _database, {'symbol': symbol});
     }
-
-    return 1;
   }
 
   // Deletes a symbol from the database.
-  Future<int> delete({String symbol}) async {
+  Future<void> delete({String symbol}) async {
 
     final finder = Finder(filter: Filter.matches('symbol', symbol));
     final response = await _store.findKey(await _database, finder: finder);

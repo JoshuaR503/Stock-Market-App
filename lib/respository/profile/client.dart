@@ -12,15 +12,12 @@ import 'package:sma/models/profile/stock_quote.dart';
 class ProfileClient {
 
   Future<StockQuote> fetchProfileChanges({String symbol}) async {
-    
     final Uri uri = Uri.https(authority, '/api/v3/quote/$symbol');
-    final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
+    final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
 
     return StockQuote.fromJson(response.data[0]);
-
   }
   
-  // This methodd makes http calls and returns the response.
   Future<ProfileModel> fetchStockData({String symbol}) async {
     final Uri quoteUri = Uri.https(authority, '/api/v3/quote/$symbol');
     final Uri profileUri = Uri.https(authority, '/api/v3/company/profile/$symbol');
@@ -37,17 +34,17 @@ class ProfileClient {
   }
 
   static Future<StockQuote> _fetchQuote({Uri uri}) async {
-    final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
+    final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
     return StockQuote.fromJson(response.data[0]);
   }
 
   static Future<StockProfile> _fetchProfile({Uri uri}) async {
-    final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
+    final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
     return StockProfile.fromJson(response.data['profile']);
   }
 
   static Future<List<StockChart>> _fetchChart({Uri uri}) async {
-    final response = await FetchClient.fetchData(uri: uri);
+    final response = await FetchClient().fetchData(uri: uri);
     return StockChart.toList(response.data['historical']);
   }
 

@@ -7,20 +7,14 @@ class StockSearch {
     @required this.symbol,
   });
 
-  static List<StockSearch> convertToList({
-    @required List<dynamic> items, 
-    @required String key
-  }) {
+  static List<StockSearch> convertToList(List<dynamic> items) {
     return items
-    .map((item) => StockSearch.fromJson(json: item, key: key))
+    .map((item) => StockSearch.fromJson(item))
     .toList();
   }
   
-  factory StockSearch.fromJson({
-    @required Map<String, dynamic> json,
-    @required String key
-  }) {
-    return StockSearch(symbol: json[key]);
+  factory StockSearch.fromJson( Map<String, dynamic> json) {
+    return StockSearch(symbol: json['1. symbol']);
   }
 
 }

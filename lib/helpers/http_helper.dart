@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 
 class FetchClient {
-  static Future<Response> fetchData({Uri uri}) async {
+  Future<Response> fetchData({Uri uri}) async {
     return await Dio().getUri(uri);
   }
 
-  static Future<Response> post({Uri uri, Map<String, dynamic> data}) async {
+  Future<Response> post({Uri uri, Map<String, dynamic> data}) async {
     return await Dio().postUri(uri, data: data);
   }
 }
