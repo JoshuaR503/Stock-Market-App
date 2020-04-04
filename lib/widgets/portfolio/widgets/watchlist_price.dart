@@ -25,30 +25,14 @@ class WatchlistStockPrice extends StatefulWidget {
 
 class _WatchlistStockPriceState extends State<WatchlistStockPrice> {
 
-  double price;
-  double changesPercentage;
-
   Timer timer;
 
-  // Helpers.
-  String renderPrice() {
-    return '\$${formatText(price)}';
-  }
-
-  String renderText() {
-    return changesPercentage < 0 
-      ? '${formatText(changesPercentage)}%'
-      : '+${formatText(changesPercentage)}%';
-  }
-
-  void fetch() async {
-    final repo = PortfolioRepository();
-    final response = await repo.fetchProfile(symbol: this.widget.stock.symbol);
-
-    setState(() {
-      this.price = response.price;
-      this.changesPercentage = response.changesPercentage;
-    });
+  Future<StockOverview> _future() async {
+    if (this.widget.isMarketOpen) {
+      return await PortfolioRepository().fetchProfile(symbol: this.widget.stock.symbol);
+    } else {
+      return this.widget.stock;
+    }
   }
 
   @override
@@ -59,26 +43,57 @@ class _WatchlistStockPriceState extends State<WatchlistStockPrice> {
       final int ranMilliseconds = random.nextInt(5) + 3;
       final Duration duration = Duration(seconds: ranMilliseconds);
 
-      timer = Timer.periodic(duration, (_) => fetch());
+      timer = Timer.periodic(duration, (_) => setState(() {}));
     }
-
-    this.price = this.widget.stock.price;
-    this.changesPercentage = this.widget.stock.changesPercentage;
 
     super.initState();
   }
 
   @override
   void dispose() {
-
-    if (this.widget.isMarketOpen) {
-      timer.cancel();
-    }
-
-    this.price = null;
-    this.changesPercentage = null;
-
+    timer?.cancel();
     super.dispose();
+  }
+
+  Widget _renderLeftColumn() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(this.widget.stock.symbol, style: kStockTickerSymbol),
+        SizedBox(height: 6.0),
+        Text(this.widget.stock.name, style: kCompanyName)
+      ], 
+    );
+  }
+
+  Widget _renderRightColumn() {
+    return FutureBuilder(
+
+      future: this._future(),
+      builder: (BuildContext context, AsyncSnapshot<StockOverview> snapshot) {
+
+        if (snapshot.hasData) {
+
+          final String text = snapshot.data.changesPercentage < 0 
+            ? '${formatText(snapshot.data.changesPercentage)}%'
+            : '+${formatText(snapshot.data.changesPercentage)}%';
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text('\$${formatText(snapshot.data.price)}'),
+              SizedBox(height: 6.0),
+              Text(text, style: snapshot.data.changesPercentage < 0 
+                ? kNegativeChange
+                : kPositiveChange
+              )
+            ], 
+          );
+        }
+
+        return Container();
+      },
+    );
   }
 
   @override
@@ -86,28 +101,8 @@ class _WatchlistStockPriceState extends State<WatchlistStockPrice> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-
-        Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-            Text(this.widget.stock.symbol, style: kStockTickerSymbol),
-            SizedBox(height: 6.0),
-            Text(this.widget.stock.name, style: kCompanyName)
-          ], 
-        ),
-  
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Text(renderPrice()),
-            SizedBox(height: 6.0),
-            Text(renderText(), style: changesPercentage < 0 
-              ? kNegativeChange
-              : kPositiveChange
-            )
-          ], 
-        ),
-
+        _renderLeftColumn(),
+        _renderRightColumn()
       ],
     );
   }

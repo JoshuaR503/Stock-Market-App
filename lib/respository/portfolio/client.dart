@@ -6,6 +6,13 @@ import 'package:sma/models/stock_overview.dart';
 
 class PortfolioClient {
 
+  static Future<bool> isMarketOpen() async {
+    final Uri uri = Uri.https(authority, '/api/v3/is-the-market-open');
+    final Response<dynamic> response = await FetchClient.fetchData(uri: uri);
+    
+    return response.data['isTheStockMarketOpen'];
+  }
+
   static Future<StockOverview> fetchProfile({String symbol}) async {
     final Uri uri = Uri.https(authority, '/api/v3/quote/$symbol');
     final Response<dynamic> response = await FetchClient.fetchData(uri: uri);

@@ -11,6 +11,8 @@ part 'indexes_state.dart';
 
 class IndexesBloc extends Bloc<IndexesEvent, IndexesState> {
 
+  final _repository = PortfolioRepository();
+
   @override
   IndexesState get initialState => IndexesInitial();
 
@@ -21,7 +23,11 @@ class IndexesBloc extends Bloc<IndexesEvent, IndexesState> {
       yield IndexesLoading();
 
       try {
-        yield IndexesLoaded( indexes: await _fetchFromNetwork());
+        
+        yield IndexesLoaded( 
+          indexes: await _fetchFromNetwork(),
+          isMarketOpen: await _repository.isMarketOpen()
+        );
         
       } catch (e, stack) {
         await SentryHelper(exception: e, stackTrace: stack).report();
@@ -31,11 +37,10 @@ class IndexesBloc extends Bloc<IndexesEvent, IndexesState> {
   }
 
   Future<List<MarketIndex>> _fetchFromNetwork() async {
-    final repository = PortfolioRepository();
     final indexes = '^DJI,^IXIC,^GSPC'.split(',');        
 
     return await Future
       .wait(indexes
-      .map((symbol) async => await repository.fetchMarketIndex(symbol: symbol)));
+      .map((symbol) async => await _repository.fetchMarketIndex(symbol: symbol)));
   }
 }

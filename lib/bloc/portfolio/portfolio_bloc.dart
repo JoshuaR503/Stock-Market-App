@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
-import 'package:sma/helpers/http_helper.dart';
+
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/stock_overview.dart';
 import 'package:sma/respository/portfolio/repository.dart';
@@ -15,7 +15,8 @@ part 'portfolio_state.dart';
 class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   
   final _databaseRepository = DatabaseRepository();
-  
+  final _repository = PortfolioRepository();
+
   @override
   PortfolioState get initialState => PortfolioInitial();
 
@@ -34,7 +35,6 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
     }
 
     if (event is DeleteProfile) {
-
       yield PortfolioLoading();
       await this._databaseRepository.delete(symbol: event.symbol);
       yield* _fetchSymbols();
@@ -50,7 +50,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
         
         yield PortfolioLoaded(
           stocks: await _fetchFromNetwork(symbols: symbolsStored),
-          isMarketOpen: await FetchClient.isMarketOpen()
+          isMarketOpen: await _repository.isMarketOpen()
         );
 
       } else {
@@ -65,11 +65,9 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   }
 
   Future<List<StockOverview>> _fetchFromNetwork({List<String> symbols}) async {
-    final repository = PortfolioRepository();
-
     return await Future
     .wait(symbols
-    .map((symbol) async => await repository.fetchProfile(symbol: symbol)));
+    .map((symbol) async => await _repository.fetchProfile(symbol: symbol)));
   }
 
 }

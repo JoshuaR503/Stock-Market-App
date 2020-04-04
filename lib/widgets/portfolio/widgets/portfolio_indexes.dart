@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/bloc/indexes/indexes_bloc.dart';
-import 'package:sma/helpers/text_helper.dart';
 
 import 'package:sma/models/market_index.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/widgets/portfolio/widgets/portfolio_idx_price.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
-import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class PortfolioIndexes extends StatelessWidget {
 
-  List<Widget> _buildUpperSection(MarketIndex index) {
+  List<Widget> _buildUpperSection({MarketIndex index, bool isMarketOpen}) {
 
-    final icon = index.change < 0 
-      ? FontAwesomeIcons.sortDown
-      : FontAwesomeIcons.sortUp;
-
-    final color = index.change < 0 
-      ? kNegativeColor
-      : kPositiveColor;
+    final icon = index.change < 0 ? FontAwesomeIcons.sortDown : FontAwesomeIcons.sortUp;
+    final color = index.change < 0  ? kNegativeColor: kPositiveColor;
 
     return [
       Column(
@@ -41,44 +35,37 @@ class PortfolioIndexes extends StatelessWidget {
         ],
       ),
 
-      Text(formatText(index.price), style: kStockTickerSymbol)  
+      ProfileIndexPrice(
+        isMarketOpen: isMarketOpen,
+        index: index,
+      )
     ];
   }
 
-  Widget _renderContent(MarketIndex index) {
+  Widget _buildCard({MarketIndex index, bool isMarketOpen}) {
     return Padding(
       padding: EdgeInsets.only(right: 16),
       child: MaterialButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         color: kTileColor,
         child: Container(
-
+        
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: _buildUpperSection(index),
+            children: _buildUpperSection(
+              index: index, 
+              isMarketOpen: isMarketOpen
+            ),
           ),
 
           width: 100,
           padding: EdgeInsets.symmetric(vertical: 18),
         ),
-
+        
         onPressed: () {},
       ),
     );
-  }
-
-  Widget _build(IndexesLoaded state) {
-    return Container(
-      height: 205,
-      padding: EdgeInsets.symmetric(vertical: 18),
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: state.indexes.length,
-        itemBuilder: (BuildContext context, int index) => this._renderContent(state.indexes[index]),
-      ),
-    ); 
   }
 
   @override
@@ -93,14 +80,26 @@ class PortfolioIndexes extends StatelessWidget {
         }
 
         if (state is IndexesLoaded) {
-          return _build(state); 
+          return Container(
+            height: 205,
+            padding: EdgeInsets.symmetric(vertical: 18),
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: state.indexes.length,
+              itemBuilder: (BuildContext context, int index) => _buildCard(
+                index: state.indexes[index], 
+                isMarketOpen: state.isMarketOpen
+              )
+            ),
+          );
         }
 
         if (state is IndexesLoadingError) {
           return Center(child: Text(state.error));
         }
 
-        return LoadingIndicatorWidget();
+        return Container();
       }
     );
   }

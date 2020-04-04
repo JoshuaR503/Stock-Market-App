@@ -5,6 +5,10 @@ import 'package:sma/respository/portfolio/client.dart';
 
 class PortfolioRepository {
 
+  Future<bool> isMarketOpen() async {
+    return await PortfolioClient.isMarketOpen();
+  }
+
   Future<StockOverview> fetchProfile({String symbol}) async {
     return await PortfolioClient.fetchProfile(symbol: symbol);
   }

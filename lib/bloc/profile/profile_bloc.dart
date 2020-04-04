@@ -28,7 +28,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield ProfileLoading();
 
       try {
-        final bool isMarketOpen = await FetchClient.isMarketOpen();
+        final bool isMarketOpen = false;
         final bool isSymbolSaved = await this._databaseRepository.symbolExists(symbol: event.symbol);
         final ProfileModel profile = await this._repository.fetchStockData(symbol: event.symbol);
 

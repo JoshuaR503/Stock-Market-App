@@ -10,10 +10,5 @@ class FetchClient {
     return await Dio().postUri(uri, data: data);
   }
 
-  static Future<bool> isMarketOpen() async {
-    final Uri uri = Uri.https(authority, '/api/v3/is-the-market-open');
-    final response = await fetchData(uri: uri);
-    
-    return response.data['isTheStockMarketOpen'];
-  }
+
 }
