@@ -36,11 +36,12 @@ class _ProfilePriceState extends State<ProfilePrice> {
 
   @override
   void initState() {
-    super.initState();
-    
+
     if (this.widget.isMarketOpen) {
-      timer = Timer.periodic(Duration(milliseconds: 2000), (_) => setState(() {}));
+      timer = Timer.periodic(Duration(seconds: 3), (_) => setState(() {}));
     }
+
+    super.initState();
   }
 
   @override
@@ -49,37 +50,37 @@ class _ProfilePriceState extends State<ProfilePrice> {
     super.dispose();
   }
 
+  Widget _renderContent(StockQuote data) {
+    final String text = data.change < 0 
+      ? '${formatText(data.change)}   ${formatText(data.changesPercentage)}%'
+      : '+${formatText(data.change)}   +${formatText(data.changesPercentage)}%';
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('\$${formatText(data.price)}', style: priceStyle),
+          SizedBox(height: 4),
+          Text(text, style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: this.widget.color
+          )),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     return FutureBuilder(
-
       future: this._future(),
       builder: (BuildContext context, AsyncSnapshot<StockQuote> snapshot) {
 
         if (snapshot.hasData) {
-
-          final String text = snapshot.data.change < 0 
-            ? '${formatText(snapshot.data.change)}   ${formatText(snapshot.data.changesPercentage)}%'
-            : '+${formatText(snapshot.data.change)}   +${formatText(snapshot.data.changesPercentage)}%';
-
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-
-                Text('\$${formatText(snapshot.data.price)}', style: priceStyle),
-                SizedBox(height: 4),
-                Text(text, style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: this.widget.color
-                )),
-              ],
-            ),
-          );
+          return _renderContent(snapshot.data);
         }
 
         return Container();
