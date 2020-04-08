@@ -58,7 +58,6 @@ class PortfolioWatchList extends StatelessWidget {
 
         if (state is PortfolioLoaded) {
           return Container(
-            padding: EdgeInsets.only(top: 10),
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,

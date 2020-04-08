@@ -25,44 +25,50 @@ class ProfileScreen extends StatelessWidget {
   });
 
   Widget _renderUpperPart() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
+      padding: EdgeInsets.only(left: 26, right: 26, top: 26),
       children: <Widget>[
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: Text(this.profile.stockQuote.name, style: kProfileCompanyName),
-              flex: 8,
+          
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: Text(this.profile.stockQuote.name, style: kProfileCompanyName),
+                  flex: 8,
+                ),
+
+                Expanded(
+                  child: Container(),
+                  flex: 2,
+                ),
+
+                WatchlistButtonWidget(
+                  color: this.color,
+                  isSaved: this.isSaved,
+                  symbol: this.profile.stockQuote.symbol,
+                )
+              ],
             ),
 
-            Expanded(
-              child: Container(),
-              flex: 4,
-            ),
-
-            WatchlistButtonWidget(
+            ProfilePrice(
               color: this.color,
-              isSaved: this.isSaved,
-              symbol: this.profile.stockQuote.symbol,
-            )
+              quote: this.profile.stockQuote,
+            ),
+
+            Container(
+              height: 300,
+              padding: EdgeInsets.only(top: 26),
+              child: SimpleTimeSeriesChart(
+                chart: this.profile.stockChart,
+                color: this.color
+              )
+            ),
+
+            StatisticsWidget(quote: this.profile.stockQuote)
           ],
-        ),
-
-        ProfilePrice(
-          isMarketOpen: this.isMarketOpen,
-          color: this.color,
-          quote: this.profile.stockQuote,
-        ),
-
-        Container(
-          height: 300,
-          padding: EdgeInsets.only(top: 26),
-          child: SimpleTimeSeriesChart(
-            chart: this.profile.stockChart,
-            color: this.color
-          )
         )
       ],
     );
@@ -70,23 +76,34 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(this.profile.stockQuote.symbol),
-        backgroundColor: color,
-      ),
 
-      backgroundColor: kScaffoldBackground,
-      body: SafeArea(
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.only(left: 26, right: 26, top: 26),
-          children: <Widget>[
-            this._renderUpperPart(),
-            StatisticsWidget(quote: this.profile.stockQuote),
-            CompanyProfileWidget(profile: this.profile.stockProfile),
-          ],
+    return DefaultTabController(
+      length: 2, 
+      child: Scaffold(
+        backgroundColor: kScaffoldBackground,
+        appBar: AppBar(
+          title: Text(this.profile.stockQuote.symbol),
+          backgroundColor: color,
+          bottom: TabBar(
+            indicatorColor: Color(0X881f1f1f),
+            indicatorPadding: EdgeInsets.symmetric(horizontal: 25),
+            indicatorWeight: 3,
+            tabs: [
+              Tab(text: 'Profile',),
+              Tab(text: 'Information')
+            ],
+          ),
         ),
+
+        body: SafeArea(
+          child: TabBarView(
+            children: [
+              this._renderUpperPart(),
+              CompanyProfileWidget(profile: this.profile.stockProfile),
+              
+            ]
+          ),
+        )
       )
     );
   }
