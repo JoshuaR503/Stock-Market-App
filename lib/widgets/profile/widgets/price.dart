@@ -77,10 +77,15 @@ class _ProfilePriceState extends State<ProfilePrice> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: this._future(),
+      initialData: this.widget.quote,
       builder: (BuildContext context, AsyncSnapshot<StockQuote> snapshot) {
 
         if (snapshot.hasData) {
           return _renderContent(snapshot.data);
+        }
+
+        if (snapshot.error) {
+          return Text('There was an unknown error.');
         }
 
         return Container();
