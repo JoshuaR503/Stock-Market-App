@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/bloc/indexes/indexes_bloc.dart';
+import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/data_overview.dart';
 
 import 'package:sma/shared/colors.dart';
-import 'package:sma/widgets/portfolio/widgets/portfolio_idx_price.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class PortfolioIndexes extends StatelessWidget {
@@ -38,10 +38,7 @@ class PortfolioIndexes extends StatelessWidget {
         ],
       ),
 
-      ProfileIndexPrice(
-        isMarketOpen: isMarketOpen,
-        index: index,
-      )
+      Text(formatText(index.price), style: kStockTickerSymbol)
     ];
   }
 

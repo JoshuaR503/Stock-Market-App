@@ -20,7 +20,6 @@ class Portfolio extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Text('Portfolio', style: kPortfolioScreenTitle),
-
             GestureDetector(
               child: FaIcon(FontAwesomeIcons.search, size: 22,),
               onTap: () => showSearch(context: context, delegate: PortfolioSearch()),
