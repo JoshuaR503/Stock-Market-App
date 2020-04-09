@@ -1,4 +1,4 @@
-package com.sma
+package com.stonks.watchlist
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
