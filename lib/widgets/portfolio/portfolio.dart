@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:sma/shared/colors.dart';
 
 import 'package:sma/widgets/portfolio/widgets/portfolio_indexes.dart';
 import 'package:sma/widgets/portfolio/widgets/portfolio_search.dart';
@@ -37,19 +36,12 @@ class Portfolio extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(left: 18, right: 18, top: 0),
       children: <Widget>[
-        this._renderMarketIndexes(),
-        this._renderWatchList()
+        PortfolioIndexes(),
+        PortfolioWatchList()
       ]
     );
   }
 
-  Widget _renderMarketIndexes() {
-    return PortfolioIndexes();
-  }
-
-  Widget _renderWatchList() {
-    return PortfolioWatchList();
-  }
 
   @override
   Widget build(BuildContext context) {

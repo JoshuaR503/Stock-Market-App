@@ -35,9 +35,14 @@ dependencies:
   font_awesome_flutter: ^8.8.1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.4
+
   flutter_test:
     sdk: flutter
     
+flutter_icons:
+  android: "launcher_icon" 
+  image_path: "assets/icon.png"
 
 # The following section is specific to Flutter.
 flutter:
