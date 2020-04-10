@@ -74,8 +74,8 @@ class Portfolio extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             children: [
               this._renderFirstChild(),
-              Center(child: Text('Markets section comming soon.')),
-              Center(child: Text('News section comming soon.'))
+              Center(child: Text('Markets section coming soon.')),
+              Center(child: Text('News section coming soon.'))
             ],
           ),
           )
