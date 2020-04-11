@@ -100,7 +100,7 @@ class StatisticsWidget extends StatelessWidget {
       children: <Widget>[
         SizedBox(height: 16),
 
-        Text('Statistics',style: kProfileScreenSectionTitle),
+        Text('Summary',style: kProfileScreenSectionTitle),
         SizedBox(height: 8),
 
         Row(

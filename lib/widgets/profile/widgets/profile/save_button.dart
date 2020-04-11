@@ -10,9 +10,9 @@ class WatchlistButtonWidget extends StatefulWidget {
   final String symbol;
 
   WatchlistButtonWidget({
-    this.color,
-    this.isSaved,
-    this.symbol
+    @required this.color,
+    @required this.isSaved,
+    @required this.symbol
   });
 
   @override
@@ -27,7 +27,9 @@ class _WatchlistButtonWidgetState extends State<WatchlistButtonWidget> {
   @override
   void initState() {
     this.isSaved = this.widget.isSaved;
-    this.color = this.isSaved ? this.widget.color : Colors.grey;
+    this.color = this.isSaved 
+    ? this.widget.color 
+    : Colors.grey;
 
     super.initState();
   }
@@ -66,14 +68,11 @@ class _WatchlistButtonWidgetState extends State<WatchlistButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: IconButton(
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        icon: Icon(FontAwesomeIcons.solidCheckCircle, color: this.color), 
-
-        onPressed: () => onPressedHandler()
-      ),
+    return IconButton(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      icon: Icon(FontAwesomeIcons.solidBookmark, color: this.color), 
+      onPressed: () => onPressedHandler()
     );
   }
 }

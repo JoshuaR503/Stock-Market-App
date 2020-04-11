@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:sma/models/profile/profile.dart';
 
 import 'package:sma/shared/colors.dart';
-import 'package:sma/widgets/profile/widgets/price.dart';
-import 'package:sma/widgets/profile/widgets/profile_about.dart';
-import 'package:sma/widgets/profile/widgets/profile_graph.dart';
-import 'package:sma/widgets/profile/widgets/profile_statistics.dart';
-import 'package:sma/widgets/profile/widgets/save_button.dart';
-import 'package:sma/widgets/profile/widgets/styles.dart';
+import 'package:sma/widgets/profile/widgets/news/news.dart';
+import 'package:sma/widgets/profile/widgets/overview/profile_overview.dart';
+import 'package:sma/widgets/profile/widgets/profile/profile.dart';
+import 'package:sma/widgets/profile/widgets/profile/save_button.dart';
+
+import 'widgets/overview/overview.dart';
 
 class ProfileScreen extends StatelessWidget {
 
@@ -24,63 +23,12 @@ class ProfileScreen extends StatelessWidget {
     @required this.color,
   });
 
-  Widget _renderUpperPart() {
-    return ListView(
-      padding: EdgeInsets.only(left: 26, right: 26, top: 26),
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-          
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Expanded(
-                  child: Text(this.profile.stockQuote.name, style: kProfileCompanyName),
-                  flex: 8,
-                ),
-
-                Expanded(
-                  child: Container(),
-                  flex: 2,
-                ),
-
-                WatchlistButtonWidget(
-                  color: this.color,
-                  isSaved: this.isSaved,
-                  symbol: this.profile.stockQuote.symbol,
-                )
-              ],
-            ),
-
-            ProfilePrice(
-              color: this.color,
-              quote: this.profile.stockQuote,
-            ),
-
-            Container(
-              height: 300,
-              padding: EdgeInsets.only(top: 26),
-              child: SimpleTimeSeriesChart(
-                chart: this.profile.stockChart,
-                color: this.color
-              )
-            ),
-
-            StatisticsWidget(quote: this.profile.stockQuote)
-          ],
-        )
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
 
     return DefaultTabController(
-      length: 2, 
+      length: 3,
       child: Scaffold(
-        backgroundColor: kScaffoldBackground,
         appBar: AppBar(
           title: Text(this.profile.stockQuote.symbol),
           backgroundColor: color,
@@ -90,21 +38,40 @@ class ProfileScreen extends StatelessWidget {
             indicatorWeight: 3,
             tabs: [
               Tab(text: 'Profile',),
-              Tab(text: 'Information')
+              Tab(text: 'News',),
+              Tab(text: 'Information',)
             ],
           ),
+          
+          actions: <Widget>[
+            WatchlistButtonWidget(
+              symbol: profile.stockQuote.symbol,
+              isSaved: isSaved,
+              color: Colors.white,
+            )
+          ],
         ),
-
+        
+        backgroundColor: kScaffoldBackground,
         body: SafeArea(
           child: TabBarView(
             children: [
-              this._renderUpperPart(),
-              CompanyProfileWidget(profile: this.profile.stockProfile),
               
+              Profile(
+                color: color,
+                profile: profile,
+                isSaved: isSaved,
+              ),
+
+              ProfileNewsScreen(news: profile.stockNews,),
+              ProfileOverviewScreen(
+                stockOwnership: profile.stockOwnership,
+                profile: profile.stockProfile,
+              )
             ]
           ),
         )
-      )
+      ),
     );
   }
 }
