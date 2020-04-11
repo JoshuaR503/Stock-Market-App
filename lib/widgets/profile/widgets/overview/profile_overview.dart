@@ -12,14 +12,10 @@ class ProfileOverview extends StatelessWidget {
     @required this.ownership
   });
 
-
   static Text _renderText(dynamic text) {
-
-    if (text != null) {
-      return Text(compactText(text));
-    }
-
-    return Text('-');
+    return text != null 
+    ? Text(compactText(text))
+    : Text('-');
   }
 
   @override
@@ -36,8 +32,8 @@ class ProfileOverview extends StatelessWidget {
 
             ListView.builder(
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(vertical: 16),
               physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(vertical: 16),
               itemCount: ownership.length,
               itemBuilder: (BuildContext context, int index) => ListTile(
                 contentPadding: EdgeInsets.zero,

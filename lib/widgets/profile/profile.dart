@@ -32,11 +32,8 @@ class Profile extends StatelessWidget {
 
         if (state is ProfileLoaded) {
           return ProfileScreen(
-            profile: state.profileModel,
-
-            isMarketOpen: state.isMarketOpen,
             isSaved: state.isSymbolSaved,
-            
+            profile: state.profileModel,            
             color: state.profileModel.stockProfile.changes < 0 
               ? kNegativeColor
               : kPositiveColor

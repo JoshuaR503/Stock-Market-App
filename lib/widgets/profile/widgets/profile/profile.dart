@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sma/models/profile/profile.dart';
+import 'package:sma/models/profile/stock_chart.dart';
+import 'package:sma/models/profile/stock_quote.dart';
 
 import 'package:sma/widgets/profile/widgets/price.dart';
 import 'package:sma/widgets/profile/widgets/profile/profile_graph.dart';
@@ -10,12 +11,14 @@ class Profile extends StatelessWidget {
 
   final bool isSaved;
   final Color color;
-  final ProfileModel profile;
+  final StockQuote stockQuote;
+  final List<StockChart> stockChart;
 
   Profile({
     @required this.isSaved,
-    @required this.profile,
     @required this.color,
+    @required this.stockQuote,
+    @required this.stockChart,
   });
 
   @override
@@ -30,7 +33,7 @@ class Profile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
-                  child: Text(this.profile.stockQuote.name, style: kProfileCompanyName),
+                  child: Text(this.stockQuote.name, style: kProfileCompanyName),
                   flex: 8,
                 ),
                 Expanded(
@@ -42,20 +45,20 @@ class Profile extends StatelessWidget {
 
             ProfilePrice(
               color: this.color,
-              quote: this.profile.stockQuote,
+              quote: this.stockQuote,
             ),
 
             Container(
               height: 250,
               padding: EdgeInsets.only(top: 26),
               child: SimpleTimeSeriesChart(
-                chart: this.profile.stockChart,
+                chart: this.stockChart,
                 color: this.color
               )
             ),
 
             StatisticsWidget(
-              quote: profile.stockQuote,
+              quote: stockQuote,
             )
           ],
         ),

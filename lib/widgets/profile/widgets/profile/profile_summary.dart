@@ -14,12 +14,9 @@ class StatisticsWidget extends StatelessWidget {
   });
 
   static Text _renderText(dynamic text) {
-
-    if (text != null) {
-      return Text(compactText(text));
-    }
-
-    return Text('-');
+    return text != null 
+    ? Text(compactText(text))
+    :Text('-');
   }
   
   List<Widget> _leftColumn() {

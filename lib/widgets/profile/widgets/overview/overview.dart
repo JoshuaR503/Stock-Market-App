@@ -1,7 +1,4 @@
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:sma/models/profile/overview/stock_ownership.dart';
 import 'package:sma/models/profile/stock_profile.dart';

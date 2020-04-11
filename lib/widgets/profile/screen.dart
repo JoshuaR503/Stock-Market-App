@@ -3,7 +3,6 @@ import 'package:sma/models/profile/profile.dart';
 
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/news/news.dart';
-import 'package:sma/widgets/profile/widgets/overview/profile_overview.dart';
 import 'package:sma/widgets/profile/widgets/profile/profile.dart';
 import 'package:sma/widgets/profile/widgets/profile/save_button.dart';
 
@@ -11,13 +10,11 @@ import 'widgets/overview/overview.dart';
 
 class ProfileScreen extends StatelessWidget {
 
-  final bool isMarketOpen;
   final bool isSaved;
   final Color color;
   final ProfileModel profile;
 
   ProfileScreen({
-    @required this.isMarketOpen,
     @required this.isSaved,
     @required this.profile,
     @required this.color,
@@ -59,7 +56,8 @@ class ProfileScreen extends StatelessWidget {
               
               Profile(
                 color: color,
-                profile: profile,
+                stockChart: profile.stockChart,
+                stockQuote: profile.stockQuote,
                 isSaved: isSaved,
               ),
 
