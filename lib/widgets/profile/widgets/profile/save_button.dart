@@ -29,7 +29,7 @@ class _WatchlistButtonWidgetState extends State<WatchlistButtonWidget> {
     this.isSaved = this.widget.isSaved;
     this.color = this.isSaved 
     ? this.widget.color 
-    : Colors.grey;
+    : Color(0X88ffffff);
 
     super.initState();
   }
@@ -52,7 +52,7 @@ class _WatchlistButtonWidgetState extends State<WatchlistButtonWidget> {
   void onPressedHandler() {
 
     if (this.isSaved) {
-      changeState(isSaved: false, color: Colors.grey);
+      changeState(isSaved: false, color: Color(0X88ffffff));
 
       BlocProvider
       .of<PortfolioBloc>(context)

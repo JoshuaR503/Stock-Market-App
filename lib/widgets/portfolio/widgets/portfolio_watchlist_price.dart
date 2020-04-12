@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/data_overview.dart';
+import 'package:sma/shared/colors.dart';
 
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
@@ -22,7 +23,7 @@ class WatchlistStockPrice extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(this.stock.symbol, style: kStockTickerSymbol),
-        SizedBox(height: 6.0),
+        SizedBox(height: 8.0),
         Text(this.stock.name, style: kCompanyName)
       ], 
     );
@@ -38,12 +39,12 @@ class WatchlistStockPrice extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text('\$${formatText(stock.price)}'),
-        SizedBox(height: 6.0),
+        SizedBox(height: 8.0),
         Text(text, style: stock.changesPercentage < 0 
           ? kNegativeChange
           : kPositiveChange
         )
-      ], 
+      ],
     );
   }
 

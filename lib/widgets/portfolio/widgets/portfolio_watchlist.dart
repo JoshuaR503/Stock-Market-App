@@ -23,7 +23,7 @@ class PortfolioWatchList extends StatelessWidget {
           isMarketOpen: isMarketOpen,
         ),
 
-        height: 95,
+        height: 90,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
 
         onPressed: () {
