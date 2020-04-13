@@ -4,6 +4,7 @@ import 'package:sma/bloc/indexes/indexes_bloc.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/bloc/search/search_bloc.dart';
+import 'package:sma/bloc/sector_performance/sector_performance_bloc.dart';
 import 'package:sma/widgets/home.dart';
 
 void main() async {
@@ -25,11 +26,15 @@ void main() async {
         BlocProvider<SearchBloc>(
           create: (context) => SearchBloc(),
         ),
+        BlocProvider<SectorPerformanceBloc>(
+          create: (context) => SectorPerformanceBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'Stock Market App',
         theme: ThemeData(brightness: Brightness.dark),
-        home: StockMarketAppHome()
+        home: StockMarketAppHome(),
+        debugShowCheckedModeBanner: false,
       )
     )
   );

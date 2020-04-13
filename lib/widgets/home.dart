@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/widgets/markets/markets.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
 
 class StockMarketAppHome extends StatefulWidget {
@@ -16,12 +17,7 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   
   final widgets = [
     Portfolio(),
-    Center(
-      child: Text(
-        'Worldwide Markets coming soon.',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-    ),
+    Markets(),
     Center(
       child: Text(
         'Stock Market news coming soon.',
@@ -80,12 +76,12 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
         title: Text('Stonks', style:  TextStyle(fontSize: 14),),
       ),
       BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.solidNewspaper),
-        title: Text('News', style:  TextStyle(fontSize: 14),),
-      ),
-      BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.globeAmericas),
         title: Text('Markets', style:  TextStyle(fontSize: 14),),
+      ),
+      BottomNavigationBarItem(
+        icon: FaIcon(FontAwesomeIcons.solidNewspaper),
+        title: Text('News', style:  TextStyle(fontSize: 14),),
       ),
       BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.search),
