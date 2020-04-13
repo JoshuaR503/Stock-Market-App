@@ -7,3 +7,5 @@ const kLightGray = const Color(0XFFcdcdcd);
 const kLighterGray = const Color(0XFF898989);
 const kGray = const Color(0XFF757575);
 const kScaffoldBackground = const Color(0XFF181818);
+
+const kTransparentWhite = const Color(0X88ffffff);

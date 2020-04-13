@@ -47,18 +47,12 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
       final symbolsStored = await _databaseRepository.fetch();
       
       if (symbolsStored.isNotEmpty) {
-        
-        yield PortfolioLoaded(
-          stocks: await _fetchFromNetwork(symbols: symbolsStored),
-          isMarketOpen: await _repository.isMarketOpen()
-        );
-
+        yield PortfolioLoaded(stocks: await _fetchFromNetwork(symbols: symbolsStored));
       } else {
         yield PortfolioEmpty();
       }
 
     } catch (e, stack) {
-  
       await SentryHelper(exception: e, stackTrace: stack).report();
       yield PortfolioLoadingError(error: e);
     }

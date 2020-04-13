@@ -13,8 +13,10 @@ class EmptyScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 200),
       child: Center(
-        child: Text(message, style: TextStyle(
-        ), textAlign: TextAlign.center),
+        child: Text(
+          message, 
+          textAlign: TextAlign.center
+        ),
       ),
     );
   }

@@ -26,7 +26,11 @@ void main() async {
           create: (context) => SearchBloc(),
         ),
       ],
-      child: StockMarketApp(),
+      child: MaterialApp(
+        title: 'Stock Market App',
+        theme: ThemeData(brightness: Brightness.dark),
+        home: StockMarketAppHome()
+      )
     )
   );
 }
