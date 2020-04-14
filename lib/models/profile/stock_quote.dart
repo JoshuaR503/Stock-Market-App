@@ -42,7 +42,6 @@ class StockQuote {
   });
 
   factory StockQuote.fromJson(Map<String, dynamic> json) {
-    
     return StockQuote(
       symbol: json['symbol'],
       name: json['name'],
@@ -63,6 +62,5 @@ class StockQuote {
       sharesOutstanding: json['sharesOutstanding'],
     );
   }
-
 
 }

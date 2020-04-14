@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/profile/profile.dart';
-import 'package:sma/respository/portfolio/repository.dart';
+
 import 'package:sma/respository/portfolio/storage/storage.dart';
 import 'package:sma/respository/profile/repository.dart';
 
@@ -28,13 +28,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield ProfileLoading();
 
       try {
-        final bool isMarketOpen = await PortfolioRepository().isMarketOpen();
         final bool isSymbolSaved = await this._databaseRepository.symbolExists(symbol: event.symbol);
         final ProfileModel profile = await this._repository.fetchStockData(symbol: event.symbol);
 
         yield ProfileLoaded( 
           profileModel: profile, 
-          isMarketOpen: isMarketOpen,
           isSymbolSaved: isSymbolSaved
         );
 

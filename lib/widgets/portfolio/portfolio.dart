@@ -15,7 +15,9 @@ class Portfolio extends StatelessWidget {
           padding: EdgeInsets.only(left: 18, right: 18, top: 18),
           children: <Widget>[
             PortfolioHeadingWidget(),
+            SizedBox(height: 24,),
             PortfolioIndexes(),
+            SizedBox(height: 24,),
             PortfolioScreen()
           ]
         )

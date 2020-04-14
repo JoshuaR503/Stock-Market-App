@@ -41,7 +41,7 @@ class SectorPerformance extends StatelessWidget {
   Widget _buildListTile({SingleSectorPerformance sectorPerformance}) {
 
     final changeString = sectorPerformance.change.replaceFirst(RegExp('%'), ''); 
-    final chage = double.parse(changeString);
+    final change = double.parse(changeString);
 
     return Column(
       children: <Widget>[
@@ -54,7 +54,7 @@ class SectorPerformance extends StatelessWidget {
 
           trailing: Container(
             decoration: BoxDecoration(
-              color: chage < 0 ? Colors.red : kPositiveColor,
+              color: change < 0 ? Colors.red : kPositiveColor,
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
             
