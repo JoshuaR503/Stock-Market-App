@@ -17,10 +17,8 @@ class PortfolioSingleStonk extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
-      
       child: MaterialButton(
         color: kTileColor,
         child: _buildContent(),
@@ -50,11 +48,8 @@ class PortfolioSingleStonk extends StatelessWidget {
       ? '${formatText(dataOverview.change)}'
       : '+${formatText(dataOverview.change)}';
 
-    final TextStyle style = dataOverview.changesPercentage < 0 
-      ? kNegativeChange
-      : kPositiveChange;
-
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
 
@@ -63,19 +58,45 @@ class PortfolioSingleStonk extends StatelessWidget {
           children: <Widget>[
             Text(dataOverview.symbol, style: kStockTickerSymbol),
             SizedBox(height: 8.0),
-            Text(dataOverview.name, style: kCompanyName)
+            Text(dataOverview.name, style: TextStyle(
+              color: Color(0XFFc2c2c2),
+              fontSize: 13
+            ))
           ], 
         ),
 
-        Column(
+        Row(
           crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Text('\$${formatText(dataOverview.price)}'),
-            SizedBox(height: 8.0),
-            Text(text, style: style)
+            
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                '${formatText(dataOverview.price)}', 
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14
+                ),
+              ),
+            ),
+    
+            Container(
+              decoration: BoxDecoration(
+                color: dataOverview.change < 0 ? Colors.red : kPositiveColor,
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+    
+              width: 60,
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Text(text, textAlign: TextAlign.end,),
+            ),
           ],
-        )
+        ),
       ]
     );
   }
 }
+
+// 25
