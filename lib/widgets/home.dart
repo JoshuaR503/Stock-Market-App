@@ -30,6 +30,12 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     ),
+    Center(
+      child: Text(
+        'Settings Screen coming soon.',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+    ),
   ];
 
   @override
@@ -86,6 +92,10 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
       BottomNavigationBarItem(
         icon: FaIcon(FontAwesomeIcons.search),
         title: Text('Search', style:  TextStyle(fontSize: 14),),
+      ),
+      BottomNavigationBarItem(
+        icon: FaIcon(FontAwesomeIcons.question),
+        title: Text('Settings', style:  TextStyle(fontSize: 14),),
       ),
     ];
   }

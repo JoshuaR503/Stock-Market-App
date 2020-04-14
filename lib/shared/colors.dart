@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kTileColor = const Color(0XFF181818);
+const kRedColor = const Color(0xFFF44336);
 const kNegativeColor = const Color(0XFFbc4241);
 const kPositiveColor = const Color(0XFF17a862);
 const kLightGray = const Color(0XFFcdcdcd);

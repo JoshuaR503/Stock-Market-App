@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:sma/models/markets/sector_performance/sector_performance_model.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/widgets/markets/styles.dart';
 
 class SectorPerformance extends StatelessWidget {
 
@@ -17,17 +17,11 @@ class SectorPerformance extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-
-        Text('Sector Performance', style: TextStyle(
-          color: kGray,
-          fontSize: 24,
-          fontWeight: FontWeight.w800
-        )),
-
-        SizedBox(height: 16),
+        Text('Sector Performance', style: subtitleStyling),
 
         ListView.builder(
           shrinkWrap: true,
+          padding: EdgeInsets.only(top: 16),
           physics: NeverScrollableScrollPhysics(),
           itemCount: performanceData.performanceModelToday.sectors.length,
           itemBuilder: (BuildContext context, int index) => _buildListTile(
@@ -42,24 +36,25 @@ class SectorPerformance extends StatelessWidget {
 
     final changeString = sectorPerformance.change.replaceFirst(RegExp('%'), ''); 
     final change = double.parse(changeString);
+    final color = change < 0 
+      ? kRedColor 
+      : kPositiveColor;
 
     return Column(
       children: <Widget>[
         Divider(height: 2),
         ListTile(
           contentPadding: EdgeInsets.zero,
-          title: Text(sectorPerformance.name, style: TextStyle(
-            color: kLighterGray,
-          )),
+          title: Text(sectorPerformance.name, style: TextStyle(color: kLighterGray)),
 
           trailing: Container(
             decoration: BoxDecoration(
-              color: change < 0 ? Colors.red : kPositiveColor,
-              borderRadius: BorderRadius.all(Radius.circular(5)),
+              borderRadius: commonBorderRadious,
+              color: color,
             ),
             
             width: 96,
-            padding: EdgeInsets.symmetric(horizontal: 17, vertical: 6),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Text(sectorPerformance.change, textAlign: TextAlign.center,),
           ),
         )

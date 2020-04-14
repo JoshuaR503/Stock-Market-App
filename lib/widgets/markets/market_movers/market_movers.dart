@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sma/models/markets/market_active/market_active.dart';
+import 'package:sma/widgets/markets/styles.dart';
 
 class MarketMovers extends StatelessWidget {
 
@@ -14,14 +15,13 @@ class MarketMovers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 15),
+      padding: EdgeInsets.only(right: 14),
       child: Container(
         child: _buildContent(),
         width: 100,
-
         decoration: BoxDecoration(
+          borderRadius: commonBorderRadious,
           color: color,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
       )
     );
@@ -32,11 +32,15 @@ class MarketMovers extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+
+        // Ticker Symbol.
         Text(data.ticker, style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 12.5
         )),
 
+
+        // Change percentage.
         SizedBox(height: 5),
         Text(data.changesPercentage),
       ],
