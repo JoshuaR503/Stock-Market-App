@@ -12,6 +12,6 @@ This is a simple app that helps users track their favorite stonks.
 ### Coming soon
 - Indexes section.
 - News section.
-- News about a single stonk.
 
-![Stock Market App](/images/pic4.jpg)
+![Stock Market App](/images/1.png)
+![Stock Market App](/images/2.png)
