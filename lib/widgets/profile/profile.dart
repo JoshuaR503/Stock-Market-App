@@ -35,7 +35,7 @@ class Profile extends StatelessWidget {
             isSaved: state.isSymbolSaved,
             profile: state.profileModel,            
             color: state.profileModel.stockProfile.changes < 0 
-              ? kNegativeColor
+              ? Colors.red
               : kPositiveColor
           );
         }
