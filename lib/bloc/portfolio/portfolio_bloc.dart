@@ -22,8 +22,8 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
   @override
   Stream<PortfolioState> mapEventToState(PortfolioEvent event) async* {
-
-    if (event is FetchPortfoliData) {
+    if (event is FetchPortfolioData) {
+    yield PortfolioLoading();
       yield PortfolioLoading();
       yield* _fetchSymbols();
     }
@@ -43,7 +43,6 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
   Stream<PortfolioState> _fetchSymbols() async* {
     try {
-
       final symbolsStored = await _databaseRepository.fetch();
       
       if (symbolsStored.isNotEmpty) {
@@ -58,7 +57,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
     }
   }
 
-  Future<List<DataOverview>> _fetchFromNetwork({List<String> symbols}) async {
+  Future<List<StockOverviewModel>> _fetchFromNetwork({List<String> symbols}) async {
     return await Future
     .wait(symbols
     .map((symbol) async => await _repository.fetchData(symbol: symbol)));

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:sma/helpers/color_helper.dart';
 import 'package:sma/models/markets/sector_performance/sector_performance_model.dart';
 import 'package:sma/shared/colors.dart';
-import 'package:sma/widgets/markets/styles.dart';
+import 'package:sma/shared/styles.dart';
 
 class SectorPerformance extends StatelessWidget {
 
@@ -36,9 +38,6 @@ class SectorPerformance extends StatelessWidget {
 
     final changeString = sectorPerformance.change.replaceFirst(RegExp('%'), ''); 
     final change = double.parse(changeString);
-    final color = change < 0 
-      ? kRedColor 
-      : kPositiveColor;
 
     return Column(
       children: <Widget>[
@@ -49,8 +48,8 @@ class SectorPerformance extends StatelessWidget {
 
           trailing: Container(
             decoration: BoxDecoration(
-              borderRadius: commonBorderRadious,
-              color: color,
+              borderRadius: standatBorder,
+              color: determineColorBasedOnChange(change),
             ),
             
             width: 96,

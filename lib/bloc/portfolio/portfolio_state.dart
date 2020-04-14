@@ -20,7 +20,7 @@ class PortfolioLoadingError extends PortfolioState {
 
 class PortfolioLoaded extends PortfolioState {
 
-  final List<DataOverview> stocks;
+  final List<StockOverviewModel> stocks;
 
   PortfolioLoaded({
     @required this.stocks,

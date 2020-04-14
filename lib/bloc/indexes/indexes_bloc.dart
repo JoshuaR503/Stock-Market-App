@@ -12,7 +12,6 @@ part 'indexes_state.dart';
 
 class IndexesBloc extends Bloc<IndexesEvent, IndexesState> {
 
-
   @override
   IndexesState get initialState => IndexesInitial();
 
@@ -28,10 +27,8 @@ class IndexesBloc extends Bloc<IndexesEvent, IndexesState> {
         
       } catch (e, stack) {
         await SentryHelper(exception: e, stackTrace: stack).report();
-        yield IndexesLoadingError(error: e.toString());
+        yield IndexesLoadingError();
       }
     }
   }
-
-
 }

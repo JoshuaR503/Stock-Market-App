@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sma/shared/colors.dart';
 
 class EmptyScreen extends StatelessWidget {
 
@@ -10,12 +11,14 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 200),
-      child: Center(
-        child: Text(
-          message, 
-          textAlign: TextAlign.center
+    return Center(
+      child: Text(
+        message,
+        style: TextStyle(
+          height: 1.5,
+          fontSize: 20, 
+          fontWeight: FontWeight.bold,
+          color: kGray
         ),
       ),
     );

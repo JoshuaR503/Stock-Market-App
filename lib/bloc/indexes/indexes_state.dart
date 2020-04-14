@@ -7,13 +7,7 @@ class IndexesInitial extends IndexesState {}
 
 class IndexesLoading extends IndexesState {}
 
-class IndexesLoadingError extends IndexesState {
-  final dynamic error;
-
-  IndexesLoadingError({
-    @required this.error
-  });
-}
+class IndexesLoadingError extends IndexesState {}
 
 class IndexesLoaded extends IndexesState {
   final List<MarketIndexModel> indexes;

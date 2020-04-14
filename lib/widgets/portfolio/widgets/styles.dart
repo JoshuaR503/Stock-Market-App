@@ -12,14 +12,6 @@ final kPortfolioScreenDate = const TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w800
 );
-
-final kPortfolioScreenSubtitle = const TextStyle(
-  color: Colors.white,
-  fontSize: 16,
-  fontWeight: FontWeight.bold
-);
-
-// Styles from portfolio_watchlist.dart
 final kCompanyName = const TextStyle(
   color: Color(0XFFc2c2c2),
   fontSize: 14
@@ -27,11 +19,6 @@ final kCompanyName = const TextStyle(
 
 final kStockTickerSymbol = const TextStyle(
   fontSize: 16,
-  fontWeight: FontWeight.bold
-);
-
-final kTickerStyle = const TextStyle(
-  fontSize: 20,
   fontWeight: FontWeight.bold
 );
 

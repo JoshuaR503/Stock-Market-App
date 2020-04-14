@@ -12,9 +12,9 @@ class PortfolioClient {
     return MarketIndexModel.toList(response.data['majorIndexesList']);
   }
 
-  Future<DataOverview> fetchData({String symbol}) async {
+  Future<StockOverviewModel> fetchData({String symbol}) async {
     final Uri uri = Uri.https(authority, '/api/v3/quote/$symbol');
     final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
-    return DataOverview.fromJson(response.data[0]);
+    return StockOverviewModel.fromJson(response.data[0]);
   }
 }

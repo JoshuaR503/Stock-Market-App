@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
-import 'package:sma/widgets/portfolio/widgets/portfolio_single_stonk.dart';
+import 'package:sma/widgets/portfolio/widgets/stonks/portfolio_stonk.dart';
 
 import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
-class PortfolioScreen extends StatelessWidget {
+class PortfolioStonksSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -16,31 +16,40 @@ class PortfolioScreen extends StatelessWidget {
         if (state is PortfolioInitial) {
           BlocProvider
           .of<PortfolioBloc>(context)
-          .add(FetchPortfoliData());
+          .add(FetchPortfolioData());
         }
 
         if (state is PortfolioEmpty) {
-          return EmptyScreen(message: 'Your watchlist is empty.');
+          return Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: EmptyScreen(message: 'Your watchlist is empty. Try looking up MSFT or AAPL.'),
+          );
         }
 
         if (state is PortfolioLoadingError) {
-          return Center(child: Text(state.error));
+          return Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: EmptyScreen(message: state.error),
+          );
         }
 
         if (state is PortfolioLoaded) {
           return Container(
             child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: state.stocks.length,
-              itemBuilder: (BuildContext context, int index) => PortfolioSingleStonk(
-                dataOverview: state.stocks[index],
+              itemBuilder: (BuildContext context, int index) => PortfolioStonkWidget(
+                stockOverviewModel: state.stocks[index],
               )
             ),
           );
         }
 
-        return LoadingIndicatorWidget();    
+        return Padding(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
+          child: LoadingIndicatorWidget(),
+        );
       },
     );
   }

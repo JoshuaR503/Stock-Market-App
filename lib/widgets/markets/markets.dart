@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sma/bloc/sector_performance/sector_performance_bloc.dart';
 import 'package:sma/models/markets/market_active/market_active_model.dart';
+
 import 'package:sma/shared/colors.dart';
+import 'package:sma/shared/styles.dart';
 
 import 'package:sma/widgets/markets/market_movers/market_movers.dart';
 import 'package:sma/widgets/markets/sector_performance/sector_performance.dart';
-import 'package:sma/widgets/markets/styles.dart';
 
 import 'package:sma/widgets/markets/widgets/markets_header.dart';
 import 'package:sma/widgets/widgets/base_screen.dart';

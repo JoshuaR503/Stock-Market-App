@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sma/widgets/portfolio/portfolio_screen.dart';
-import 'package:sma/widgets/portfolio/widgets/portfolio_heading.dart';
-import 'package:sma/widgets/portfolio/widgets/portfolio_indexes.dart';
+
+import 'package:sma/widgets/portfolio/widgets/heading/portfolio_heading.dart';
+import 'package:sma/widgets/portfolio/widgets/index/portfolio_indexes.dart';
+
+import 'package:sma/widgets/portfolio/widgets/stonks/portfolio_stonks.dart';
 import 'package:sma/widgets/widgets/base_screen.dart';
 
 class Portfolio extends StatelessWidget {
@@ -9,11 +11,11 @@ class Portfolio extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
       children: <Widget>[
-        PortfolioHeadingWidget(),
-        SizedBox(height: 24,),
-        PortfolioIndexes(),
-        SizedBox(height: 24,),
-        PortfolioScreen()
+        PortfolioHeadingSection(),
+        SizedBox(height: 24),
+        PortfolioIndexeSection(),
+        SizedBox(height: 24),
+        PortfolioStonksSection()
       ],
     );
   }

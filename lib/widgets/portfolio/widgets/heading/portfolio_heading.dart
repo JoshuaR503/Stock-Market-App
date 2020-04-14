@@ -1,11 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:sma/widgets/portfolio/widgets/portfolio_search.dart';
+
+import 'package:sma/widgets/portfolio/widgets/heading/portfolio_search.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
-class PortfolioHeadingWidget extends StatelessWidget {
+class PortfolioHeadingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
@@ -21,7 +21,7 @@ class PortfolioHeadingWidget extends StatelessWidget {
             Text('Portfolio', style: kPortfolioScreenTitle),
             GestureDetector(
               child: FaIcon(FontAwesomeIcons.search, size: 22,),
-              onTap: () => showSearch(context: context, delegate: PortfolioSearch()),
+              onTap: () => showSearch(context: context, delegate: PortfolioSearchWidget()),
             )
           ],
         ),

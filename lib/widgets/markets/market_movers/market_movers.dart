@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sma/models/markets/market_active/market_active.dart';
-import 'package:sma/widgets/markets/styles.dart';
+import 'package:sma/shared/styles.dart';
 
 class MarketMovers extends StatelessWidget {
 
-  final MarketActiveModel data ;
+  final MarketActiveModel data;
   final Color color;
 
   MarketMovers({
@@ -20,7 +20,7 @@ class MarketMovers extends StatelessWidget {
         child: _buildContent(),
         width: 100,
         decoration: BoxDecoration(
-          borderRadius: commonBorderRadious,
+          borderRadius: standatBorder,
           color: color,
         ),
       )

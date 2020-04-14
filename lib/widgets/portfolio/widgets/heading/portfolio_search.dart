@@ -10,7 +10,7 @@ import 'package:sma/models/search/search.dart';
 import 'package:sma/widgets/profile/profile.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
-class PortfolioSearch extends SearchDelegate {
+class PortfolioSearchWidget extends SearchDelegate {
 
   final SearchStockRepository _repository = SearchStockRepository();
 

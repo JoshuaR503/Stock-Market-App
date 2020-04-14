@@ -1,13 +1,13 @@
 import 'package:meta/meta.dart';
 
-class DataOverview {
+class StockOverviewModel {
   final String symbol;
   final String name;
   final double price;
   final double changesPercentage;
   final double change;
 
-  DataOverview({
+  StockOverviewModel({
     @required this.symbol,
     @required this.name,
     @required this.price,
@@ -15,8 +15,8 @@ class DataOverview {
     @required this.change
   });
 
-  factory DataOverview.fromJson(Map<String, dynamic> json) {
-    return DataOverview(
+  factory StockOverviewModel.fromJson(Map<String, dynamic> json) {
+    return StockOverviewModel(
       symbol: json['symbol'],
       name: json['name'],
       price: json['price'],

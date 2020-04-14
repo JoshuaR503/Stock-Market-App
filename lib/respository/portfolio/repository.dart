@@ -4,7 +4,7 @@ import 'package:sma/respository/portfolio/client.dart';
 
 class PortfolioRepository {
 
-  Future<DataOverview> fetchData({String symbol}) async {
+  Future<StockOverviewModel> fetchData({String symbol}) async {
     return await PortfolioClient().fetchData(symbol: symbol);
   }
 
