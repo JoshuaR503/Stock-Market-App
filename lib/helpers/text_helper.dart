@@ -28,6 +28,6 @@ String determineTextBasedOnChange(double change) {
 /// based on the [change].
 String determineTextPercentageBasedOnChange(double change) {
   return change < 0 
-    ? '' 
-    : '${formatText(change)}%';
+    ? '${formatText(change)}%' 
+    : '+${formatText(change)}%';
 }

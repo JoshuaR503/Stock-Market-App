@@ -3,6 +3,7 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/markets/markets.dart';
+import 'package:sma/widgets/news/news.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
 
 class StockMarketAppHome extends StatefulWidget {
@@ -18,12 +19,7 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   final widgets = [
     Portfolio(),
     Markets(),
-    Center(
-      child: Text(
-        'Stock Market news coming soon.',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-    ),
+    News(),
     Center(
       child: Text(
         'Search Screen coming soon.',

@@ -8,7 +8,7 @@ final kPortfolioScreenTitle = const TextStyle(
 );
 
 final kPortfolioScreenDate = const TextStyle(
-  color: kGray,
+  color: Colors.white54,
   fontSize: 24,
   fontWeight: FontWeight.w800
 );

@@ -15,3 +15,9 @@ const subtitleStyling = const TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w800
 );
+
+/// This is the common text styling for a subtile. 
+const companyNameHeading = const TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w800
+);

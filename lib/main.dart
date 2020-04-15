@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/indexes/indexes_bloc.dart';
+import 'package:sma/bloc/news/news_bloc.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/bloc/search/search_bloc.dart';
@@ -28,6 +29,9 @@ void main() async {
         ),
         BlocProvider<SectorPerformanceBloc>(
           create: (context) => SectorPerformanceBloc(),
+        ),
+        BlocProvider<NewsBloc>(
+          create: (context) => NewsBloc(),
         ),
       ],
       child: MaterialApp(
