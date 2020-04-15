@@ -32,15 +32,21 @@ class Markets extends StatelessWidget {
           return BaseScreen(children: [
 
             MarketsHeader(),
+
+            // Section title.
+            Text('Sector Performance', style: subtitleStyling),
             SectorPerformance(performanceData: state.sectorPerformance),
             Divider(height: 2),
 
+            // Section title.
             Padding(
               padding: EdgeInsets.only(top: 16, bottom: 8),
               child: Text('Most Active', style: subtitleStyling),
             ),
             _buildMarketMovers(stonks: state.marketActive, color: Color(0xFF263497)),
 
+
+            // Section title
             Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
               child: Text('Top Gainers', style: subtitleStyling),
