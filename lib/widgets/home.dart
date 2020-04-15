@@ -53,7 +53,6 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
 
   Widget _bottomNavigationBar() {
     return SnakeNavigationBar(
-      elevation: 1.0,
       backgroundColor: Color(0XFF181818),
 
       showSelectedLabels: false,
@@ -61,13 +60,6 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
       snakeColor: Colors.white,
       selectedItemColor: Colors.white,
       snakeShape:  SnakeShape.indicator,
-    
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8), 
-          topRight: Radius.circular(8)
-        ),
-      ),
       
       items: _bottomNavigationBarItemItems(),
       currentIndex: _selectedIndex,

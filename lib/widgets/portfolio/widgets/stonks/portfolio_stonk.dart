@@ -29,20 +29,22 @@ class PortfolioStonkWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 6),
       child: MaterialButton(
         color: kTileColor,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            _buildCompanyData(),
-            _buildPriceData()
-          ]
+        child: Container(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(flex: 7, child: _buildCompanyData()),
+              Expanded(flex: 5,child: _buildPriceData())
+            ],
+          ),
         ),
 
         height: 90,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        shape: RoundedRectangleBorder(borderRadius: standatBorder),
         onPressed: () {
           // Trigger fetch event.
           BlocProvider
@@ -66,7 +68,7 @@ class PortfolioStonkWidget extends StatelessWidget {
       children: <Widget>[
         Text(stockOverviewModel.symbol, style: kStockTickerSymbol),
         SizedBox(height: 8.0),
-        Text(stockOverviewModel.name, style: _companyNameStyle)
+        Text(stockOverviewModel.name, style: _companyNameStyle,)
       ], 
     );
   }
@@ -76,32 +78,33 @@ class PortfolioStonkWidget extends StatelessWidget {
   /// It renders the [change] and the stock's [price] from [StockOverviewModel].
   Widget _buildPriceData() {
 
-    final String text = stockOverviewModel.changesPercentage < 0 
-      ? '${formatText(stockOverviewModel.change)}'
-      : '+${formatText(stockOverviewModel.change)}';
+    final width = stockOverviewModel.changesPercentage > 99.99 ? null : 75.5;
 
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.only(bottom: 8),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: sharpBorder,
+              color: determineColorBasedOnChange(stockOverviewModel.change)
+            ),
+
+            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            width: width,
+            child: Text('${formatText(stockOverviewModel.changesPercentage)}%', textAlign: TextAlign.end,),
+          ),
+        ),
+        
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
           child: Text(formatText(stockOverviewModel.price), 
             textAlign: TextAlign.end, 
             style: _stockPriceStyle
           ),
-        ),
-
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: standatBorder,
-            color: determineColorBasedOnChange(stockOverviewModel.change)
-          ),
-
-          width: 60,
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: Text(text, textAlign: TextAlign.end,),
         ),
       ],
     );

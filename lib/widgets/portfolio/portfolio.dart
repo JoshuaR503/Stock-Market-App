@@ -14,7 +14,7 @@ class Portfolio extends StatelessWidget {
         PortfolioHeadingSection(),
         SizedBox(height: 24),
         PortfolioIndexeSection(),
-        SizedBox(height: 24),
+        SizedBox(height: 16),
         PortfolioStonksSection()
       ],
     );

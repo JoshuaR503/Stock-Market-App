@@ -23,11 +23,16 @@ class PortfolioIndexWidget extends StatelessWidget {
     color: kLightGray
   );
 
+  static const _indexPriceChange = const TextStyle(
+    fontSize: 12,
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      padding: EdgeInsets.only(left: 2, right: 18),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      padding: EdgeInsets.symmetric(horizontal: 4),
       child: Container(
         width: 100,
         child: Column(
@@ -40,13 +45,13 @@ class PortfolioIndexWidget extends StatelessWidget {
 
             Container(
               decoration: BoxDecoration(
-                borderRadius: standatBorder,
+                borderRadius: sharpBorder,
                 color: determineColorBasedOnChange(index.changes)
               ),
 
               width: 80,
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              child: Text(formatText(index.changes)),
+              child: Text(determineTextBasedOnChange(index.changes), style: _indexPriceChange,),
             ),
           ]
         ),

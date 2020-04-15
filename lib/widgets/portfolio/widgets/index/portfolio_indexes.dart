@@ -23,9 +23,9 @@ class PortfolioIndexeSection extends StatelessWidget {
 
         if (state is IndexesLoaded) {
           return Container(
-            height: 80,
+            height: 75,
             child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 0),
+              padding: EdgeInsets.zero,
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: state.indexes.length,
@@ -36,7 +36,7 @@ class PortfolioIndexeSection extends StatelessWidget {
           );
         }
         
-        return Container( height: 80 );
+        return Container( height: 75 );
       }
     );
   }

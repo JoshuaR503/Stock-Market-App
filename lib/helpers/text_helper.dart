@@ -11,9 +11,23 @@ String formatText(dynamic text ) {
 }
 
 String compactText(dynamic text ) {
-  if (text != null) {
-    return NumberFormat.compact().format(text);
-  } else {
-    return '-';
-  }
+  return text != null
+  ? NumberFormat.compact().format(text)
+  : '-'; 
+}
+
+/// This function will add a + sign to an string
+/// based on the [change].
+String determineTextBasedOnChange(double change) {
+  return change < 0 
+    ? formatText(change) 
+    : '+${formatText(change)}';
+}
+
+/// This function will add a + sign to an string
+/// based on the [change].
+String determineTextPercentageBasedOnChange(double change) {
+  return change < 0 
+    ? '' 
+    : '${formatText(change)}%';
 }
