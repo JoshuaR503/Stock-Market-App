@@ -1,15 +1,16 @@
+import 'package:sma/models/storage/storage.dart';
 import 'package:sma/respository/portfolio/storage/storage_client.dart';
 
 class PortfolioStorageRepository {
 
   // Fetch all the data from the Databse Client.
-  Future<List<String>> fetch() async {
+  Future<List<StorageModel>> fetch() async {
     return await PortfolioStorageClient().fetch();
   }
 
   // Save symbol in database.
-  Future<void> save({String symbol}) async {
-    return await PortfolioStorageClient().save(symbol: symbol);
+  Future<void> save({StorageModel storageModel}) async {
+    return await PortfolioStorageClient().save(storageModel: storageModel);
   }
 
   // Delete symbol from databse.

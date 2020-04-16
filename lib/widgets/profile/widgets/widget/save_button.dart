@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
+import 'package:sma/models/storage/storage.dart';
 
 class WatchlistButtonWidget extends StatefulWidget {
 
   final Color color;
   final bool isSaved;
-  final String symbol;
+  final StorageModel storageModel;
 
   WatchlistButtonWidget({
     @required this.color,
     @required this.isSaved,
-    @required this.symbol
+    @required this.storageModel
   });
 
   @override
@@ -56,13 +57,13 @@ class _WatchlistButtonWidgetState extends State<WatchlistButtonWidget> {
 
       BlocProvider
       .of<PortfolioBloc>(context)
-      .add(DeleteProfile(symbol: this.widget.symbol));
+      .add(DeleteProfile(symbol: this.widget.storageModel.symbol));
     } else {
       changeState(isSaved: true, color: this.widget.color);
 
       BlocProvider
       .of<PortfolioBloc>(context)
-      .add(SaveProfile(symbol: this.widget.symbol));
+      .add(SaveProfile(storageModel: this.widget.storageModel));
     }
   }
 

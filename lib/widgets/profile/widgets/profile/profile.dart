@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sma/helpers/color_helper.dart';
-import 'package:sma/helpers/text_helper.dart';
+import 'package:sma/helpers/color/color_helper.dart';
+import 'package:sma/helpers/text/text_helper.dart';
 import 'package:sma/models/profile/stock_chart.dart';
 import 'package:sma/models/profile/stock_profile.dart';
 import 'package:sma/models/profile/stock_quote.dart';
@@ -64,7 +64,7 @@ class Profile extends StatelessWidget {
         children: <Widget>[
           Text('\$${formatText(stockQuote.price)}', style: priceStyle),
           SizedBox(height: 8),
-          Text('${determineTextBasedOnChange(stockQuote.change)}  -  (${determineTextPercentageBasedOnChange(stockQuote.changesPercentage)})', 
+          Text('${determineTextBasedOnChange(stockQuote.change)}  (${determineTextPercentageBasedOnChange(stockQuote.changesPercentage)})', 
             style: determineTextStyleBasedOnChange(stockQuote.change)
           )
         ],

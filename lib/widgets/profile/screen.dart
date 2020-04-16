@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sma/models/profile/profile.dart';
+import 'package:sma/models/storage/storage.dart';
 
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/news/news.dart';
@@ -39,7 +40,10 @@ class ProfileScreen extends StatelessWidget {
           
           actions: <Widget>[
             WatchlistButtonWidget(
-              symbol: profile.stockQuote.symbol,
+              storageModel: StorageModel(
+                symbol: profile.stockQuote.symbol, 
+                companyName: profile.stockProfile.companyName
+              ),
               isSaved: isSaved,
               color: Colors.white,
             )

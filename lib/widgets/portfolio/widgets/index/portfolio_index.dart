@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sma/helpers/color_helper.dart';
-import 'package:sma/helpers/text_helper.dart';
+
+import 'package:sma/helpers/color/color_helper.dart';
+import 'package:sma/helpers/text/text_helper.dart';
+
 import 'package:sma/models/profile/market_index.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/styles.dart';

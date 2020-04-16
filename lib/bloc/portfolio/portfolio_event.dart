@@ -7,10 +7,10 @@ class FetchPortfolioData extends PortfolioEvent {}
 
 class SaveProfile extends PortfolioEvent {
 
-  final String symbol;
+  final StorageModel storageModel;
 
   SaveProfile({
-    @required this.symbol
+    @required this.storageModel
   });
 }
 

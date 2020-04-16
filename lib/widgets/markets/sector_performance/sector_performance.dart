@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:sma/helpers/color_helper.dart';
+import 'package:sma/helpers/color/color_helper.dart';
 import 'package:sma/models/markets/sector_performance/sector_performance_model.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/styles.dart';

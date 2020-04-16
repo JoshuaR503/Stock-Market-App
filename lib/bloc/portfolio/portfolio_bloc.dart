@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:sma/helpers/sentry_helper.dart';
 
 import 'package:sma/models/data_overview.dart';
+import 'package:sma/models/storage/storage.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 import 'package:sma/respository/portfolio/storage/storage.dart';
 
@@ -30,7 +31,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
     if (event is SaveProfile) {
       yield PortfolioLoading();
-      await this._databaseRepository.save(symbol: event.symbol);
+      await this._databaseRepository.save(storageModel: event.storageModel);
       yield* _fetchSymbols();
     }
 
@@ -57,10 +58,10 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
     }
   }
 
-  Future<List<StockOverviewModel>> _fetchFromNetwork({List<String> symbols}) async {
+  Future<List<StockOverviewModel>> _fetchFromNetwork({List<StorageModel> symbols}) async {
     return await Future
     .wait(symbols
-    .map((symbol) async => await _repository.fetchData(symbol: symbol)));
+    .map((symbol) async => await _repository.fetchData(symbol: symbol.symbol)));
   }
 
 }

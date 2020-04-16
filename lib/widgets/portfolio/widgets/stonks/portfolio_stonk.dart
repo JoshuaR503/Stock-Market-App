@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/profile/profile_bloc.dart';
-import 'package:sma/helpers/color_helper.dart';
-import 'package:sma/helpers/text_helper.dart';
+import 'package:sma/helpers/color/color_helper.dart';
+
+import 'package:sma/helpers/text/text_helper.dart';
 import 'package:sma/models/data_overview.dart';
+
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/styles.dart';
+
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 import 'package:sma/widgets/profile/profile.dart';
 

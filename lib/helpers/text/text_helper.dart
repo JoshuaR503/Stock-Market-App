@@ -1,13 +1,9 @@
-
-
 import 'package:intl/intl.dart';
 
 String formatText(dynamic text ) {
-  if (text != null) {
-    return NumberFormat().format(text);
-  } else {
-    return '-';
-  }
+  return text != null 
+  ? NumberFormat().format(text)
+  : '-';
 }
 
 String compactText(dynamic text ) {

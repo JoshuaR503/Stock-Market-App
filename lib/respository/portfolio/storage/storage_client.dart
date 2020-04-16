@@ -1,5 +1,6 @@
 import 'package:sembast/sembast.dart';
 import 'package:sma/helpers/database_helper.dart';
+import 'package:sma/models/storage/storage.dart';
 
 class PortfolioStorageClient {
 
@@ -9,13 +10,13 @@ class PortfolioStorageClient {
   Future<Database> get _database async => await DatabaseManager.instance.database;
 
   // Gets all the symbols stored.
-  Future<List<String>> fetch() async {
+  Future<List<StorageModel>> fetch() async {
 
     final Finder finder = Finder(sortOrders: [SortOrder(Field.key, false)]);
     final response = await _store.find(await _database, finder: finder);
 
     return response
-    .map((x) => x.value['symbol'].toString())
+    .map((snapshot) => StorageModel.fromJson(snapshot.value))
     .toList();
   }
 
@@ -29,12 +30,12 @@ class PortfolioStorageClient {
   }
 
   // Saves a symbol in the database.
-  Future<void> save({String symbol}) async {
+  Future<void> save({StorageModel storageModel}) async {
     
-    final bool isSaved = await symbolExists(symbol: symbol);
+    final bool isSaved = await symbolExists(symbol: storageModel.symbol);
 
     if (!isSaved) {
-      await _store.add(await _database, {'symbol': symbol});
+      await _store.add(await _database, storageModel.toJson());
     }
   }
 
