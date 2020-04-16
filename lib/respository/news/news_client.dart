@@ -11,6 +11,7 @@ class NewsClient extends FetchClient {
 
     final Uri newsUri = Uri.https('newsapi.org', '/v2/everything', {
       'q': '"$title"',
+      'language': 'en',
       'sortBy': 'popularity',
       'pageSize': '10',
       'apikey': newsApi

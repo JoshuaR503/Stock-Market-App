@@ -44,7 +44,7 @@ class NewsCardWidget extends StatelessWidget {
 
   Widget _renderNewsArticle(SingleNewModel singleNew) {
     return Container(
-      width: 200,
+      width: 195,
       child: Column(
         children: <Widget>[
 
