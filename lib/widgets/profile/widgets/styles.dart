@@ -18,5 +18,6 @@ const priceStyle = const TextStyle(
 
 const subtitleStyle = const TextStyle(
   color: kLighterGray,
-  fontSize: 15
+  fontSize: 14.5,
+  height: 1.5
 );

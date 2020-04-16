@@ -20,39 +20,39 @@ class StatisticsWidget extends StatelessWidget {
   static Text _renderText(dynamic text) {
     return text != null 
     ? Text(compactText(text))
-    :Text('-');
+    : Text('-');
   }
   
   List<Widget> _leftColumn() {
     return [
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('Open', style: subtitleStyle),
         trailing: _renderText(quote.open)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('Prev close', style: subtitleStyle),
         trailing: _renderText(quote.previousClose)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('Day High', style: subtitleStyle),
         trailing: _renderText(quote.dayHigh)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('Day Low', style: subtitleStyle),
         trailing: _renderText(quote.dayLow)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('52 WK High', style: subtitleStyle),
         trailing: _renderText(quote.yearHigh)
       ),
 
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('52 WK Low', style: subtitleStyle),
         trailing: _renderText(quote.dayLow)
       ),
@@ -62,32 +62,32 @@ class StatisticsWidget extends StatelessWidget {
   List<Widget> _rightColumn() {
     return [
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('Outstanding Shares', style: subtitleStyle),
         trailing: _renderText(quote.sharesOutstanding)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('Volume', style: subtitleStyle),
         trailing: _renderText(quote.volume)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('Avg Vol', style: subtitleStyle),
         trailing: _renderText(quote.avgVolume)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('MKT Cap', style: subtitleStyle),
         trailing: _renderText(quote.marketCap)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('P/E Ratio', style: subtitleStyle),
         trailing: _renderText(quote.pe)
       ),
       ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: Text('EPS', style: subtitleStyle),
         trailing: _renderText(quote.eps)
       ),
@@ -120,21 +120,21 @@ class StatisticsWidget extends StatelessWidget {
         Divider(),
 
         ListTile(
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: EdgeInsets.zero,
           title: Text('CEO', style: subtitleStyle),
           trailing: Text('${profile.ceo}'),
         ),
         Divider(),
 
         ListTile(
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: EdgeInsets.zero,
           title: Text('Sector', style: subtitleStyle),
           trailing: Text('${profile.sector}'),
         ),
         Divider(),
 
         ListTile(
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: EdgeInsets.zero,
           title: Text('Exchange', style: subtitleStyle),
           trailing: Text('${profile.exchange}'),
         ),

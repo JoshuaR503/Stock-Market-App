@@ -50,13 +50,11 @@ class ProfileScreen extends StatelessWidget {
         body: SafeArea(
           child: TabBarView(
             children: [
-              
               Profile(
                 color: color,
                 stockProfile: profile.stockProfile,
                 stockChart: profile.stockChart,
                 stockQuote: profile.stockQuote,
-                isSaved: isSaved,
               ),
 
               ProfileNewsScreen(news: profile.stockNews,),

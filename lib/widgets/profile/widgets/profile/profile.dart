@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:sma/helpers/color_helper.dart';
+import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/profile/stock_chart.dart';
 import 'package:sma/models/profile/stock_profile.dart';
 import 'package:sma/models/profile/stock_quote.dart';
 
 import 'package:sma/widgets/profile/widgets/profile/profile_graph.dart';
 import 'package:sma/widgets/profile/widgets/profile/profile_summary.dart';
-import 'package:sma/widgets/profile/widgets/profile/widgets/price.dart';
+
 import 'package:sma/widgets/profile/widgets/styles.dart';
 
 class Profile extends StatelessWidget {
 
-  final bool isSaved;
   final Color color;
   final StockQuote stockQuote;
   final StockProfile stockProfile;
   final List<StockChart> stockChart;
 
   Profile({
-    @required this.isSaved,
     @required this.color,
     @required this.stockProfile,
     @required this.stockQuote,
@@ -34,11 +34,8 @@ class Profile extends StatelessWidget {
           children: <Widget>[
             Text(this.stockQuote.name, style: kProfileCompanyName),
 
-            ProfilePrice(
-              color: this.color,
-              quote: this.stockQuote,
-            ),
-
+            _buildPrice(),
+            
             Container(
               height: 250,
               padding: EdgeInsets.only(top: 26),
@@ -55,6 +52,23 @@ class Profile extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildPrice() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('\$${formatText(stockQuote.price)}', style: priceStyle),
+          SizedBox(height: 8),
+          Text('${determineTextBasedOnChange(stockQuote.change)}  -  (${determineTextPercentageBasedOnChange(stockQuote.changesPercentage)})', 
+            style: determineTextStyleBasedOnChange(stockQuote.change)
+          )
+        ],
+      ),
     );
   }
 }
