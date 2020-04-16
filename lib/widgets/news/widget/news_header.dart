@@ -11,7 +11,7 @@ class NewsHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StandardHeader(
-      title: 'Portfolio News',
+      title: 'News',
       action: GestureDetector(
         child: FaIcon(FontAwesomeIcons.redoAlt, size: 22,),
         onTap: () {

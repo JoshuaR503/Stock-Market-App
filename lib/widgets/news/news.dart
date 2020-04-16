@@ -43,7 +43,7 @@ class News extends StatelessWidget {
                 itemCount: state.news.length,
                 itemBuilder: (BuildContext context, int index) {
                   return NewsCardWidget(
-                    symbolOverview: state.news[index].symbolOverviewModel,
+                    title: state.news[index].keyWord,
                     news: state.news[index].news,
                   );
                 },

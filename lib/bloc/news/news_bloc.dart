@@ -7,7 +7,6 @@ import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/news/news.dart';
 
 import 'package:sma/respository/news/repository.dart';
-import 'package:sma/respository/portfolio/storage/storage.dart';
 
 part 'news_event.dart';
 part 'news_state.dart';
@@ -15,7 +14,6 @@ part 'news_state.dart';
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   final NewsRepository _newsRepository = NewsRepository(); 
-  final PortfolioStorageRepository _databaseRepository = PortfolioStorageRepository();
 
   @override
   NewsState get initialState => NewsInitial();
@@ -31,18 +29,14 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   Stream<NewsState> _fetchNews() async* {
     try {
-      final symbolsStored = await _databaseRepository.fetch();
       
-      if (symbolsStored.isNotEmpty) {
-        final news =  await Future
-        .wait(symbolsStored
-        .map((symbol) async => await _newsRepository.fetchNews(symbol: symbol)));
+      final titles = ['Dow Jones', 'S&P 500', 'Technology', 'Finance'];
 
-        yield NewsLoaded(news: news);
-        
-      } else {
-        yield NewsEmpty();
-      }
+      final news =  await Future
+      .wait(titles
+      .map((symbol) async => await _newsRepository.fetchNews(title: symbol)));
+
+      yield NewsLoaded(news: news);
 
     } catch (e, stack) {
       await SentryHelper(exception: e, stackTrace: stack).report();

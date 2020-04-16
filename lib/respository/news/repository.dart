@@ -4,8 +4,8 @@ import 'package:sma/respository/news/news_client.dart';
 
 class NewsRepository extends NewsClient {
   
-  Future<NewsDataModel> fetchNews({String symbol}) async {
-    return await super.fetchNews(symbol: symbol);
+  Future<NewsDataModel> fetchNews({String title}) async {
+    return await super.fetchNews(title: title);
   }
 
 }

@@ -20,7 +20,7 @@ class StandardHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            Text(this.title, style: kPortfolioScreenTitle),
+            Expanded(flex: 10, child: Text(this.title, style: kPortfolioScreenTitle),),
             this.action
           ],
         ),
