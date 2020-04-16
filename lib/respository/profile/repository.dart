@@ -2,14 +2,14 @@ import 'package:sma/models/profile/profile.dart';
 import 'package:sma/models/profile/stock_quote.dart';
 import 'package:sma/respository/profile/client.dart';
 
-class ProfileRepository {
+class ProfileRepository extends ProfileClient{
 
   Future<StockQuote> fetchProfileChanges({String symbol}) async {
-    return await ProfileClient().fetchProfileChanges(symbol: symbol);
+    return await super.fetchProfileChanges(symbol: symbol);
   }
 
   Future<ProfileModel> fetchStockData({String symbol}) async {
-    return await ProfileClient().fetchStockData(symbol: symbol);
+    return await super.fetchStockData(symbol: symbol);
   }
 
 }

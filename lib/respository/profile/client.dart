@@ -4,7 +4,6 @@ import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/helpers/variables.dart';
 import 'package:sma/key.dart';
 import 'package:sma/models/profile/news/stock_news.dart';
-import 'package:sma/models/profile/overview/stock_ownership.dart';
 
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/models/profile/stock_chart.dart';
@@ -33,24 +32,12 @@ class ProfileClient {
       'token': finnhubKey
     });
 
-    final Uri stockOwnershipUri = Uri.https('finnhub.io', '/api/v1/stock/investor-ownership', {
-      'symbol': symbol,
-      'limit': '10',
-      'token': finnhubKey
-    });
-
     return ProfileModel(
       stockQuote: await _fetchQuote(uri: quoteUri),
       stockProfile: await _fetchProfile(uri: profileUri),
       stockChart: await _fetchChart(uri: chartUri),
       stockNews: await _fetchStockNews(uri: stockNewsUri),
-      stockOwnership: await _fetchStockOwnership(uri: stockOwnershipUri)
     );
-  }
-
-  static Future<List<StockOwnership>> _fetchStockOwnership({Uri uri}) async {
-    final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
-    return StockOwnership.toList(response.data['ownership']);
   }
 
   static Future<List<StockNews>> _fetchStockNews({Uri uri}) async {

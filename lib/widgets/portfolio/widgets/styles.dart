@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sma/shared/colors.dart';
 
 // Styles from portfolio.dart. 
 final kPortfolioScreenTitle = const TextStyle(
@@ -20,14 +19,4 @@ final kCompanyName = const TextStyle(
 final kStockTickerSymbol = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold
-);
-
-final kPositiveChange = const TextStyle(
-  color: kPositiveColor,
-  fontWeight: FontWeight.w800
-);
-
-final kNegativeChange = const TextStyle(
-  color: kNegativeColor,
-  fontWeight: FontWeight.w800
 );

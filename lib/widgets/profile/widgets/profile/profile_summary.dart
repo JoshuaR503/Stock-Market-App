@@ -2,15 +2,19 @@
 import 'package:flutter/material.dart';
 
 import 'package:sma/helpers/text_helper.dart';
+import 'package:sma/models/profile/stock_profile.dart';
 import 'package:sma/models/profile/stock_quote.dart';
+import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/styles.dart';
 
 class StatisticsWidget extends StatelessWidget {
   
   final StockQuote quote;
+  final StockProfile profile;
 
   StatisticsWidget({
-    @required this.quote
+    @required this.quote,
+    @required this.profile
   });
 
   static Text _renderText(dynamic text) {
@@ -113,8 +117,42 @@ class StatisticsWidget extends StatelessWidget {
             )
           ],
         ),
+        Divider(),
 
-        SizedBox(height: 36),
+        ListTile(
+          contentPadding: EdgeInsets.all(0),
+          title: Text('CEO', style: subtitleStyle),
+          trailing: Text('${profile.ceo}'),
+        ),
+        Divider(),
+
+        ListTile(
+          contentPadding: EdgeInsets.all(0),
+          title: Text('Sector', style: subtitleStyle),
+          trailing: Text('${profile.sector}'),
+        ),
+        Divider(),
+
+        ListTile(
+          contentPadding: EdgeInsets.all(0),
+          title: Text('Exchange', style: subtitleStyle),
+          trailing: Text('${profile.exchange}'),
+        ),
+        Divider(),
+
+        Text('About ${profile.companyName} ',style: kProfileScreenSectionTitle),
+        SizedBox(height: 8),
+
+        Text(profile.description,
+          style: TextStyle(
+            fontSize: 16,
+            color: kLighterGray,
+            height: 1.75
+          ),
+        ),
+        Divider(),
+        
+        SizedBox(height: 30),
       ],
     );
   }

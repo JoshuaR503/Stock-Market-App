@@ -4,9 +4,7 @@ import 'package:sma/models/profile/profile.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/profile/widgets/news/news.dart';
 import 'package:sma/widgets/profile/widgets/profile/profile.dart';
-import 'package:sma/widgets/profile/widgets/profile/save_button.dart';
-
-import 'widgets/overview/overview.dart';
+import 'package:sma/widgets/profile/widgets/widget/save_button.dart';
 
 class ProfileScreen extends StatelessWidget {
 
@@ -24,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: Text(this.profile.stockQuote.symbol),
@@ -36,7 +34,6 @@ class ProfileScreen extends StatelessWidget {
             tabs: [
               Tab(text: 'Profile',),
               Tab(text: 'News',),
-              Tab(text: 'Information',)
             ],
           ),
           
@@ -56,16 +53,13 @@ class ProfileScreen extends StatelessWidget {
               
               Profile(
                 color: color,
+                stockProfile: profile.stockProfile,
                 stockChart: profile.stockChart,
                 stockQuote: profile.stockQuote,
                 isSaved: isSaved,
               ),
 
               ProfileNewsScreen(news: profile.stockNews,),
-              ProfileOverviewScreen(
-                stockOwnership: profile.stockOwnership,
-                profile: profile.stockProfile,
-              )
             ]
           ),
         )

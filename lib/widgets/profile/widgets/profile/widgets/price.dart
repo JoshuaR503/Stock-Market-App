@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:sma/helpers/color_helper.dart';
 
 import 'package:sma/helpers/text_helper.dart';
 import 'package:sma/models/profile/stock_quote.dart';
@@ -17,10 +18,6 @@ class ProfilePrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String text = quote.change < 0 
-      ? '${formatText(quote.change)}   ${formatText(quote.changesPercentage)}%'
-      : '+${formatText(quote.change)}   +${formatText(quote.changesPercentage)}%';
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -28,12 +25,10 @@ class ProfilePrice extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text('\$${formatText(quote.price)}', style: priceStyle),
-          SizedBox(height: 4),
-          Text(text, style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: this.color
-          )),
+          SizedBox(height: 8),
+          Text('${determineTextBasedOnChange(quote.change)}  -  (${determineTextPercentageBasedOnChange(quote.changesPercentage)})', 
+            style: determineTextStyleBasedOnChange(quote.change)
+          )
         ],
       ),
     );
