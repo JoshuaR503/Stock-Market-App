@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/markets/markets.dart';
 import 'package:sma/widgets/news/news.dart';
@@ -15,8 +15,9 @@ class StockMarketAppHome extends StatefulWidget {
 class _StockMarketAppHomeState extends State<StockMarketAppHome> {
 
   int _selectedIndex = 0;
-  
-  final widgets = [
+    PageController _controller = PageController();
+
+  final _widgets = [
     Portfolio(),
     Markets(),
     News(),
@@ -38,7 +39,12 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kScaffoldBackground,
-      body: widgets[_selectedIndex],
+      body: PageView.builder(
+        controller: _controller,
+        onPageChanged: _onItemTapped,
+        itemBuilder: (context, index) => _widgets[index],
+        itemCount: _widgets.length, // Can be null
+      ),
       bottomNavigationBar: _bottomNavigationBar()
     );
   }
@@ -48,43 +54,71 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   }
 
   Widget _bottomNavigationBar() {
-    return SnakeNavigationBar(
-      backgroundColor: Color(0XFF181818),
-
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      snakeColor: Colors.white,
-      selectedItemColor: Colors.white,
-      snakeShape:  SnakeShape.indicator,
-      
-      items: _bottomNavigationBarItemItems(),
-      currentIndex: _selectedIndex,
-      onPositionChanged: _onItemTapped,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+        child: GNav(
+          gap: 8,
+          activeColor: Colors.white,
+          iconSize: 24,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          duration: Duration(milliseconds: 800),
+          tabBackgroundColor: kGray,
+          selectedIndex: _selectedIndex,
+          tabs: _bottomNavigationBarItemItems(),
+          onTabChange: (index) {
+            _onItemTapped(index);
+            _controller.jumpToPage(index);
+          }
+        ),
+      ),
     );
   }
 
-  List<BottomNavigationBarItem> _bottomNavigationBarItemItems() {
+  List<GButton> _bottomNavigationBarItemItems() {
+
     return [
-      BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.suitcase),
-        title: Text('Stonks', style:  TextStyle(fontSize: 14),),
+      GButton(
+        icon: FontAwesomeIcons.shapes,
+        text: 'Home',
       ),
-      BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.globeAmericas),
-        title: Text('Markets', style:  TextStyle(fontSize: 14),),
+      GButton(
+        icon: FontAwesomeIcons.suitcase,
+        text: 'Markets',
       ),
-      BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.solidNewspaper),
-        title: Text('News', style:  TextStyle(fontSize: 14),),
+      GButton(
+        icon: FontAwesomeIcons.globeAmericas,
+        text: 'News',
       ),
-      BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.search),
-        title: Text('Search', style:  TextStyle(fontSize: 14),),
-      ),
-      BottomNavigationBarItem(
-        icon: FaIcon(FontAwesomeIcons.question),
-        title: Text('Settings', style:  TextStyle(fontSize: 14),),
+      GButton(
+        icon: FontAwesomeIcons.search,
+        text: 'Search',
       ),
     ];
+    // return [
+    //   BottomNavigationBarItem(
+    //     icon: FaIcon(FontAwesomeIcons.suitcase),
+    //     title: Text('Stonks', style:  TextStyle(fontSize: 12),),
+    //   ),
+      
+    //   BottomNavigationBarItem(
+    //     icon: FaIcon(FontAwesomeIcons.solidNewspaper),
+    //     title: Text('News', style:  TextStyle(fontSize: 12),),
+    //   ),
+
+    //   BottomNavigationBarItem(
+    //     icon: FaIcon(FontAwesomeIcons.globeAmericas),
+    //     title: Text('Markets', style:  TextStyle(fontSize: 12),),
+    //   ),
+
+    //   BottomNavigationBarItem(
+    //     icon: FaIcon(FontAwesomeIcons.search),
+    //     title: Text('Search', style:  TextStyle(fontSize: 12),),
+    //   ),
+    //   BottomNavigationBarItem(
+    //     icon: FaIcon(FontAwesomeIcons.question),
+    //     title: Text('Settings', style:  TextStyle(fontSize: 12),),
+    //   ),
+    // ];
   }
 }

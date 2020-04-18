@@ -33,7 +33,7 @@ dependencies:
   flutter_bloc: ^3.2.0
   flutter_spinkit: "^4.1.2"
   font_awesome_flutter: ^8.8.1
-  flutter_snake_navigationbar: ^0.4.0+1
+  google_nav_bar: ^2.2.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.4
