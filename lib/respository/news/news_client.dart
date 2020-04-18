@@ -17,10 +17,17 @@ class NewsClient extends FetchClient {
       'apikey': newsApi
     });
 
+    final Uri companyLogo = Uri.https('autocomplete.clearbit.com', '/v1/companies/suggest', {
+      'query': title.split(" ")[0],
+    });
+
     final Response<dynamic> newsResponse = await super.fetchData(uri: newsUri);
+    final Response<dynamic> companyLogoResponse = await super.fetchData(uri: companyLogo);
+
     final List<SingleNewModel> newsOverviews = SingleNewModel.toList(newsResponse.data['articles']);
 
     return NewsDataModel(
+      companyLogo: companyLogoResponse.data[0]['logo'],
       keyWord: title,
       news: newsOverviews,
     );

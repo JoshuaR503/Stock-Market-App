@@ -34,7 +34,7 @@ class NewsSection extends StatelessWidget {
             children: <Widget>[
               NewsHeaderWidget(),
               // Section title.
-              Text('Powered by News API', style: kPortfolioScreenDate),
+              Text('Portfolio Related', style: kPortfolioScreenDate),
 
               SizedBox(height: 8),
               ListView.builder(
@@ -43,6 +43,7 @@ class NewsSection extends StatelessWidget {
                 itemCount: state.news.length,
                 itemBuilder: (BuildContext context, int index) {
                   return NewsCardWidget(
+                    companyLogo: state.news[index].companyLogo,
                     title: state.news[index].keyWord,
                     news: state.news[index].news,
                   );
