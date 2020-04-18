@@ -10,7 +10,7 @@ import 'package:sma/widgets/widgets/base_screen.dart';
 import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
-class News extends StatelessWidget {
+class NewsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(

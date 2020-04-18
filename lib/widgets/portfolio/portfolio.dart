@@ -6,7 +6,7 @@ import 'package:sma/widgets/portfolio/widgets/index/portfolio_indexes.dart';
 import 'package:sma/widgets/portfolio/widgets/stonks/portfolio_stonks.dart';
 import 'package:sma/widgets/widgets/base_screen.dart';
 
-class Portfolio extends StatelessWidget {
+class PortfolioSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(

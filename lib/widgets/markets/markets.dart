@@ -15,7 +15,7 @@ import 'package:sma/widgets/markets/widgets/markets_header.dart';
 import 'package:sma/widgets/widgets/base_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
-class Markets extends StatelessWidget {
+class MarketsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

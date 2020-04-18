@@ -7,7 +7,6 @@ import 'package:sma/widgets/news/news.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
 
 class StockMarketAppHome extends StatefulWidget {
-  
   @override
   _StockMarketAppHomeState createState() => _StockMarketAppHomeState();
 }
@@ -15,21 +14,15 @@ class StockMarketAppHome extends StatefulWidget {
 class _StockMarketAppHomeState extends State<StockMarketAppHome> {
 
   int _selectedIndex = 0;
-    PageController _controller = PageController();
+  PageController _controller = PageController();
 
-  final _widgets = [
-    Portfolio(),
-    Markets(),
-    News(),
+  final tabs = [
+    PortfolioSection(),
+    MarketsSection(),
+    NewsSection(),
     Center(
       child: Text(
         'Search Screen coming soon.',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-    ),
-    Center(
-      child: Text(
-        'Settings Screen coming soon.',
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     ),
@@ -42,8 +35,8 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
       body: PageView.builder(
         controller: _controller,
         onPageChanged: _onItemTapped,
-        itemBuilder: (context, index) => _widgets[index],
-        itemCount: _widgets.length, // Can be null
+        itemBuilder: (context, index) => tabs[index],
+        itemCount: tabs.length, // Can be null
       ),
       bottomNavigationBar: _bottomNavigationBar()
     );
@@ -76,7 +69,6 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   }
 
   List<GButton> _bottomNavigationBarItemItems() {
-
     return [
       GButton(
         icon: FontAwesomeIcons.shapes,
@@ -95,30 +87,5 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
         text: 'Search',
       ),
     ];
-    // return [
-    //   BottomNavigationBarItem(
-    //     icon: FaIcon(FontAwesomeIcons.suitcase),
-    //     title: Text('Stonks', style:  TextStyle(fontSize: 12),),
-    //   ),
-      
-    //   BottomNavigationBarItem(
-    //     icon: FaIcon(FontAwesomeIcons.solidNewspaper),
-    //     title: Text('News', style:  TextStyle(fontSize: 12),),
-    //   ),
-
-    //   BottomNavigationBarItem(
-    //     icon: FaIcon(FontAwesomeIcons.globeAmericas),
-    //     title: Text('Markets', style:  TextStyle(fontSize: 12),),
-    //   ),
-
-    //   BottomNavigationBarItem(
-    //     icon: FaIcon(FontAwesomeIcons.search),
-    //     title: Text('Search', style:  TextStyle(fontSize: 12),),
-    //   ),
-    //   BottomNavigationBarItem(
-    //     icon: FaIcon(FontAwesomeIcons.question),
-    //     title: Text('Settings', style:  TextStyle(fontSize: 12),),
-    //   ),
-    // ];
   }
 }
