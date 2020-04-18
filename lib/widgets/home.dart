@@ -52,11 +52,11 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
         child: GNav(
           gap: 8,
-          activeColor: Colors.white,
+          activeColor: Colors.white60,
           iconSize: 24,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           duration: Duration(milliseconds: 800),
-          tabBackgroundColor: kGray,
+          tabBackgroundColor: Colors.white30,
           selectedIndex: _selectedIndex,
           tabs: _bottomNavigationBarItemItems(),
           onTabChange: (index) {
