@@ -47,7 +47,7 @@ class PortfolioStonkWidget extends StatelessWidget {
         ),
 
         height: 90,
-        shape: RoundedRectangleBorder(borderRadius: standatBorder),
+        shape: RoundedRectangleBorder(borderRadius: kStandatBorder),
         onPressed: () {
           // Trigger fetch event.
           BlocProvider
@@ -92,7 +92,7 @@ class PortfolioStonkWidget extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 8),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: sharpBorder,
+              borderRadius: kSharpBorder,
               color: determineColorBasedOnChange(stockOverviewModel.change)
             ),
 

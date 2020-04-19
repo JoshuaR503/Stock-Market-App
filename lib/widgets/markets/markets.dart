@@ -11,9 +11,9 @@ import 'package:sma/shared/styles.dart';
 import 'package:sma/widgets/markets/market_movers/market_movers.dart';
 import 'package:sma/widgets/markets/sector_performance/sector_performance.dart';
 
-import 'package:sma/widgets/markets/widgets/markets_header.dart';
 import 'package:sma/widgets/widgets/base_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
+import 'package:sma/widgets/widgets/standard/header.dart';
 
 class MarketsSection extends StatelessWidget {
 
@@ -31,17 +31,20 @@ class MarketsSection extends StatelessWidget {
         if (state is SectorPerformanceLoaded) {
           return BaseScreen(children: [
 
-            MarketsHeader(),
+            StandardHeader(
+              title: 'U.S Markets',
+              action: Container(),
+            ),
 
             // Section title.
-            Text('Sector Performance', style: subtitleStyling),
+            Text('Sector Performance', style: kSubtitleStyling),
             SectorPerformance(performanceData: state.sectorPerformance),
             Divider(height: 2),
 
             // Section title.
             Padding(
               padding: EdgeInsets.only(top: 16, bottom: 8),
-              child: Text('Most Active', style: subtitleStyling),
+              child: Text('Most Active', style: kSubtitleStyling),
             ),
             _buildMarketMovers(stonks: state.marketActive, color: Color(0xFF263497)),
 
@@ -49,13 +52,13 @@ class MarketsSection extends StatelessWidget {
             // Section title
             Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
-              child: Text('Top Gainers', style: subtitleStyling),
+              child: Text('Top Gainers', style: kSubtitleStyling),
             ),
             _buildMarketMovers(stonks: state.marketGainer, color: kPositiveColor),
 
             Padding(
               padding: EdgeInsets.only(top: 8, bottom: 8),
-              child: Text('Top Losers', style: subtitleStyling),
+              child: Text('Top Losers', style: kSubtitleStyling),
             ),
             _buildMarketMovers(stonks: state.marketLoser, color: Colors.red),
           ]);
@@ -68,6 +71,7 @@ class MarketsSection extends StatelessWidget {
       }
     );
   }
+  
 
   Widget _buildMarketMovers({MarketMoversModelData stonks, Color color}) {
     return Container(

@@ -16,10 +16,8 @@ class ProfileNewsScreen extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.only(left: 26, right: 26, top: 26),
       children: <Widget>[
-
         Text('Latest News', style: kProfileCompanyName),
         SizedBox(height: 16),
-
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),

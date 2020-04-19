@@ -18,7 +18,7 @@ class SearchSection extends StatelessWidget {
         ),
 
         // Section title.
-        Text('Search Companies', style: subtitleStyling),
+        Text('Search Companies', style: kSubtitleStyling),
 
         // Search Box.
         SizedBox(height: 16),

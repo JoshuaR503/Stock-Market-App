@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
+import 'package:sma/shared/styles.dart';
 
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
@@ -30,7 +31,8 @@ class PortfolioHeadingSection extends StatelessWidget {
             )
           ],
         ),
-        Text(formatted, style: kPortfolioScreenDate),
+        
+        Text(formatted, style: kSubtitleStyling),
       ],
     );
   }

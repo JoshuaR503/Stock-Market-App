@@ -47,7 +47,7 @@ class PortfolioIndexWidget extends StatelessWidget {
 
             Container(
               decoration: BoxDecoration(
-                borderRadius: sharpBorder,
+                borderRadius: kSharpBorder,
                 color: determineColorBasedOnChange(index.changes)
               ),
 

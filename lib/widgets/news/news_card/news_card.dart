@@ -7,11 +7,9 @@ import 'package:sma/shared/styles.dart';
 class NewsCardWidget extends StatelessWidget {
 
   final String title;
-  final String companyLogo;
   final List<SingleNewModel> news;
 
   NewsCardWidget({
-    @required this.companyLogo,
     @required this.title,
     @required this.news
   });
@@ -22,20 +20,20 @@ class NewsCardWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Divider(),
-        Text(this.title, style: companyNameHeading),
+        Text(this.title, style: kCompanyNameHeading),
         Container(
-          height: 220,
+          height: 225,
           child: ListView.builder(
-            physics: BouncingScrollPhysics(),
+            
             shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
+
             itemCount: news.length,
-            itemBuilder: (BuildContext context, int i) {
-              return Padding(
-                padding: EdgeInsets.only(top: 8, right: 24),
-                child: _renderNewsArticle(news[i])
-              );
-            },
+            itemBuilder: (BuildContext context, int i) => Padding(
+              padding: EdgeInsets.only(top: 8, right: 24),
+              child: _renderNewsArticle(news[i])
+            )
           ),
         )
       ],
@@ -65,11 +63,14 @@ class NewsCardWidget extends StatelessWidget {
               ),
             ),
 
-            FadeInImage(
-              image: _imageIsValid(singleNew.urlToImage),
-              placeholder: NetworkImage(companyLogo)
-            )
-
+            Container(
+              height: 125,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: _imageIsValid(singleNew.urlToImage)
+                )
+              ),
+            ),
           ],
         ),
       ),

@@ -41,7 +41,7 @@ class SectorPerformance extends StatelessWidget {
 
           trailing: Container(
             decoration: BoxDecoration(
-              borderRadius: sharpBorder,
+              borderRadius: kSharpBorder,
               color: determineColorBasedOnChange(change),
             ),
             

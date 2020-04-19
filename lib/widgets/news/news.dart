@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:sma/bloc/news/news_bloc.dart';
 import 'package:sma/shared/colors.dart';
 
 import 'package:sma/widgets/news/news_card/news_card.dart';
-import 'package:sma/widgets/news/widget/news_header.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
+
 import 'package:sma/widgets/widgets/base_screen.dart';
 import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
+import 'package:sma/widgets/widgets/standard/header.dart';
 
 class NewsSection extends StatelessWidget {
   @override
@@ -32,7 +34,12 @@ class NewsSection extends StatelessWidget {
         if (state is NewsLoaded) {
           return BaseScreen(
             children: <Widget>[
-              NewsHeaderWidget(),
+
+              StandardHeader(
+                title: 'Latest News',
+                action: Container(),
+              ),
+              
               // Section title.
               Text('Portfolio Related', style: kPortfolioScreenDate),
 
@@ -43,7 +50,6 @@ class NewsSection extends StatelessWidget {
                 itemCount: state.news.length,
                 itemBuilder: (BuildContext context, int index) {
                   return NewsCardWidget(
-                    companyLogo: state.news[index].companyLogo,
                     title: state.news[index].keyWord,
                     news: state.news[index].news,
                   );

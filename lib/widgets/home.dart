@@ -15,9 +15,8 @@ class StockMarketAppHome extends StatefulWidget {
 class _StockMarketAppHomeState extends State<StockMarketAppHome> {
 
   int _selectedIndex = 0;
-  // PageController _controller = PageController();
 
-  final tabs = [
+  final List<Widget> tabs = [
     PortfolioSection(),
     MarketsSection(),
     NewsSection(),
@@ -29,33 +28,22 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
     return Scaffold(
       backgroundColor: kScaffoldBackground,
       body: tabs.elementAt(_selectedIndex),
-      bottomNavigationBar: _bottomNavigationBar()
-    );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
-  Widget _bottomNavigationBar() {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-        child: GNav(
-          gap: 8,
-          activeColor: Colors.white60,
-          iconSize: 24,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          duration: Duration(milliseconds: 800),
-          tabBackgroundColor: Colors.white30,
-          selectedIndex: _selectedIndex,
-          tabs: _bottomNavigationBarItemItems(),
-          onTabChange: (index) {
-            _onItemTapped(index);
-            // _controller.jumpToPage(index);
-          }
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+          child: GNav(
+            gap: 8,
+            activeColor: Colors.white60,
+            iconSize: 24,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            duration: Duration(milliseconds: 800),
+            tabBackgroundColor: Colors.white30,
+            selectedIndex: _selectedIndex,
+            tabs: _bottomNavigationBarItemItems(),
+            onTabChange: _onItemTapped
+          ),
         ),
-      ),
+      )
     );
   }
 
@@ -78,5 +66,9 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
         text: 'Search',
       ),
     ];
+  }
+
+  void _onItemTapped(int index) {
+    setState(() => _selectedIndex = index);
   }
 }

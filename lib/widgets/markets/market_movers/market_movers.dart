@@ -20,7 +20,7 @@ class MarketMovers extends StatelessWidget {
         child: _buildContent(),
         width: 100,
         decoration: BoxDecoration(
-          borderRadius: standatBorder,
+          borderRadius: kStandatBorder,
           color: color,
         ),
       )
@@ -38,7 +38,6 @@ class MarketMovers extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: 12.5
         )),
-
 
         // Change percentage.
         SizedBox(height: 5),
