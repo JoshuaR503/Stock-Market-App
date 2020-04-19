@@ -20,7 +20,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     if (event is FetchSearchHistory) {
       yield SearchLoading();
-      yield* _fetch();
+      yield* _fetchSavedResults();
     }
 
     if (event is FetchSearchResults) {
@@ -30,20 +30,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     if (event is SaveSearch) {
       await this._repository.save(symbol: event.symbol);
-      yield* _fetch();
+      yield* _fetchSavedResults();
     }
 
     if (event is DeleteSearch) {
       await this._repository.delete(symbol: event.symbol);
-      yield* _fetch();
+      yield* _fetchSavedResults();
     }
   }
 
-  Stream<SearchState> _fetch() async* {
+  Stream<SearchState> _fetchSavedResults() async* {
     final data = await this._repository.fetch();
 
     if (data.isNotEmpty) {
-      yield SearchHistoryLoaded(symbols: data);
+      yield SearchHistoryLoaded(data: data);
     } else {
       yield SearchEmpty();
     }
@@ -51,7 +51,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Stream<SearchState> _fetchSearchResults({String symbol}) async* {
     try {
-      yield SearchResults(symbols: await this._repository.searchStock(symbol: symbol));
+      yield SearchResults(data: await this._repository.searchStock(symbol: symbol));
     } catch (e) {
       yield SearchResultsLoadingError();
     }

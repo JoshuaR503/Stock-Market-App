@@ -5,32 +5,26 @@ abstract class SearchState {}
 
 class SearchInitial extends SearchState {}
 
-class Search extends SearchState {}
-
 class SearchLoading extends SearchState {}
 
 class SearchEmpty extends SearchState {}
 
 class SearchHistoryLoaded extends SearchState {
 
-  final List<StockSearch> symbols;
+  final List<StockSearch> data;
 
   SearchHistoryLoaded({
-    @required this.symbols
+    @required this.data
   });
 }
 
 class SearchResults extends SearchState {
 
-  final List<StockSearch> symbols;
+  final List<StockSearch> data;
 
   SearchResults({
-    @required this.symbols
+    @required this.data
   });
 }
 
-class SearchResultsLoading extends SearchState {}
-
 class SearchResultsLoadingError extends SearchState {}
-
-class SearchResultsEmpty extends SearchState {}
