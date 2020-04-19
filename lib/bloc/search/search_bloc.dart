@@ -10,7 +10,7 @@ part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
-  final _repository = SearchStockRepository();
+  final SearchStockRepository _repository = SearchStockRepository();
   
   @override
   SearchState get initialState => SearchInitial();
@@ -21,6 +21,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event is FetchSearchHistory) {
       yield SearchLoading();
       yield* _fetch();
+    }
+
+    if (event is FetchSearchResults) {
+      yield SearchLoading();
+      yield* _fetchSearchResults(symbol: event.symbol);
     }
 
     if (event is SaveSearch) {
@@ -38,9 +43,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final data = await this._repository.fetch();
 
     if (data.isNotEmpty) {
-      yield SearchLoaded(symbols: data);
+      yield SearchHistoryLoaded(symbols: data);
     } else {
       yield SearchEmpty();
+    }
+  }
+
+  Stream<SearchState> _fetchSearchResults({String symbol}) async* {
+    try {
+      yield SearchResults(symbols: await this._repository.searchStock(symbol: symbol));
+    } catch (e) {
+      yield SearchResultsLoadingError();
     }
   }
 }

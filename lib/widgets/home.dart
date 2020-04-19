@@ -5,6 +5,7 @@ import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/markets/markets.dart';
 import 'package:sma/widgets/news/news.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
+import 'package:sma/widgets/search/search.dart';
 
 class StockMarketAppHome extends StatefulWidget {
   @override
@@ -14,30 +15,20 @@ class StockMarketAppHome extends StatefulWidget {
 class _StockMarketAppHomeState extends State<StockMarketAppHome> {
 
   int _selectedIndex = 0;
-  PageController _controller = PageController();
+  // PageController _controller = PageController();
 
   final tabs = [
     PortfolioSection(),
     MarketsSection(),
     NewsSection(),
-    Center(
-      child: Text(
-        'Search Screen coming soon.',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-    ),
+    SearchSection()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kScaffoldBackground,
-      body: PageView.builder(
-        controller: _controller,
-        onPageChanged: _onItemTapped,
-        itemBuilder: (context, index) => tabs[index],
-        itemCount: tabs.length, // Can be null
-      ),
+      body: tabs.elementAt(_selectedIndex),
       bottomNavigationBar: _bottomNavigationBar()
     );
   }
@@ -61,7 +52,7 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
           tabs: _bottomNavigationBarItemItems(),
           onTabChange: (index) {
             _onItemTapped(index);
-            _controller.jumpToPage(index);
+            // _controller.jumpToPage(index);
           }
         ),
       ),

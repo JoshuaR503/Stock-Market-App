@@ -124,16 +124,16 @@ class PortfolioSearchWidget extends SearchDelegate {
           .add(FetchSearchHistory());
         }
 
-        if (state is SearchLoaded) {
-          return ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: state.symbols.length,
-            itemBuilder: (BuildContext ctx, int i) => _searchHistoryHelper(
-              context: context,
-              data: state.symbols[i] 
-            )
-          );
-        } 
+        // if (state is SearchLoaded) {
+        //   return ListView.builder(
+        //     physics: BouncingScrollPhysics(),
+        //     itemCount: state.symbols.length,
+        //     itemBuilder: (BuildContext ctx, int i) => _searchHistoryHelper(
+        //       context: context,
+        //       data: state.symbols[i] 
+        //     )
+        //   );
+        // } 
 
         if (state is SearchEmpty) {
           return Column(

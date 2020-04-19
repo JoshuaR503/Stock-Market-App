@@ -5,6 +5,14 @@ abstract class SearchEvent {}
 
 class FetchSearchHistory extends SearchEvent {}
 
+class FetchSearchResults extends SearchEvent {
+  final String symbol;
+
+  FetchSearchResults({
+    @required this.symbol
+  });
+}
+
 class SaveSearch extends SearchEvent {
 
   final String symbol;
