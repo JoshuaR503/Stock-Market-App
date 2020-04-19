@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:sma/bloc/indexes/indexes_bloc.dart';
+import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
 import 'package:sma/widgets/portfolio/widgets/heading/portfolio_heading.dart';
 import 'package:sma/widgets/portfolio/widgets/index/portfolio_indexes.dart';
@@ -17,6 +21,18 @@ class PortfolioSection extends StatelessWidget {
         SizedBox(height: 16),
         PortfolioStonksSection()
       ],
+      onRefresh: () async {
+
+        // Reload indexes section.
+        BlocProvider
+        .of<IndexesBloc>(context)
+        .add(FetchIndexes());
+        
+        // Reload stocks section.
+        BlocProvider
+        .of<PortfolioBloc>(context)
+        .add(FetchPortfolioData());
+      },
     );
   }
 }

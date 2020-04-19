@@ -23,7 +23,7 @@ class SearchContent extends StatelessWidget {
         if (state is SearchEmpty) {
           return Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-            child: EmptyScreen(message: 'No recent searches.'),
+            child: EmptyScreen(message: 'No recent searches'),
           );
         }
 

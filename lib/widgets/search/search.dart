@@ -10,8 +10,8 @@ class SearchSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
+      onRefresh: () async {},
       children: [
-
         StandardHeader(
           title: 'Search',
           action: Container(),
@@ -25,10 +25,7 @@ class SearchSection extends StatelessWidget {
         SearchBoxWidget(),
         SizedBox(height: 16),
         SearchContent(),
-        
       ]
     );
-        
   }
 }
-

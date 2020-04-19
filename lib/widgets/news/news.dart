@@ -44,18 +44,23 @@ class NewsSection extends StatelessWidget {
               Text('Portfolio Related', style: kPortfolioScreenDate),
 
               SizedBox(height: 8),
+              // Content.
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: state.news.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return NewsCardWidget(
-                    title: state.news[index].keyWord,
-                    news: state.news[index].news,
-                  );
-                },
+                itemBuilder: (BuildContext context, int index) => NewsCardWidget(
+                  title: state.news[index].keyWord,
+                  news: state.news[index].news,
+                ),
               )
             ],
+
+            onRefresh: () async {
+              BlocProvider
+              .of<NewsBloc>(context)
+              .add(FetchNews());
+            },
           );
         }
 

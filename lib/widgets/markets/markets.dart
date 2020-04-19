@@ -29,39 +29,46 @@ class MarketsSection extends StatelessWidget {
         }
 
         if (state is SectorPerformanceLoaded) {
-          return BaseScreen(children: [
+          return BaseScreen(
+            onRefresh: () async {
+              BlocProvider
+              .of<SectorPerformanceBloc>(context)
+              .add(FetchSectorPerformance());
+            },
 
-            StandardHeader(
-              title: 'U.S Markets',
-              action: Container(),
-            ),
+            children: [
+              StandardHeader(
+                title: 'U.S Markets',
+                action: Container(),
+              ),
 
-            // Section title.
-            Text('Sector Performance', style: kSubtitleStyling),
-            SectorPerformance(performanceData: state.sectorPerformance),
-            Divider(height: 2),
+              // Section title.
+              Text('Sector Performance', style: kSubtitleStyling),
+              SectorPerformance(performanceData: state.sectorPerformance),
+              Divider(height: 2),
 
-            // Section title.
-            Padding(
-              padding: EdgeInsets.only(top: 16, bottom: 8),
-              child: Text('Most Active', style: kSubtitleStyling),
-            ),
-            _buildMarketMovers(stonks: state.marketActive, color: Color(0xFF263497)),
+              // Section title.
+              Padding(
+                padding: EdgeInsets.only(top: 16, bottom: 8),
+                child: Text('Most Active', style: kSubtitleStyling),
+              ),
+              _buildMarketMovers(stonks: state.marketActive, color: Color(0xFF263497)),
 
 
-            // Section title
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: Text('Top Gainers', style: kSubtitleStyling),
-            ),
-            _buildMarketMovers(stonks: state.marketGainer, color: kPositiveColor),
+              // Section title
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: Text('Top Gainers', style: kSubtitleStyling),
+              ),
+              _buildMarketMovers(stonks: state.marketGainer, color: kPositiveColor),
 
-            Padding(
-              padding: EdgeInsets.only(top: 8, bottom: 8),
-              child: Text('Top Losers', style: kSubtitleStyling),
-            ),
-            _buildMarketMovers(stonks: state.marketLoser, color: Colors.red),
-          ]);
+              Padding(
+                padding: EdgeInsets.only(top: 8, bottom: 8),
+                child: Text('Top Losers', style: kSubtitleStyling),
+              ),
+              _buildMarketMovers(stonks: state.marketLoser, color: Colors.red),
+            ]
+          );
         }
         
         return Scaffold(
@@ -71,7 +78,6 @@ class MarketsSection extends StatelessWidget {
       }
     );
   }
-  
 
   Widget _buildMarketMovers({MarketMoversModelData stonks, Color color}) {
     return Container(
