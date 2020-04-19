@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
 
-import 'package:sma/widgets/portfolio/widgets/heading/portfolio_search.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class PortfolioHeadingSection extends StatelessWidget {
@@ -20,8 +21,12 @@ class PortfolioHeadingSection extends StatelessWidget {
           children: <Widget>[
             Text('Portfolio', style: kPortfolioScreenTitle),
             GestureDetector(
-              child: FaIcon(FontAwesomeIcons.search, size: 22,),
-              onTap: () => showSearch(context: context, delegate: PortfolioSearchWidget()),
+              child: FaIcon(FontAwesomeIcons.redoAlt, size: 22,),
+              onTap: () {
+                BlocProvider
+                .of<PortfolioBloc>(context)
+                .add(FetchPortfolioData());
+              }
             )
           ],
         ),
