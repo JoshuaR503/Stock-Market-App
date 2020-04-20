@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import 'package:sma/shared/styles.dart';
-import 'package:sma/widgets/about/about.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class PortfolioHeadingSection extends StatelessWidget {
@@ -22,10 +21,7 @@ class PortfolioHeadingSection extends StatelessWidget {
             Text('Portfolio', style: kPortfolioScreenTitle),
             GestureDetector(
               child: Icon(FontAwesomeIcons.user),
-              onTap: () { 
-                Navigator
-                .push(context, MaterialPageRoute(builder: (_) => AboutSection()));
-              },
+              onTap: () => Navigator.pushNamed(context, '/about')
             )
           ],
         ),

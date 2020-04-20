@@ -19,8 +19,8 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   final List<Widget> tabs = [
     PortfolioSection(),
     MarketsSection(),
+    SearchSection(),
     NewsSection(),
-    SearchSection()
   ];
 
   @override
@@ -30,10 +30,10 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
       body: tabs.elementAt(_selectedIndex),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
           child: GNav(
             gap: 8,
-            activeColor: Colors.white60,
+            activeColor: Colors.white,
             iconSize: 24,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             duration: Duration(milliseconds: 800),
@@ -58,12 +58,12 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
         text: 'Markets',
       ),
       GButton(
-        icon: FontAwesomeIcons.globeAmericas,
-        text: 'News',
-      ),
-      GButton(
         icon: FontAwesomeIcons.search,
         text: 'Search',
+      ),
+      GButton(
+        icon: FontAwesomeIcons.globeAmericas,
+        text: 'News',
       ),
     ];
   }

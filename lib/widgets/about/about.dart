@@ -25,11 +25,10 @@ class AboutSection extends StatelessWidget {
 
         backgroundColor: kScaffoldBackground,
         body: SafeArea(
-
           child: TabBarView(
             children: <Widget>[
               Attributions(),
-              EmptyScreen(message: 'Settings section coming soon.'),
+              EmptyScreen(message: 'Settings section coming soon'),
             ],
           ),
         )
