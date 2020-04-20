@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:sma/shared/styles.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
+import 'package:sma/shared/styles.dart';
+import 'package:sma/widgets/about/about.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
-import 'package:sma/widgets/settings/settings.dart';
 
 class PortfolioHeadingSection extends StatelessWidget {
   @override
@@ -21,10 +21,10 @@ class PortfolioHeadingSection extends StatelessWidget {
           children: <Widget>[
             Text('Portfolio', style: kPortfolioScreenTitle),
             GestureDetector(
-              child: Icon(FontAwesomeIcons.infoCircle),
+              child: Icon(LineAwesomeIcons.question_circle, size: 34),
               onTap: () { 
                 Navigator
-                .push(context, MaterialPageRoute(builder: (_) => SettingsSection()));
+                .push(context, MaterialPageRoute(builder: (_) => AboutSection()));
               },
             )
           ],
