@@ -18,16 +18,16 @@ class SearchResultsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(Icons.search),
-      title: Text(search.symbol.toUpperCase()),
+      title: Text(search.symbol),
       onTap: () {
 
         Navigator
-        .push(context, MaterialPageRoute(builder: (_) => Profile( symbol: search.symbol.toUpperCase())));
+        .push(context, MaterialPageRoute(builder: (_) => Profile( symbol: search.symbol)));
 
         // Save event.
         BlocProvider
         .of<SearchBloc>(context)
-        .add(SaveSearch(symbol: search.symbol.toUpperCase()));
+        .add(SaveSearch(symbol: search.symbol));
 
         // Fetch profile event.
         BlocProvider

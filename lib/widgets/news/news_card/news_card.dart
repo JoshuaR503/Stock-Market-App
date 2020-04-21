@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sma/helpers/url/url.dart';
-import 'package:sma/key.dart';
+
 import 'package:sma/models/news/single_new_model.dart';
 import 'package:sma/shared/styles.dart';
 
@@ -79,7 +79,8 @@ class NewsCardWidget extends StatelessWidget {
 
   NetworkImage _imageIsValid(dynamic url) {
     return url == null 
-    ? NetworkImage(defaultPicture)
+    // https://cdn.pixabay.com/photo/2016/10/10/22/38/business-1730089_960_720.jpg is a default picture.
+    ? NetworkImage('https://cdn.pixabay.com/photo/2016/10/10/22/38/business-1730089_960_720.jpg')
     : NetworkImage(url);
   }
 }

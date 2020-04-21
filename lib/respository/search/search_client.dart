@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sma/helpers/database_helper.dart';
-import 'package:sma/key.dart';
+import 'package:sma/keys/api_keys.dart';
 
 import 'package:sma/models/search/search.dart';
 
@@ -18,7 +18,7 @@ class SearchClient {
     final Uri uri = Uri.https('www.alphavantage.co', '/query', {
       'function': 'SYMBOL_SEARCH',
       'keywords': symbol,
-      'apikey': alphavantageKey
+      'apikey': kAlphaVantageKey
     });
 
     final response = await Dio().getUri(uri);

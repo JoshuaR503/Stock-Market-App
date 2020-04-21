@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 
 import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/helpers/variables.dart';
-import 'package:sma/key.dart';
+
+import 'package:sma/keys/api_keys.dart';
 import 'package:sma/models/profile/news/stock_news.dart';
 
 import 'package:sma/models/profile/profile.dart';
@@ -29,7 +30,7 @@ class ProfileClient {
     });
 
     final Uri stockNewsUri = Uri.https('finnhub.io', '/api/v1/news/$symbol', {
-      'token': finnhubKey
+      'token': kFinnhubKey
     });
 
     return ProfileModel(

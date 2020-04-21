@@ -41,7 +41,7 @@ class SearchBoxWidget extends StatelessWidget {
                     if (value.isNotEmpty) {
                       BlocProvider
                       .of<SearchBloc>(context)
-                      .add(FetchSearchResults(symbol: value));
+                      .add(FetchSearchResults(symbol: value.toUpperCase()));
                     } else {
                       BlocProvider
                       .of<SearchBloc>(context)
