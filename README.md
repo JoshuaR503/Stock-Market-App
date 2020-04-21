@@ -1,5 +1,5 @@
 # Stonks - Mobile
-This is a simple app that helps users track their favorite stonks. This is not a real time watchlist.
+This is a simple app that helps users track their favorite stonks. This is not a real time watchlist. You will need to get your own API keys. They're all free. To get started, [follow these instructions.](https://github.com/JoshuaR503/Stock-Market-App/blob/master/lib/keys/api_keys.dart).
 
 ## Stonks
 - Users can see stonks.
@@ -22,9 +22,6 @@ This is a simple app that helps users track their favorite stonks. This is not a
 ### Settings Section
 - Users can delete all of their stonks.
 - Users can swich theme.
-
-# Missing 'package:sma/key.dart'.
-I have my API keys private. You will need to get your own keys. [The instructions here.](https://github.com/JoshuaR503/Stock-Market-App/blob/master/lib/keys/api_keys.dart)
 
 ![Stock Market App](/images/top.png)
 ![Stock Market App](/images/bottom.png)
