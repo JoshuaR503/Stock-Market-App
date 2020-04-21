@@ -32,17 +32,23 @@ class SearchSection extends StatelessWidget {
         }
 
         if (state is SearchEmpty) {
-          return MessageScreen(message: 'No recent searches', action: Container());
+          return _buildContent(
+            child: MessageScreen(message: 'No recent searches', action: Container())
+          );
         }
 
         if (state is SearchResultsLoadingError) {
-          return MessageScreen(message: 'There was an unkwon error', action: Container());
+          return _buildContent(
+            child: MessageScreen(message: 'There was an unknown error', action: Container())
+          );
         }
 
         if (state is SearchLoading) {
-          return Scaffold(
-            backgroundColor: kScaffoldBackground,
-            body: LoadingIndicatorWidget()
+          return _buildContent(
+            child: Padding(
+              padding: EdgeInsets.only(top: 80),
+              child: LoadingIndicatorWidget(),
+            )
           );
         }
 
@@ -56,6 +62,25 @@ class SearchSection extends StatelessWidget {
 
         return Container();
       }
+    );
+  }
+
+  Widget _buildContent({Widget child}) {
+    return BaseList(
+      children: [
+        StandardHeader(
+          title: 'Search',
+          subtitle: 'Search Companies',
+          action: Container(),
+        ),
+
+        // Search Box.
+        SizedBox(height: 16),
+        SearchBoxWidget(),
+        SizedBox(height: 16),
+
+        child
+      ]
     );
   }
 
