@@ -3,16 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sma/bloc/news/news_bloc.dart';
 import 'package:sma/shared/colors.dart';
+import 'package:sma/widgets/news/news_section.dart';
+import 'package:sma/widgets/widgets/base_list.dart';
 
-import 'package:sma/widgets/news/news_card/news_card.dart';
-import 'package:sma/widgets/portfolio/widgets/styles.dart';
-
-import 'package:sma/widgets/widgets/base_screen.dart';
-import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
+import 'package:sma/widgets/widgets/message.dart';
 import 'package:sma/widgets/widgets/standard/header.dart';
 
 class NewsSection extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(
@@ -24,51 +23,62 @@ class NewsSection extends StatelessWidget {
           .add(FetchNews());
         }
 
+        if (state is NewsEmpty) {
+          return _buildWrapper(child: MessageScreen(
+            message: state.message,
+            action: _actionWidget(context),
+          ));
+        }
+
         if (state is NewsErrorLoading) {
-          return Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: EmptyScreen(message: 'There was an unknown error.'),
+          return _buildWrapper(child: MessageScreen(
+            message: state.message,
+            action: _actionWidget(context)
+          ));
+        }
+
+        if (state is NewsLoading) {
+          return Scaffold(
+            backgroundColor: kScaffoldBackground,
+            body: LoadingIndicatorWidget()
           );
         }
 
         if (state is NewsLoaded) {
-          return BaseScreen(
-            children: <Widget>[
-
-              StandardHeader(
-                title: 'Latest News',
-                action: Container(),
-              ),
-              
-              // Section title.
-              Text('Portfolio Related', style: kPortfolioScreenDate),
-
-              SizedBox(height: 8),
-              // Content.
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: state.news.length,
-                itemBuilder: (BuildContext context, int index) => NewsCardWidget(
-                  title: state.news[index].keyWord,
-                  news: state.news[index].news,
-                ),
-              )
-            ],
-
-            onRefresh: () async {
-              BlocProvider
-              .of<NewsBloc>(context)
-              .add(FetchNews());
-            },
-          );
+          return NewsSectionWidget(news: state.news);
         }
 
-        return Scaffold(
-          backgroundColor: kScaffoldBackground,
-          body: LoadingIndicatorWidget()
-        );
+        return Container();
       }
+    );
+  }
+
+  Widget _buildWrapper({Widget child}) {
+    return BaseList(
+      children: <Widget>[
+        
+        StandardHeader(
+          title: 'Latest News',
+          subtitle: 'Portfolio Related',
+          action: Container()
+        ),
+        
+        child,
+      ],
+    );
+  }
+
+  Widget _actionWidget(BuildContext context) {
+    return GestureDetector(
+      child: Padding(
+        child: Icon(Icons.refresh),
+        padding: EdgeInsets.symmetric(vertical: 8),
+      ),
+      onTap: () {
+        BlocProvider
+        .of<NewsBloc>(context)
+        .add(FetchNews());
+      },
     );
   }
 }

@@ -4,10 +4,12 @@ import 'package:sma/widgets/portfolio/widgets/styles.dart';
 class StandardHeader extends StatelessWidget {
 
   final String title;
+  final String subtitle;
   final Widget action;
-
+  
   StandardHeader({
     @required this.title,
+    @required this.subtitle,
     @required this.action
   });
 
@@ -24,6 +26,9 @@ class StandardHeader extends StatelessWidget {
             this.action
           ],
         ),
+
+
+        Text(this.subtitle, style: kPortfolioScreenDate),
       ],
     );
   }

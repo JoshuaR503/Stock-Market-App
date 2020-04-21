@@ -22,7 +22,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   @override
   Stream<NewsState> mapEventToState( NewsEvent event ) async* {
-  
+
     if (event is FetchNews) {
       yield NewsLoading();
       yield* _fetchNews();
@@ -34,15 +34,20 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       
       final symbols = await this._databaseRepository.fetch();
 
-      final news =  await Future
-      .wait(symbols
-      .map((symbol) async => await _newsRepository.fetchNews(title: symbol.companyName)));
+      if (symbols.isEmpty) {
+        yield NewsEmpty(message: 'Your watchlist is empty');
+      } else {
+        
+        final news =  await Future
+        .wait(symbols
+        .map((symbol) async => await _newsRepository.fetchNews(title: symbol.companyName)));
 
-      yield NewsLoaded(news: news);
+        yield NewsLoaded(news: news);  
+      }
 
     } catch (e, stack) {
+      yield NewsErrorLoading(message: 'There was an error loading');
       await SentryHelper(exception: e, stackTrace: stack).report();
-      yield NewsErrorLoading();
     }
   }
 }

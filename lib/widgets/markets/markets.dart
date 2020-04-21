@@ -39,11 +39,10 @@ class MarketsSection extends StatelessWidget {
             children: [
               StandardHeader(
                 title: 'U.S Markets',
+                subtitle: 'Sector Performance',
                 action: Container(),
               ),
 
-              // Section title.
-              Text('Sector Performance', style: kSubtitleStyling),
               SectorPerformance(performanceData: state.sectorPerformance),
               Divider(height: 2),
 

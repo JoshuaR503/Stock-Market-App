@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/search/search.dart';
 import 'package:sma/respository/search/search.dart';
 
@@ -17,7 +18,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
-
     if (event is FetchSearchHistory) {
       yield SearchLoading();
       yield* _fetchSavedResults();
@@ -52,8 +52,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> _fetchSearchResults({String symbol}) async* {
     try {
       yield SearchResults(data: await this._repository.searchStock(symbol: symbol));
-    } catch (e) {
+    } catch (e, stack) {
       yield SearchResultsLoadingError();
+      await SentryHelper(exception: e,  stackTrace: stack).report();
     }
   }
 }

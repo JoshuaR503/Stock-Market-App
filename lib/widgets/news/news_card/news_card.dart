@@ -51,7 +51,7 @@ class NewsCardWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(bottom: 8),
               child: Text(
-                singleNew.title, 
+                singleNew.title ?? '', 
                 style: TextStyle(
                   height: 1.6,
                   fontSize: 14,

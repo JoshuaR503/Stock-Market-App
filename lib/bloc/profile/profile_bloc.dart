@@ -37,9 +37,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         );
 
       } catch (e, stack) {
-
-        await SentryHelper(exception: e,  stackTrace: stack).report();
         yield ProfileLoadingError(error: 'There was an unknown error.');
+        await SentryHelper(exception: e,  stackTrace: stack).report();
       }
     }
   }

@@ -21,14 +21,14 @@ class PortfolioStonksSection extends StatelessWidget {
 
         if (state is PortfolioEmpty) {
           return Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: EmptyScreen(message: 'Your watchlist is empty. Try looking up MSFT or AAPL.'),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+            child: EmptyScreen(message: 'Your watchlist is empty'),
           );
         }
 
         if (state is PortfolioLoadingError) {
           return Padding(
-            padding: EdgeInsets.only(top: 20),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
             child: EmptyScreen(message: state.error),
           );
         }
