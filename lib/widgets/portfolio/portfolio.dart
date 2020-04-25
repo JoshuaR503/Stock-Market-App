@@ -16,9 +16,7 @@ class PortfolioSection extends StatelessWidget {
     return BaseScreen(
       children: <Widget>[
         PortfolioHeadingSection(),
-        SizedBox(height: 24),
         PortfolioIndexeSection(),
-        SizedBox(height: 16),
         PortfolioStonksSection()
       ],
       onRefresh: () async {

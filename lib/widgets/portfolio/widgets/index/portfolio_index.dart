@@ -32,9 +32,11 @@ class PortfolioIndexWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      
       padding: EdgeInsets.symmetric(horizontal: 4),
+      
       child: Container(
         width: 100,
         child: Column(
@@ -50,7 +52,7 @@ class PortfolioIndexWidget extends StatelessWidget {
                 borderRadius: kSharpBorder,
                 color: determineColorBasedOnChange(index.changes)
               ),
-
+  
               width: 80,
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               child: Text(determineTextBasedOnChange(index.changes), style: _indexPriceChange,),

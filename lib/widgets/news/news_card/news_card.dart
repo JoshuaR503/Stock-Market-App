@@ -24,8 +24,8 @@ class NewsCardWidget extends StatelessWidget {
         Container(
           height: 225,
           child: ListView.builder(
-            
             shrinkWrap: true,
+            addAutomaticKeepAlives: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
 

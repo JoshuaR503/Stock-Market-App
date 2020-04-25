@@ -17,6 +17,7 @@ class SectorPerformance extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
+      addAutomaticKeepAlives: false,
       padding: EdgeInsets.only(top: 16),
       physics: NeverScrollableScrollPhysics(),
       itemCount: performanceData.performanceModelToday.sectors.length,
