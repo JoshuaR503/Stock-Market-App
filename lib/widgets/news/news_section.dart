@@ -34,10 +34,18 @@ class NewsSectionWidget extends StatelessWidget {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemCount: news.length,
-          itemBuilder: (BuildContext context, int index) => NewsCardWidget(
-            title: news[index].keyWord,
-            news: news[index].news,
-          ),
+          itemBuilder: (BuildContext context, int index) {
+
+            // Ensure that we don't have empty headlines.
+            if (news[index].news.isEmpty) {
+              return Container();
+            }
+
+            return NewsCardWidget(
+              title: news[index].keyWord,
+              news: news[index].news,
+            );
+          },
         )
       ],
 

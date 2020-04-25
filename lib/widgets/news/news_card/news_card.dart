@@ -12,7 +12,7 @@ class NewsCardWidget extends StatelessWidget {
   NewsCardWidget({
     @required this.title,
     @required this.news
-  });
+  }) : assert (news != null);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,6 @@ class NewsCardWidget extends StatelessWidget {
           height: 225,
           child: ListView.builder(
             shrinkWrap: true,
-            addAutomaticKeepAlives: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
 
@@ -41,6 +40,8 @@ class NewsCardWidget extends StatelessWidget {
   }
 
   Widget _renderNewsArticle(SingleNewModel singleNew) {
+
+    print(singleNew.title);
     return GestureDetector(
       onTap: () => launchUrl(singleNew.url),
       child: Container(
@@ -51,7 +52,7 @@ class NewsCardWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(bottom: 8),
               child: Text(
-                singleNew.title ?? '', 
+                singleNew.title, 
                 style: TextStyle(
                   height: 1.6,
                   fontSize: 14,
@@ -66,9 +67,7 @@ class NewsCardWidget extends StatelessWidget {
             Container(
               height: 125,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: _imageIsValid(singleNew.urlToImage)
-                )
+                image: DecorationImage( image: _imageIsValid(singleNew.urlToImage))
               ),
             ),
           ],
@@ -77,10 +76,9 @@ class NewsCardWidget extends StatelessWidget {
     );
   }
 
-  NetworkImage _imageIsValid(dynamic url) {
+  ImageProvider _imageIsValid(String url) {
     return url == null 
-    // https://cdn.pixabay.com/photo/2016/10/10/22/38/business-1730089_960_720.jpg is a default picture.
-    ? NetworkImage('https://cdn.pixabay.com/photo/2016/10/10/22/38/business-1730089_960_720.jpg')
+    ? AssetImage('assets/images/default.jpg')
     : NetworkImage(url);
   }
 }
