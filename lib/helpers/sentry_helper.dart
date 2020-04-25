@@ -1,5 +1,5 @@
 import 'package:sentry/io_client.dart';
-import 'package:sma/key.dart';
+import 'package:sma/keys/api_keys.dart';
 
 class SentryHelper {
 
@@ -16,7 +16,7 @@ class SentryHelper {
     print(this.exception);
     print(this.stackTrace);
 
-    await SentryClient(dsn: sentryDNS).captureException(
+    await SentryClient(dsn: kSentryDomainNameSystem).captureException(
       exception: exception,
       stackTrace: stackTrace
     );

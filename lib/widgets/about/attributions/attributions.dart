@@ -29,7 +29,7 @@ class Attributions extends StatelessWidget {
       children: <Widget>[
         _buildContent(
           title: 'Application Developed by Joshua García',
-          text: 'You can find this app\'s source code by tapping here. This app was made with ❤️',
+          text: 'You can find this app\'s source code by tapping here.',
           url: 'https://github.com/JoshuaR503/Stock-Market-App'
         ),
         Divider(),

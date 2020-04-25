@@ -5,7 +5,7 @@ import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/markets/markets.dart';
 import 'package:sma/widgets/news/news.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
-import 'package:sma/widgets/search/search.dart';
+import 'package:sma/widgets/search/search_section.dart';
 
 class StockMarketAppHome extends StatefulWidget {
   @override

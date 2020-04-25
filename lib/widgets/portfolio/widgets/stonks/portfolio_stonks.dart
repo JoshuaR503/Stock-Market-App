@@ -37,11 +37,12 @@ class PortfolioStonksSection extends StatelessWidget {
           return Container(
             child: ListView.builder(
               shrinkWrap: true,
+              addAutomaticKeepAlives: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: state.stocks.length,
-              itemBuilder: (BuildContext context, int index) => PortfolioStonkWidget(
-                stockOverviewModel: state.stocks[index],
-              )
+              itemBuilder: (BuildContext context, int index) {
+                return PortfolioStockCard(data: state.stocks[index]);
+              }
             ),
           );
         }

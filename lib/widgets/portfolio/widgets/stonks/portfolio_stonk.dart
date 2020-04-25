@@ -12,20 +12,21 @@ import 'package:sma/shared/styles.dart';
 import 'package:sma/widgets/portfolio/widgets/styles.dart';
 import 'package:sma/widgets/profile/profile.dart';
 
-class PortfolioStonkWidget extends StatelessWidget {
+class PortfolioStockCard extends StatelessWidget {
 
-  final StockOverviewModel stockOverviewModel;
+  final StockOverviewModel data;
 
-  PortfolioStonkWidget({
-    @required this.stockOverviewModel
+  PortfolioStockCard({
+    @required this.data
   });
 
-  static const _companyNameStyle = const TextStyle(
+  static const _kCompanyNameStyle = const TextStyle(
     color: Color(0XFFc2c2c2),
-    fontSize: 13
+    fontSize: 13,
+    height: 1.5
   );
 
-  static const _stockPriceStyle = const TextStyle(
+  static const _kStockPriceStyle = const TextStyle(
     fontWeight: FontWeight.bold
   );
 
@@ -36,27 +37,27 @@ class PortfolioStonkWidget extends StatelessWidget {
       child: MaterialButton(
         color: kTileColor,
         child: Container(
+          padding: EdgeInsets.symmetric(vertical: 16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Expanded(flex: 7, child: _buildCompanyData()),
-              Expanded(flex: 5,child: _buildPriceData())
+              Expanded(flex: 8, child: _buildCompanyData()),
+              Expanded(flex: 4,child: _buildPriceData())
             ],
           ),
         ),
 
-        height: 90,
         shape: RoundedRectangleBorder(borderRadius: kStandatBorder),
         onPressed: () {
+
           // Trigger fetch event.
           BlocProvider
             .of<ProfileBloc>(context)
-            .add(FetchProfileData(symbol: stockOverviewModel.symbol));
+            .add(FetchProfileData(symbol: data.symbol));
 
           // Send to Profile.
-          Navigator
-            .push(context, MaterialPageRoute(builder: (_) => Profile(symbol: stockOverviewModel.symbol)));
+          Navigator.push(context, MaterialPageRoute(builder: (_) => Profile(symbol: data.symbol)));
         },
       ),
     );
@@ -64,24 +65,24 @@ class PortfolioStonkWidget extends StatelessWidget {
 
   /// This method is in charge of rendering the stock company data.
   /// This is the left side in the card. 
-  /// It renders the  [symbol] and the company [name] from [StockOverviewModel].
+  /// It renders the  [symbol] and the company [name] from [data].
   Widget _buildCompanyData() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(stockOverviewModel.symbol, style: kStockTickerSymbol),
-        SizedBox(height: 8.0),
-        Text(stockOverviewModel.name, style: _companyNameStyle,)
+        Text(data.symbol, style: kStockTickerSymbol),
+        SizedBox(height: 4.0),
+        Text(data.name, style: _kCompanyNameStyle,)
       ], 
     );
   }
   
   /// This method is in charge of rendering the stock company data.
   /// This is the right side in the card. 
-  /// It renders the [change] and the stock's [price] from [StockOverviewModel].
+  /// It renders the [change] and the stock's [price] from [data].
   Widget _buildPriceData() {
 
-    final width = stockOverviewModel.changesPercentage > 99.99 ? null : 75.5;
+    final width = data.changesPercentage > 99.99 ? null : 75.5;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -93,20 +94,20 @@ class PortfolioStonkWidget extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: kSharpBorder,
-              color: determineColorBasedOnChange(stockOverviewModel.change)
+              color: determineColorBasedOnChange(data.change)
             ),
 
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
             width: width,
-            child: Text('${formatText(stockOverviewModel.changesPercentage)}%', textAlign: TextAlign.end,),
+            child: Text(determineTextBasedOnChange(data.change), textAlign: TextAlign.end,),
           ),
         ),
         
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Text(formatText(stockOverviewModel.price), 
+          child: Text(formatText(data.price), 
             textAlign: TextAlign.end, 
-            style: _stockPriceStyle
+            style: _kStockPriceStyle
           ),
         ),
       ],
