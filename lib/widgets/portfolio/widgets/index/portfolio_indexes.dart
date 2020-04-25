@@ -26,8 +26,6 @@ class PortfolioIndexeSection extends StatelessWidget {
             height: 75,
             margin: EdgeInsets.only(top: 16, bottom: 16),
             child: ListView.builder(
-              addAutomaticKeepAlives: false,
-              addRepaintBoundaries: false,
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: state.indexes.length,

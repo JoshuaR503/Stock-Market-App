@@ -18,8 +18,6 @@ class BaseScreen extends StatelessWidget {
       body: RefreshIndicator(
         child: SafeArea(
           child: ListView(
-            addAutomaticKeepAlives: true,
-            addRepaintBoundaries: false,
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
             children: this.children
