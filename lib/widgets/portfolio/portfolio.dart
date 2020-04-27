@@ -1,36 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:sma/bloc/indexes/indexes_bloc.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
+import 'package:sma/shared/colors.dart';
 
+import 'package:sma/widgets/portfolio/widgets/content/portfolio_stonks.dart';
 import 'package:sma/widgets/portfolio/widgets/heading/portfolio_heading.dart';
-import 'package:sma/widgets/portfolio/widgets/index/portfolio_indexes.dart';
-
-import 'package:sma/widgets/portfolio/widgets/stonks/portfolio_stonks.dart';
-import 'package:sma/widgets/widgets/base_screen.dart';
 
 class PortfolioSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      children: <Widget>[
-        PortfolioHeadingSection(),
-        PortfolioIndexeSection(),
-        PortfolioStonksSection()
-      ],
-      onRefresh: () async {
 
-        // Reload indexes section.
-        BlocProvider
-        .of<IndexesBloc>(context)
-        .add(FetchIndexes());
+    return Scaffold(
+      backgroundColor: kScaffoldBackground,
+      body: RefreshIndicator(
         
-        // Reload stocks section.
-        BlocProvider
-        .of<PortfolioBloc>(context)
-        .add(FetchPortfolioData());
-      },
+        child: SafeArea(
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+            children: [
+              PortfolioHeadingSection(),
+              // PortfolioIndexeSection(),
+              PortfolioStonksSection()
+            ]
+          )
+        ),
+
+        onRefresh: () async {
+
+          // Reload stocks section.
+          BlocProvider
+          .of<PortfolioBloc>(context)
+          .add(FetchPortfolioData());
+        },
+      )
     );
   }
 }

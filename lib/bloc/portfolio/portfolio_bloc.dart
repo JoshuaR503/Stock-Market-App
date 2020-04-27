@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:sma/helpers/sentry_helper.dart';
 
 import 'package:sma/models/data_overview.dart';
+import 'package:sma/models/profile/market_index.dart';
 import 'package:sma/models/storage/storage.dart';
 import 'package:sma/respository/portfolio/repository.dart';
 import 'package:sma/respository/portfolio/storage/storage.dart';
@@ -45,16 +46,26 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   Stream<PortfolioState> _fetchSymbols() async* {
     try {
       final symbolsStored = await _databaseRepository.fetch();
+      final stocks = await _fetchFromNetwork(symbols: symbolsStored);
+      final indexes = await _repository.fetchIndexes();
       
       if (symbolsStored.isNotEmpty) {
-        yield PortfolioLoaded(stocks: await _fetchFromNetwork(symbols: symbolsStored));
-      } else {
-        yield PortfolioEmpty();
+
+        yield PortfolioLoaded(
+          stocks: stocks,
+          indexes: indexes
+        );
+
+      } else if (stocks.isEmpty) {
+        yield PortfolioStocksEmpty();
+      } else if (indexes.isEmpty) {
+        yield PortfolioIndexesEmpty();
       }
 
     } catch (e, stack) {
-      await SentryHelper(exception: e, stackTrace: stack).report();
       yield PortfolioLoadingError(error: e);
+
+      await SentryHelper(exception: e, stackTrace: stack).report();
     }
   }
 

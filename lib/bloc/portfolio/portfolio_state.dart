@@ -5,7 +5,8 @@ abstract class PortfolioState {}
 
 class PortfolioInitial extends PortfolioState {}
 
-class PortfolioEmpty extends PortfolioState {}
+class PortfolioStocksEmpty extends PortfolioState {}
+class PortfolioIndexesEmpty extends PortfolioState {}
 
 class PortfolioLoading extends PortfolioState {}
 
@@ -21,9 +22,11 @@ class PortfolioLoadingError extends PortfolioState {
 class PortfolioLoaded extends PortfolioState {
 
   final List<StockOverviewModel> stocks;
+  final List<MarketIndexModel> indexes;
 
   PortfolioLoaded({
     @required this.stocks,
+    @required this.indexes,
   });
 }
 
