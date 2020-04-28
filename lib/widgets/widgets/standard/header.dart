@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sma/widgets/portfolio/widgets/styles.dart';
 
 class StandardHeader extends StatelessWidget {
 
@@ -13,6 +12,17 @@ class StandardHeader extends StatelessWidget {
     @required this.action
   });
 
+  static const kPortfolioHeaderTitle = const TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold
+  );
+
+  static const kPortfolioSubtitle = const TextStyle(
+    color: Colors.white54,
+    fontSize: 24,
+    fontWeight: FontWeight.w800
+  );
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,13 +32,12 @@ class StandardHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            Expanded(flex: 10, child: Text(this.title, style: kPortfolioScreenTitle),),
+            Expanded(flex: 10, child: Text(this.title, style: kPortfolioHeaderTitle),),
             this.action
           ],
         ),
 
-
-        Text(this.subtitle, style: kPortfolioScreenDate),
+        Text(this.subtitle, style: kPortfolioSubtitle),
       ],
     );
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/portfolio/portfolio_bloc.dart';
+
+import 'package:sma/models/data_overview.dart';
+import 'package:sma/models/profile/market_index.dart';
+
 import 'package:sma/widgets/portfolio/widgets/content/portfolio_index.dart';
 import 'package:sma/widgets/portfolio/widgets/content/portfolio_stonk.dart';
-
 
 import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
@@ -21,10 +24,16 @@ class PortfolioStonksSection extends StatelessWidget {
           .add(FetchPortfolioData());
         }
 
-        if (state is PortfolioStocksEmpty) {
-          return Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-            child: EmptyScreen(message: 'Your watchlist is empty'),
+        if (state is PortfolioStockEmpty) {
+          return Column(
+            children: <Widget>[
+              _buildIndexesSection(indexes: state.indexes),
+              
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+                child: EmptyScreen(message: 'Start adding holdings'),
+              ),
+            ],
           );
         }
 
@@ -37,39 +46,10 @@ class PortfolioStonksSection extends StatelessWidget {
 
         if (state is PortfolioLoaded) {
           return Column(
-
             children: <Widget>[
-
-              // Indexes.
-              Container(
-                height: 75,
-                margin: EdgeInsets.only(top: 16, bottom: 16),
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  addAutomaticKeepAlives: false,
-                  addRepaintBoundaries: false,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.indexes.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return PortfolioIndexWidget(index: state.indexes[index]);
-                  }
-                ),
-              ),
-
-              // Stocks
-              ListView.builder(
-                shrinkWrap: true,
-                // addAutomaticKeepAlives: false,
-                // addRepaintBoundaries: false,
-                physics: ClampingScrollPhysics(),
-                itemCount: state.stocks.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PortfolioStockCard(data: state.stocks[index]);
-                }
-              )
-
+              _buildIndexesSection(indexes: state.indexes),
+              _buildStocksSection(stocks: state.stocks)              
             ],
-
           );
         }
 
@@ -78,6 +58,34 @@ class PortfolioStonksSection extends StatelessWidget {
           child: LoadingIndicatorWidget(),
         );
       },
+    );
+  }
+
+  Widget _buildIndexesSection({List<MarketIndexModel> indexes}) {
+    return Container(
+      height: 75,
+      margin: EdgeInsets.only(top: 16, bottom: 16),
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        addAutomaticKeepAlives: false,
+        addRepaintBoundaries: false,
+        scrollDirection: Axis.horizontal,
+        itemCount: indexes.length,
+        itemBuilder: (BuildContext context, int index) {
+          return PortfolioIndexWidget(index: indexes[index]);
+        }
+      ),
+    );
+  }
+  
+  Widget _buildStocksSection({List<StockOverviewModel> stocks}) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      itemCount: stocks.length,
+      itemBuilder: (BuildContext context, int index) {
+        return PortfolioStockCard(data: stocks[index]);
+      }
     );
   }
 }

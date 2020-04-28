@@ -9,7 +9,6 @@ import 'package:sma/models/data_overview.dart';
 import 'package:sma/shared/colors.dart';
 import 'package:sma/shared/styles.dart';
 
-import 'package:sma/widgets/portfolio/widgets/styles.dart';
 import 'package:sma/widgets/profile/profile.dart';
 
 class PortfolioStockCard extends StatelessWidget {
@@ -24,6 +23,11 @@ class PortfolioStockCard extends StatelessWidget {
     color: Color(0XFFc2c2c2),
     fontSize: 13,
     height: 1.5
+  );
+
+  static const _kStockTickerSymbol = const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold
   );
 
   static const _kStockPriceStyle = const TextStyle(
@@ -70,7 +74,7 @@ class PortfolioStockCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(data.symbol, style: kStockTickerSymbol),
+        Text(data.symbol, style: _kStockTickerSymbol),
         SizedBox(height: 4.0),
         Text(data.name, style: _kCompanyNameStyle,)
       ], 
@@ -82,8 +86,6 @@ class PortfolioStockCard extends StatelessWidget {
   /// It renders the [change] and the stock's [price] from [data].
   Widget _buildPriceData() {
 
-    final width = data.changesPercentage > 99.99 ? null : 75.5;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -92,14 +94,15 @@ class PortfolioStockCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 8),
           child: Container(
+            width: data.changesPercentage > 99.99 ? null : 75.5,
+
             decoration: BoxDecoration(
               borderRadius: kSharpBorder,
               color: determineColorBasedOnChange(data.change)
             ),
 
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-            width: width,
-            child: Text(determineTextBasedOnChange(data.change), textAlign: TextAlign.end,),
+            child: Text(determineTextBasedOnChange(data.change), textAlign: TextAlign.end),
           ),
         ),
         

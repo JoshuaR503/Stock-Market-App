@@ -5,8 +5,14 @@ abstract class PortfolioState {}
 
 class PortfolioInitial extends PortfolioState {}
 
-class PortfolioStocksEmpty extends PortfolioState {}
-class PortfolioIndexesEmpty extends PortfolioState {}
+class PortfolioStockEmpty extends PortfolioState {
+
+  final List<MarketIndexModel> indexes;
+
+  PortfolioStockEmpty({
+    @required this.indexes,
+  });
+}
 
 class PortfolioLoading extends PortfolioState {}
 

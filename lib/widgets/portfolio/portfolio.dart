@@ -18,17 +18,15 @@ class PortfolioSection extends StatelessWidget {
         child: SafeArea(
           child: ListView(
             physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             children: [
               PortfolioHeadingSection(),
-              // PortfolioIndexeSection(),
               PortfolioStonksSection()
             ]
           )
         ),
 
         onRefresh: () async {
-
           // Reload stocks section.
           BlocProvider
           .of<PortfolioBloc>(context)

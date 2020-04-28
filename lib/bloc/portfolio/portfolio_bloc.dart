@@ -51,17 +51,17 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
       
       if (symbolsStored.isNotEmpty) {
 
+        if (stocks.isEmpty) {
+          yield PortfolioStockEmpty(indexes: indexes);
+        }
+
         yield PortfolioLoaded(
           stocks: stocks,
           indexes: indexes
         );
 
-      } else if (stocks.isEmpty) {
-        yield PortfolioStocksEmpty();
-      } else if (indexes.isEmpty) {
-        yield PortfolioIndexesEmpty();
       }
-
+    
     } catch (e, stack) {
       yield PortfolioLoadingError(error: e);
 
