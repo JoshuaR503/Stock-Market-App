@@ -29,9 +29,9 @@ class SectorPerformanceBloc extends Bloc<SectorPerformanceEvent, SectorPerforman
     final hasConnection = await NetworkHelper().isConnected;
 
     if (hasConnection) {
-      yield SectorPerformanceError(message: 'No Internet Connection');
-    } else {
       yield* _fetchData();
+    } else {
+      yield SectorPerformanceError(message: 'No Internet Connection');
     }
   }
 
