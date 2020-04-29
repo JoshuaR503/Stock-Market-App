@@ -21,7 +21,6 @@ class MessageScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           EmptyScreen(message: message),
-          this.action
         ],
       )
     );

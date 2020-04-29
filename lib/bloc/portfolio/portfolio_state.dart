@@ -5,6 +5,8 @@ abstract class PortfolioState {}
 
 class PortfolioInitial extends PortfolioState {}
 
+class PortfolioNoConnection extends PortfolioState {}
+
 class PortfolioStockEmpty extends PortfolioState {
 
   final List<MarketIndexModel> indexes;
@@ -43,15 +45,3 @@ class ProfileSavingError extends PortfolioState {
     @required this.error
   });
 }
-
-class ProfileSaved extends PortfolioState {}
-
-class ProfileDeletingError extends PortfolioState {
-  final dynamic error;
-
-  ProfileDeletingError({
-    @required this.error
-  });
-}
-
-class ProfileDeleted extends PortfolioState {}

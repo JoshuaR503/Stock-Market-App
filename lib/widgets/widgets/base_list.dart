@@ -16,7 +16,7 @@ class BaseList extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           children: this.children
         )
       )

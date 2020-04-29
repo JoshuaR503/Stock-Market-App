@@ -12,6 +12,11 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   final SearchStockRepository _repository = SearchStockRepository();
+  final hasConnection;
+
+  SearchBloc({
+    @required this.hasConnection
+  });
   
   @override
   SearchState get initialState => SearchInitial();
@@ -40,12 +45,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Stream<SearchState> _fetchSavedResults() async* {
-    final data = await this._repository.fetch();
 
-    if (data.isNotEmpty) {
-      yield SearchHistoryLoaded(data: data);
+    if (this.hasConnection) {
+
+      final data = await this._repository.fetch();
+
+      if (data.isNotEmpty) {
+        yield SearchHistoryLoaded(data: data);
+      } else {
+        yield SearchEmpty();
+      }
+
     } else {
-      yield SearchEmpty();
+      yield SearchResultsLoadingError(message: 'No internet connection');
     }
   }
 
@@ -53,7 +65,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     try {
       yield SearchResults(data: await this._repository.searchStock(symbol: symbol));
     } catch (e, stack) {
-      yield SearchResultsLoadingError();
+      yield SearchResultsLoadingError(message: 'There was an error loading');
       await SentryHelper(exception: e,  stackTrace: stack).report();
     }
   }

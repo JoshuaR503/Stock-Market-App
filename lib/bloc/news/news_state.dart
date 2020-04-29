@@ -5,20 +5,12 @@ abstract class NewsState {}
 
 class NewsInitial extends NewsState {}
 
-class NewsEmpty extends NewsState {
-  final String message;
-
-  NewsEmpty({
-    @required this.message
-  });
-}
-
 class NewsLoading extends NewsState {}
 
-class NewsErrorLoading extends NewsState {
+class NewsError extends NewsState {
   final String message;
 
-  NewsErrorLoading({
+  NewsError({
     @required this.message
   });
 }

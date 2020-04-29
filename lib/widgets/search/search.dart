@@ -29,11 +29,10 @@ class SearchScreenSection extends StatelessWidget {
 
         if (state is SearchEmpty) {
           return MessageScreen(message: 'No recent searches', action: Container());
-          
         }
 
         if (state is SearchResultsLoadingError) {
-          return MessageScreen(message: 'There was an unknown error', action: Container());
+          return MessageScreen(message: state.message, action: Container());
         }
 
         if (state is SearchLoading) {

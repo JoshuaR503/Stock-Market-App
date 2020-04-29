@@ -16,6 +16,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   
   final _repository = ProfileRepository();
   final _databaseRepository = PortfolioStorageRepository();
+  final hasConnection;
+
+  ProfileBloc({
+    @required this.hasConnection
+  });
 
   @override
   ProfileState get initialState => ProfileInitial();
@@ -27,19 +32,27 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
       yield ProfileLoading();
 
-      try {
-        final bool isSymbolSaved = await this._databaseRepository.symbolExists(symbol: event.symbol);
-        final ProfileModel profile = await this._repository.fetchStockData(symbol: event.symbol);
-
-        yield ProfileLoaded( 
-          profileModel: profile, 
-          isSymbolSaved: isSymbolSaved
-        );
-
-      } catch (e, stack) {
-        yield ProfileLoadingError(error: 'There was an unknown error.');
-        await SentryHelper(exception: e,  stackTrace: stack).report();
+      if (this.hasConnection) {
+        yield* _mapProfileState(symbol: event.symbol);
+      } else {
+        yield ProfileNoConnection();
       }
+    }
+  }
+
+  Stream<ProfileState> _mapProfileState({String symbol}) async* {
+    try {
+      final bool isSymbolSaved = await this._databaseRepository.symbolExists(symbol: symbol);
+      final ProfileModel profile = await this._repository.fetchStockData(symbol: symbol);
+
+      yield ProfileLoaded( 
+        profileModel: profile, 
+        isSymbolSaved: isSymbolSaved
+      );
+
+    } catch (e, stack) {
+      yield ProfileLoadingError(error: 'There was an unknown error.');
+      await SentryHelper(exception: e,  stackTrace: stack).report();
     }
   }
 }

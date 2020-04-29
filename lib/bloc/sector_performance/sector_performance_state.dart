@@ -5,6 +5,8 @@ abstract class SectorPerformanceState {}
 
 class SectorPerformanceInitial extends SectorPerformanceState {}
 
+class SectorPerformanceNoConnection extends SectorPerformanceState {}
+
 class SectorPerformanceLoading extends SectorPerformanceState {}
 
 class SectorPerformanceErrorLoading extends SectorPerformanceState {}

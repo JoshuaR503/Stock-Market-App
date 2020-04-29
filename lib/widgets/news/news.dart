@@ -23,17 +23,10 @@ class NewsSection extends StatelessWidget {
           .add(FetchNews());
         }
 
-        if (state is NewsEmpty) {
+        if (state is NewsError) {
           return _buildWrapper(child: MessageScreen(
             message: state.message,
             action: _actionWidget(context),
-          ));
-        }
-
-        if (state is NewsErrorLoading) {
-          return _buildWrapper(child: MessageScreen(
-            message: state.message,
-            action: _actionWidget(context)
           ));
         }
 
@@ -62,18 +55,18 @@ class NewsSection extends StatelessWidget {
           subtitle: 'Portfolio Related',
           action: Container()
         ),
-        
-        child,
+          
+        child
       ],
     );
   }
 
   Widget _actionWidget(BuildContext context) {
     return GestureDetector(
-      child: Padding(
-        child: Icon(Icons.refresh),
-        padding: EdgeInsets.symmetric(vertical: 8),
-      ),
+      
+      child: Text('Tap to try again', style: TextStyle(
+        
+      )),
       onTap: () {
         BlocProvider
         .of<NewsBloc>(context)

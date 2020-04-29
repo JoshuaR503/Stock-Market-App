@@ -11,33 +11,44 @@ part 'sector_performance_event.dart';
 part 'sector_performance_state.dart';
 
 class SectorPerformanceBloc extends Bloc<SectorPerformanceEvent, SectorPerformanceState> {
+
+  final hasConnection;
+
+  SectorPerformanceBloc({
+    @required this.hasConnection
+  });
+
   @override
   SectorPerformanceState get initialState => SectorPerformanceInitial();
 
   @override
   Stream<SectorPerformanceState> mapEventToState( SectorPerformanceEvent event ) async* {
 
-  
     if (event is FetchSectorPerformance) {
-
       yield SectorPerformanceLoading();
 
-      try {
-        
-        final repostiory = MarketRepository();
-
-        yield SectorPerformanceLoaded(
-          sectorPerformance: await repostiory.fetchSectorPerformance(),
-          marketActive: await repostiory.fetchMarketActive(),
-          marketGainer: await repostiory.fetchMarketGainers(),
-          marketLoser: await repostiory.fetchMarketLosers()
-        );
-        
-      } catch (e, stack) {
-        await SentryHelper(exception: e,  stackTrace: stack).report();
-        yield SectorPerformanceErrorLoading();
+      if (!this.hasConnection) {
+        yield SectorPerformanceNoConnection();
+      } else {
+        yield* _fetchData();
       }
     }
+  }
 
+  Stream<SectorPerformanceState> _fetchData() async* {
+    try {
+      
+      final repostiory = MarketRepository();
+      yield SectorPerformanceLoaded(
+        sectorPerformance: await repostiory.fetchSectorPerformance(),
+        marketActive: await repostiory.fetchMarketActive(),
+        marketGainer: await repostiory.fetchMarketGainers(),
+        marketLoser: await repostiory.fetchMarketLosers()
+      );
+      
+    } catch (e, stack) {
+      await SentryHelper(exception: e,  stackTrace: stack).report();
+      yield SectorPerformanceErrorLoading();
+    }
   }
 }

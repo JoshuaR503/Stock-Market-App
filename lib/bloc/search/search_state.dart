@@ -27,4 +27,10 @@ class SearchResults extends SearchState {
   });
 }
 
-class SearchResultsLoadingError extends SearchState {}
+class SearchResultsLoadingError extends SearchState {
+  final String  message;
+  
+  SearchResultsLoadingError({
+    @required this.message
+  });
+}

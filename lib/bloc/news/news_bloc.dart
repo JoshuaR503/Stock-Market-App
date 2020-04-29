@@ -16,6 +16,11 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   final NewsRepository _newsRepository = NewsRepository(); 
   final PortfolioStorageRepository _databaseRepository = PortfolioStorageRepository();
+  final hasConnection;
+
+  NewsBloc({
+    @required this.hasConnection
+  });
 
   @override
   NewsState get initialState => NewsInitial();
@@ -25,7 +30,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     if (event is FetchNews) {
       yield NewsLoading();
-      yield* _fetchNews();
+      
+      if (this.hasConnection) {
+        yield* _fetchNews();
+      } else {
+        yield NewsError(message: 'No Internet Connection');
+      }
     }
   }
 
@@ -35,7 +45,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       final symbols = await this._databaseRepository.fetch();
 
       if (symbols.isEmpty) {
-        yield NewsEmpty(message: 'Your watchlist is empty');
+        yield NewsError(message: 'Your watchlist is empty');
       } else {
         
         final news =  await Future
@@ -46,7 +56,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       }
 
     } catch (e, stack) {
-      yield NewsErrorLoading(message: 'There was an error loading');
+      yield NewsError(message: 'There was an error loading');
       await SentryHelper(exception: e, stackTrace: stack).report();
     }
   }

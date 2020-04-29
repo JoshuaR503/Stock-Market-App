@@ -24,6 +24,13 @@ class PortfolioStonksSection extends StatelessWidget {
           .add(FetchPortfolioData());
         }
 
+        if (state is PortfolioNoConnection) {
+          return Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+            child: EmptyScreen(message: 'No Internet Connection'),
+          );
+        }
+
         if (state is PortfolioStockEmpty) {
           return Column(
             children: <Widget>[
@@ -88,4 +95,6 @@ class PortfolioStonksSection extends StatelessWidget {
       }
     );
   }
+
+
 }

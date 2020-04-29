@@ -5,6 +5,8 @@ abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
 
+class ProfileNoConnection extends ProfileState {}
+
 class ProfileLoading extends ProfileState {}
 
 class ProfileLoadingError extends ProfileState {
