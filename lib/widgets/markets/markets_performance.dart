@@ -9,14 +9,11 @@ import 'package:sma/shared/styles.dart';
 
 import 'package:sma/widgets/markets/market_movers/market_movers.dart';
 import 'package:sma/widgets/markets/sector_performance/sector_performance.dart';
-import 'package:sma/widgets/widgets/base_list.dart';
 
-import 'package:sma/widgets/widgets/base_screen.dart';
 import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
-import 'package:sma/widgets/widgets/standard/header.dart';
 
-class MarketsSection extends StatelessWidget {
+class MarketsPerformance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SectorPerformanceBloc, SectorPerformanceState>(
@@ -28,32 +25,18 @@ class MarketsSection extends StatelessWidget {
           .add(FetchSectorPerformance());
         }
 
-        if (state is SectorPerformanceNoConnection) {
-          return BaseList(
-            children: <Widget>[
-
-              _buildSectionHeader(),
-
-              Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
-                child: EmptyScreen(message: 'No Internet Connection'),
-              )
-            ],
+        if (state is SectorPerformanceError) {
+          return Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+            child: EmptyScreen(message: state.message),
           );
         }
 
         if (state is SectorPerformanceLoaded) {
-          return BaseScreen(
-            onRefresh: () async {
-              BlocProvider
-              .of<SectorPerformanceBloc>(context)
-              .add(FetchSectorPerformance());
-            },
-
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               
-              _buildSectionHeader(),
-
               SectorPerformance(performanceData: state.sectorPerformance),
               Divider(height: 2),
 
@@ -63,7 +46,6 @@ class MarketsSection extends StatelessWidget {
                 child: Text('Most Active', style: kSubtitleStyling),
               ),
               _buildMarketMovers(stonks: state.marketActive, color: Color(0xFF263497)),
-
 
               // Section title
               Padding(
@@ -81,20 +63,12 @@ class MarketsSection extends StatelessWidget {
           );
         }
         
-        return Scaffold(
-          backgroundColor: kScaffoldBackground,
-          body: LoadingIndicatorWidget()
+        return Padding(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+          child: LoadingIndicatorWidget(),
         );
 
       }
-    );
-  }
-
-  Widget _buildSectionHeader() {
-    return StandardHeader(
-      title: 'U.S Markets',
-      subtitle: 'Sector Performance',
-      action: Container(),
     );
   }
 

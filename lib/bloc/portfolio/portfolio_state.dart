@@ -5,7 +5,14 @@ abstract class PortfolioState {}
 
 class PortfolioInitial extends PortfolioState {}
 
-class PortfolioNoConnection extends PortfolioState {}
+class PortfolioError extends PortfolioState {
+
+  final String message;
+
+  PortfolioError({
+    @required this.message
+  });
+}
 
 class PortfolioStockEmpty extends PortfolioState {
 
@@ -17,15 +24,6 @@ class PortfolioStockEmpty extends PortfolioState {
 }
 
 class PortfolioLoading extends PortfolioState {}
-
-class PortfolioLoadingError extends PortfolioState {
-
-  final dynamic error;
-
-  PortfolioLoadingError({
-    @required this.error
-  });
-}
 
 class PortfolioLoaded extends PortfolioState {
 

@@ -24,10 +24,10 @@ class PortfolioStonksSection extends StatelessWidget {
           .add(FetchPortfolioData());
         }
 
-        if (state is PortfolioNoConnection) {
+        if (state is PortfolioError) {
           return Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
-            child: EmptyScreen(message: 'No Internet Connection'),
+            child: EmptyScreen(message: state.message),
           );
         }
 
@@ -41,13 +41,6 @@ class PortfolioStonksSection extends StatelessWidget {
                 child: EmptyScreen(message: 'Start adding holdings'),
               ),
             ],
-          );
-        }
-
-        if (state is PortfolioLoadingError) {
-          return Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-            child: EmptyScreen(message: state.error),
           );
         }
 

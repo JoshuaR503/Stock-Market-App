@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sma/shared/colors.dart';
-import 'package:sma/widgets/markets/markets.dart';
+
+import 'package:sma/widgets/markets/markets_section.dart';
 import 'package:sma/widgets/news/news.dart';
 import 'package:sma/widgets/portfolio/portfolio.dart';
 import 'package:sma/widgets/search/search_section.dart';

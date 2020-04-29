@@ -51,7 +51,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
   Stream<PortfolioState> _mapProfileState() async* {
     if (!this.hasConnection) {
-      yield PortfolioNoConnection();
+      yield PortfolioError(message: 'No Internet Connection');
     } else {
       yield* _fetchData();
     }
@@ -73,7 +73,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
       }
     
     } catch (e, stack) {
-      yield PortfolioLoadingError(error: e);
+      yield PortfolioError(message: 'There was an unkwon error');
       await SentryHelper(exception: e, stackTrace: stack).report();
     }
   }

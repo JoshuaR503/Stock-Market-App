@@ -28,7 +28,7 @@ class SectorPerformanceBloc extends Bloc<SectorPerformanceEvent, SectorPerforman
       yield SectorPerformanceLoading();
 
       if (!this.hasConnection) {
-        yield SectorPerformanceNoConnection();
+        yield SectorPerformanceError(message: 'No Internet Connection');
       } else {
         yield* _fetchData();
       }
@@ -48,7 +48,7 @@ class SectorPerformanceBloc extends Bloc<SectorPerformanceEvent, SectorPerforman
       
     } catch (e, stack) {
       await SentryHelper(exception: e,  stackTrace: stack).report();
-      yield SectorPerformanceErrorLoading();
+      yield SectorPerformanceError(message: 'There was an unkwon error');
     }
   }
 }

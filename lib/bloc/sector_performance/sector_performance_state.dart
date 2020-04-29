@@ -5,11 +5,15 @@ abstract class SectorPerformanceState {}
 
 class SectorPerformanceInitial extends SectorPerformanceState {}
 
-class SectorPerformanceNoConnection extends SectorPerformanceState {}
+class SectorPerformanceError extends SectorPerformanceState {
+  final String message;
+
+  SectorPerformanceError({
+    @required this.message,
+  });
+}
 
 class SectorPerformanceLoading extends SectorPerformanceState {}
-
-class SectorPerformanceErrorLoading extends SectorPerformanceState {}
 
 class SectorPerformanceLoaded extends SectorPerformanceState {
 
