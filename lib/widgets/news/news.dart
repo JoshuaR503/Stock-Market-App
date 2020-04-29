@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sma/bloc/news/news_bloc.dart';
-import 'package:sma/shared/colors.dart';
 import 'package:sma/widgets/news/news_card/news_card.dart';
 import 'package:sma/widgets/widgets/empty_screen.dart';
 
@@ -28,13 +27,6 @@ class NewsSectionWidget extends StatelessWidget {
           );
         }
 
-        if (state is NewsLoading) {
-          return Scaffold(
-            backgroundColor: kScaffoldBackground,
-            body: LoadingIndicatorWidget()
-          );
-        }
-
         if (state is NewsLoaded) {
           return ListView.builder(
             shrinkWrap: true,
@@ -55,7 +47,10 @@ class NewsSectionWidget extends StatelessWidget {
           );
         }
 
-        return Container();
+        return Padding(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+          child: LoadingIndicatorWidget(),
+        );
       }
     );
   }
