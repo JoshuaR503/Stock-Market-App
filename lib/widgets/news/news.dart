@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sma/bloc/news/news_bloc.dart';
 import 'package:sma/shared/colors.dart';
-import 'package:sma/widgets/news/news_section.dart';
-import 'package:sma/widgets/widgets/base_list.dart';
+import 'package:sma/widgets/news/news_card/news_card.dart';
+import 'package:sma/widgets/widgets/empty_screen.dart';
 
 import 'package:sma/widgets/widgets/loading_indicator.dart';
-import 'package:sma/widgets/widgets/message.dart';
-import 'package:sma/widgets/widgets/standard/header.dart';
 
-class NewsSection extends StatelessWidget {
+class NewsSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +22,10 @@ class NewsSection extends StatelessWidget {
         }
 
         if (state is NewsError) {
-          return _buildWrapper(child: MessageScreen(
-            message: state.message,
-            action: _actionWidget(context),
-          ));
+          return Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+            child: EmptyScreen(message: state.message),
+          );
         }
 
         if (state is NewsLoading) {
@@ -38,26 +36,27 @@ class NewsSection extends StatelessWidget {
         }
 
         if (state is NewsLoaded) {
-          return NewsSectionWidget(news: state.news);
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: state.news.length,
+            itemBuilder: (BuildContext context, int index) {
+
+              // Ensure that we don't have empty headlines.
+              if (state.news[index].news.isEmpty) {
+                return Container();
+              }
+
+              return NewsCardWidget(
+                title: state.news[index].keyWord,
+                news: state.news[index].news,
+              );
+            },
+          );
         }
 
         return Container();
       }
-    );
-  }
-
-  Widget _buildWrapper({Widget child}) {
-    return BaseList(
-      children: <Widget>[
-        
-        StandardHeader(
-          title: 'Latest News',
-          subtitle: 'Portfolio Related',
-          action: Container()
-        ),
-          
-        child
-      ],
     );
   }
 

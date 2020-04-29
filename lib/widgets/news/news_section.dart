@@ -1,59 +1,43 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sma/bloc/news/news_bloc.dart';
+import 'package:sma/shared/colors.dart';
 
-import 'package:sma/models/news/news.dart';
-import 'package:sma/widgets/news/news_card/news_card.dart';
-import 'package:sma/widgets/widgets/base_screen.dart';
+import 'package:sma/widgets/news/news.dart';
 import 'package:sma/widgets/widgets/standard/header.dart';
 
-class NewsSectionWidget extends StatelessWidget {
-
-  final List<NewsDataModel> news;
-
-  NewsSectionWidget({
-    @required this.news
-  });
-
+class NewsSection extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      children: <Widget>[
+    return Scaffold(
+      backgroundColor: kScaffoldBackground,
+      body: RefreshIndicator(
 
-        StandardHeader(
-          title: 'Latest News',
-          subtitle: 'Portfolio Related',
-          action: Container(),
+        child: SafeArea(
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            children: [
+
+              StandardHeader(
+                title: 'Latest News',
+                subtitle: 'Portfolio Related',
+                action: Container(),
+              ),
+
+              NewsSectionWidget()
+            ]
+          )
         ),
 
-        SizedBox(height: 8),
-
-        // Content.
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: news.length,
-          itemBuilder: (BuildContext context, int index) {
-
-            // Ensure that we don't have empty headlines.
-            if (news[index].news.isEmpty) {
-              return Container();
-            }
-
-            return NewsCardWidget(
-              title: news[index].keyWord,
-              news: news[index].news,
-            );
-          },
-        )
-      ],
-
-      onRefresh: () async {
-        BlocProvider
-        .of<NewsBloc>(context)
-        .add(FetchNews());
-      },
+        onRefresh: () async {
+          // Reload markets section.
+          BlocProvider
+          .of<NewsBloc>(context)
+          .add(FetchNews());
+        },
+      )
     );
   }
 }
