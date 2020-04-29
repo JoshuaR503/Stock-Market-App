@@ -7,25 +7,17 @@ class SearchInitial extends SearchState {}
 
 class SearchLoading extends SearchState {}
 
-class SearchEmpty extends SearchState {}
-
-class SearchHistoryLoaded extends SearchState {
+class SearchData extends SearchState {
 
   final List<StockSearch> data;
+  final ListType listType;
 
-  SearchHistoryLoaded({
-    @required this.data
+  SearchData({
+    @required this.data,
+    @required this.listType
   });
 }
 
-class SearchResults extends SearchState {
-
-  final List<StockSearch> data;
-
-  SearchResults({
-    @required this.data
-  });
-}
 
 class SearchResultsLoadingError extends SearchState {
   final String  message;

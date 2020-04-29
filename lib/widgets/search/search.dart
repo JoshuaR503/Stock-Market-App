@@ -10,12 +10,8 @@ import 'package:sma/widgets/search/search_results/search_results.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 import 'package:sma/widgets/widgets/message.dart';
 
-enum ListType {
-  searchHistory, 
-  searchResults
-}
-
 class SearchScreenSection extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
@@ -27,30 +23,18 @@ class SearchScreenSection extends StatelessWidget {
           .add(FetchSearchHistory());
         }
 
-        if (state is SearchEmpty) {
-          return MessageScreen(message: 'No recent searches', action: Container());
-        }
-
         if (state is SearchResultsLoadingError) {
           return MessageScreen(message: state.message, action: Container());
         }
 
-        if (state is SearchLoading) {
-          return Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-            child: LoadingIndicatorWidget(),
-          );
+        if (state is SearchData) {
+          return _buildWrapper(data: state.data, listType: state.listType);
         }
 
-        if (state is SearchHistoryLoaded) {
-          return _buildWrapper(data: state.data, listType: ListType.searchHistory);
-        }
-
-        if (state is SearchResults) {
-          return _buildWrapper(data: state.data, listType: ListType.searchResults);
-        }
-
-        return Container();
+        return Padding(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+          child: LoadingIndicatorWidget(),
+        );
       }
     );
   }

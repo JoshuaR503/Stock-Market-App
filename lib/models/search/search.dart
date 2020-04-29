@@ -1,5 +1,10 @@
 import 'package:meta/meta.dart';
 
+enum ListType {
+  searchHistory, 
+  searchResults
+}
+
 class StockSearch {
   final String symbol;
 

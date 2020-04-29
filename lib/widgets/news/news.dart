@@ -60,17 +60,4 @@ class NewsSectionWidget extends StatelessWidget {
     );
   }
 
-  Widget _actionWidget(BuildContext context) {
-    return GestureDetector(
-      
-      child: Text('Tap to try again', style: TextStyle(
-        
-      )),
-      onTap: () {
-        BlocProvider
-        .of<NewsBloc>(context)
-        .add(FetchNews());
-      },
-    );
-  }
 }

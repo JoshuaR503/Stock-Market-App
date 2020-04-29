@@ -19,41 +19,45 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
+    
     if (event is FetchSearchHistory) {
-      yield SearchLoading();
-      yield* _fetchSavedResults();
-    }
-
-    if (event is FetchSearchResults) {
-      yield SearchLoading();
-      yield* _fetchSearchResults(symbol: event.symbol);
+      yield* _fetchSavedSearches();
     }
 
     if (event is SaveSearch) {
+      yield SearchLoading();
       await this._repository.save(symbol: event.symbol);
-      yield* _fetchSavedResults();
+      yield* _fetchSavedSearches();
     }
 
     if (event is DeleteSearch) {
+      yield SearchLoading();
       await this._repository.delete(symbol: event.symbol);
-      yield* _fetchSavedResults();
+      yield* _fetchSavedSearches();
+    }
+
+     if (event is FetchSearchResults) {
+      yield SearchLoading();
+      yield* _connectionMiddleMan(symbol: event.symbol);
     }
   }
 
-  Stream<SearchState> _fetchSavedResults() async* {
+  Stream<SearchState> _fetchSavedSearches() async* {
 
-    final hasConnection = await NetworkHelper().isConnected;
+    yield SearchLoading();
+
+    final data = await this._repository.fetch();
+    
+    yield data.isEmpty 
+    ? SearchResultsLoadingError(message: 'No recent searches')
+    : SearchData(data: data, listType: ListType.searchHistory);
+  }
+
+  Stream<SearchState> _connectionMiddleMan({String symbol}) async* {
+    final hasConnection =  await NetworkHelper().isConnected;
 
     if (hasConnection) {
-
-      final data = await this._repository.fetch();
-
-      if (data.isNotEmpty) {
-        yield SearchHistoryLoaded(data: data);
-      } else {
-        yield SearchEmpty();
-      }
-
+      yield* _fetchSearchResults(symbol: symbol);
     } else {
       yield SearchResultsLoadingError(message: 'No internet connection');
     }
@@ -61,7 +65,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Stream<SearchState> _fetchSearchResults({String symbol}) async* {
     try {
-      yield SearchResults(data: await this._repository.searchStock(symbol: symbol));
+      final data = await this._repository.searchStock(symbol: symbol);
+
+      yield data.isEmpty 
+      ? SearchResultsLoadingError(message: 'No results were found')
+      : SearchData(data: data, listType: ListType.searchResults);
+
     } catch (e, stack) {
       yield SearchResultsLoadingError(message: 'There was an error loading');
       await SentryHelper(exception: e,  stackTrace: stack).report();
