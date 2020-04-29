@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/network_helper.dart';
 
 import 'package:sma/helpers/sentry_helper.dart';
 
@@ -19,11 +20,6 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   
   final _databaseRepository = PortfolioStorageRepository();
   final _repository = PortfolioRepository();
-  final hasConnection;
-
-  PortfolioBloc({
-    @required this.hasConnection
-  });
 
   @override
   PortfolioState get initialState => PortfolioInitial();
@@ -50,10 +46,12 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   }
 
   Stream<PortfolioState> _mapProfileState() async* {
-    if (!this.hasConnection) {
-      yield PortfolioError(message: 'No Internet Connection');
-    } else {
+    final hasConnection = await NetworkHelper().isConnected;
+
+    if (hasConnection) {
       yield* _fetchData();
+    } else {
+      yield PortfolioError(message: 'No Internet Connection');
     }
   }
 

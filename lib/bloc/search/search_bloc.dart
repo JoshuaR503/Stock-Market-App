@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/network_helper.dart';
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/search/search.dart';
 import 'package:sma/respository/search/search.dart';
@@ -12,12 +13,7 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   final SearchStockRepository _repository = SearchStockRepository();
-  final hasConnection;
 
-  SearchBloc({
-    @required this.hasConnection
-  });
-  
   @override
   SearchState get initialState => SearchInitial();
 
@@ -46,7 +42,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Stream<SearchState> _fetchSavedResults() async* {
 
-    if (this.hasConnection) {
+    final hasConnection = await NetworkHelper().isConnected;
+
+    if (hasConnection) {
 
       final data = await this._repository.fetch();
 

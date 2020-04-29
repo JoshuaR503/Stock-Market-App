@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/network_helper.dart';
 
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/profile/profile.dart';
@@ -16,11 +17,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   
   final _repository = ProfileRepository();
   final _databaseRepository = PortfolioStorageRepository();
-  final hasConnection;
-
-  ProfileBloc({
-    @required this.hasConnection
-  });
 
   @override
   ProfileState get initialState => ProfileInitial();
@@ -29,14 +25,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
     
     if (event is FetchProfileData) {
-
       yield ProfileLoading();
+      yield* _connectionMiddleMan(symbol: event.symbol);
+    }
+  }
 
-      if (this.hasConnection) {
-        yield* _mapProfileState(symbol: event.symbol);
-      } else {
-        yield ProfileNoConnection();
-      }
+  Stream<ProfileState> _connectionMiddleMan({String symbol}) async* {
+    final hasConnection = await NetworkHelper().isConnected;
+    
+    if (hasConnection) {
+      yield* _mapProfileState(symbol: symbol);
+    } else {
+      yield ProfileNoConnection();
     }
   }
 

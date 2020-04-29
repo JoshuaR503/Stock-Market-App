@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/network_helper.dart';
 import 'package:sma/helpers/sentry_helper.dart';
 
 import 'package:sma/models/news/news.dart';
@@ -16,26 +17,25 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   final NewsRepository _newsRepository = NewsRepository(); 
   final PortfolioStorageRepository _databaseRepository = PortfolioStorageRepository();
-  final hasConnection;
-
-  NewsBloc({
-    @required this.hasConnection
-  });
 
   @override
   NewsState get initialState => NewsInitial();
 
   @override
   Stream<NewsState> mapEventToState( NewsEvent event ) async* {
-
     if (event is FetchNews) {
       yield NewsLoading();
-      
-      if (this.hasConnection) {
-        yield* _fetchNews();
-      } else {
-        yield NewsError(message: 'No Internet Connection');
-      }
+      yield* _connectionMiddleMan();
+    }
+  }
+
+  Stream<NewsState> _connectionMiddleMan() async* {
+    final hasConnection = await NetworkHelper().isConnected;
+
+    if (hasConnection) {
+      yield* _fetchNews();
+    } else {
+      yield NewsError(message: 'No Internet Connection');
     }
   }
 

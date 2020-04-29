@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sma/helpers/network_helper.dart';
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/markets/market_active/market_active_model.dart';
 import 'package:sma/models/markets/sector_performance/sector_performance_model.dart';
@@ -12,12 +13,6 @@ part 'sector_performance_state.dart';
 
 class SectorPerformanceBloc extends Bloc<SectorPerformanceEvent, SectorPerformanceState> {
 
-  final hasConnection;
-
-  SectorPerformanceBloc({
-    @required this.hasConnection
-  });
-
   @override
   SectorPerformanceState get initialState => SectorPerformanceInitial();
 
@@ -26,12 +21,17 @@ class SectorPerformanceBloc extends Bloc<SectorPerformanceEvent, SectorPerforman
 
     if (event is FetchSectorPerformance) {
       yield SectorPerformanceLoading();
+      yield* _connectionMiddleMan();
+    }
+  }
 
-      if (!this.hasConnection) {
-        yield SectorPerformanceError(message: 'No Internet Connection');
-      } else {
-        yield* _fetchData();
-      }
+  Stream<SectorPerformanceState> _connectionMiddleMan() async* {
+    final hasConnection = await NetworkHelper().isConnected;
+
+    if (hasConnection) {
+      yield SectorPerformanceError(message: 'No Internet Connection');
+    } else {
+      yield* _fetchData();
     }
   }
 
