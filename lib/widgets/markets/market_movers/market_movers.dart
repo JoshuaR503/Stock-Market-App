@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sma/bloc/profile/profile_bloc.dart';
 import 'package:sma/models/markets/market_active/market_active.dart';
 import 'package:sma/shared/styles.dart';
+import 'package:sma/widgets/profile/profile.dart';
 
 class MarketMovers extends StatelessWidget {
 
@@ -17,7 +20,7 @@ class MarketMovers extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(right: 14),
       child: Container(
-        child: _buildContent(),
+        child: _buildContent(context),
         width: 100,
         decoration: BoxDecoration(
           borderRadius: kStandatBorder,
@@ -27,22 +30,35 @@ class MarketMovers extends StatelessWidget {
     );
   }
 
-  Widget _buildContent() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
+  Widget _buildContent(BuildContext context) {
+    return GestureDetector(
+      
+      onTap: () {
+        // Trigger fetch event.
+        BlocProvider
+          .of<ProfileBloc>(context)
+          .add(FetchProfileData(symbol: data.ticker));
 
-        // Ticker Symbol.
-        Text(data.ticker, style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 12.5
-        )),
+        // Send to Profile.
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Profile(symbol: data.ticker)));
+      },
 
-        // Change percentage.
-        SizedBox(height: 5),
-        Text(data.changesPercentage),
-      ],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+
+          // Ticker Symbol.
+          Text(data.ticker, style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12.5
+          )),
+
+          // Change percentage.
+          SizedBox(height: 5),
+          Text(data.changesPercentage),
+        ],
+      ),
     );
   }
 }

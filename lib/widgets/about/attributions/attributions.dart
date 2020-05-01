@@ -36,7 +36,7 @@ class Attributions extends StatelessWidget {
 
         _buildContent(
           title: 'Built with Flutter',
-          text: 'None of this would have been posible without Flutter and its amazing community and packages.',
+          text: 'None of this would have been posible without Flutter, its amazing community and packages.',
           url: 'https://flutter.dev/'
         ),
         Divider(),
@@ -86,7 +86,7 @@ class Attributions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(title, style: _kHeadlineStyle),
-          SizedBox(height: 4),
+          SizedBox(height: 8),
           Text(text, style: _kTextStyle),
         ],
       ),
@@ -95,7 +95,7 @@ class Attributions extends StatelessWidget {
 
   Widget _buildApisContent({String title, String text, String url, IconData icon}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 4, top: 4),
+      padding: EdgeInsets.only(bottom:8, top:8),
       child: GestureDetector(
         onTap: () => launchUrl(url),
         child: Row(
@@ -113,7 +113,7 @@ class Attributions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(title, style: _kSubtitleStyling),
-                  SizedBox(height: 4),
+                  SizedBox(height: 8),
                   Text(text, style: _kTextStyle),
                 ],
               )
