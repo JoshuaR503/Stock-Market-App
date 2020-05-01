@@ -29,23 +29,23 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
     if (event is FetchPortfolioData) {
       yield PortfolioLoading();
-      yield* _mapProfileState();
+      yield* _connectionMiddleMan();
     }
 
     if (event is SaveProfile) {
       yield PortfolioLoading();
       await this._databaseRepository.save(storageModel: event.storageModel);
-      yield* _mapProfileState();
+      yield* _connectionMiddleMan();
     }
 
     if (event is DeleteProfile) {
       yield PortfolioLoading();
       await this._databaseRepository.delete(symbol: event.symbol);
-      yield* _mapProfileState();
+      yield* _connectionMiddleMan();
     }
   }
 
-  Stream<PortfolioState> _mapProfileState() async* {
+  Stream<PortfolioState> _connectionMiddleMan() async* {
     final hasConnection = await NetworkHelper().isConnected;
 
     if (hasConnection) {
@@ -56,18 +56,23 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   }
 
   Stream<PortfolioState> _fetchData() async* {
+
     try {
 
       final symbolsStored = await _databaseRepository.fetch();
+      final indexes = await _repository.fetchIndexes();
 
-      if (symbolsStored.isNotEmpty) {
+      if (symbolsStored.isEmpty) {
 
         final stocks = await _fetchFromNetwork(symbols: symbolsStored);
-        final indexes = await _repository.fetchIndexes();
+      
+        yield PortfolioLoaded(
+          stocks: stocks, 
+          indexes: indexes
+        );
 
-        yield stocks.isEmpty 
-        ? PortfolioStockEmpty(indexes: indexes) 
-        : PortfolioLoaded(stocks: stocks, indexes: indexes);
+      } else {
+        yield PortfolioStockEmpty(indexes: indexes);
       }
     
     } catch (e, stack) {
