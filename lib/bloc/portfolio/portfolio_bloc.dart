@@ -62,7 +62,8 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
       final symbolsStored = await _databaseRepository.fetch();
       final indexes = await _repository.fetchIndexes();
 
-      if (symbolsStored.isEmpty) {
+
+      if (symbolsStored.isNotEmpty) {
 
         final stocks = await _fetchFromNetwork(symbols: symbolsStored);
       

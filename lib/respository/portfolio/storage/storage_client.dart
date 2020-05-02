@@ -4,7 +4,7 @@ import 'package:sma/models/storage/storage.dart';
 
 class PortfolioStorageClient {
 
-  final StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('hisss');
+  final StoreRef<int, Map<String, dynamic>>  _store = intMapStoreFactory.store('portfolio_storage_client');
 
   // Sembast Database.
   Future<Database> get _database async => await DatabaseManager.instance.database;

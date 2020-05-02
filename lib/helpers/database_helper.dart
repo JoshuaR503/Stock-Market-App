@@ -39,7 +39,7 @@ class DatabaseManager {
     // Find platform's directory.
     final Directory dir = await getApplicationDocumentsDirectory();
     // Find Database.
-    final String databasePath = join(dir.path, 'stockmarketapp.db');
+    final String databasePath = join(dir.path, 'stockmarketappdatabase.db');
     // Open Database.
     final Database database = await databaseFactoryIo.openDatabase(databasePath);
     // Complete _databaseCompleter

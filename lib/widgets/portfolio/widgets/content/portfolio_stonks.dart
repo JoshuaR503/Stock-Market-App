@@ -38,7 +38,7 @@ class PortfolioStonksSection extends StatelessWidget {
               
               Padding(
                 padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-                child: EmptyScreen(message: 'Start adding holdings'),
+                child: EmptyScreen(message: "Start by adding your holdings"),
               ),
             ],
           );
