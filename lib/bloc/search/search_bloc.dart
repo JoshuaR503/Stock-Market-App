@@ -31,13 +31,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     if (event is DeleteSearch) {
-      yield SearchLoading();
       await this._repository.delete(symbol: event.symbol);
       yield* _fetchSavedSearches();
     }
 
      if (event is FetchSearchResults) {
-      yield SearchLoading();
       yield* _connectionMiddleMan(symbol: event.symbol);
     }
   }
