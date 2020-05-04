@@ -3,9 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/helpers/variables.dart';
 
-import 'package:sma/keys/api_keys.dart';
-import 'package:sma/models/profile/news/stock_news.dart';
-
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/models/profile/stock_chart.dart';
 
@@ -29,21 +26,11 @@ class ProfileClient {
       'to': '2020-04-02'
     });
 
-    final Uri stockNewsUri = Uri.https('finnhub.io', '/api/v1/news/$symbol', {
-      'token': kFinnhubKey
-    });
-
     return ProfileModel(
       stockQuote: await _fetchQuote(uri: quoteUri),
       stockProfile: await _fetchProfile(uri: profileUri),
       stockChart: await _fetchChart(uri: chartUri),
-      stockNews: await _fetchStockNews(uri: stockNewsUri),
     );
-  }
-
-  static Future<List<StockNews>> _fetchStockNews({Uri uri}) async {
-    final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
-    return StockNews.toList(response.data);
   }
 
   static Future<StockQuote> _fetchQuote({Uri uri}) async {
