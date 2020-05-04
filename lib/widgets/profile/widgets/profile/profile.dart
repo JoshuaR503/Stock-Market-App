@@ -32,7 +32,7 @@ class Profile extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(this.stockQuote.name, style: kProfileCompanyName),
+            Text(this.stockQuote.name ?? '-', style: kProfileCompanyName),
 
             _buildPrice(),
             

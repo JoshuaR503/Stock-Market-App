@@ -140,10 +140,10 @@ class StatisticsWidget extends StatelessWidget {
         ),
         Divider(),
 
-        Text('About ${profile.companyName} ',style: kProfileScreenSectionTitle),
+        Text('About ${profile.companyName ?? '-'} ',style: kProfileScreenSectionTitle),
         SizedBox(height: 8),
 
-        Text(profile.description,
+        Text(profile.description ?? '-',
           style: TextStyle(
             fontSize: 16,
             color: kLighterGray,

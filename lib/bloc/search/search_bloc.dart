@@ -25,7 +25,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     if (event is SaveSearch) {
-      yield SearchLoading();
       await this._repository.save(symbol: event.symbol);
       yield* _fetchSavedSearches();
     }
@@ -36,6 +35,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
      if (event is FetchSearchResults) {
+      yield SearchLoading();
       yield* _connectionMiddleMan(symbol: event.symbol);
     }
   }
