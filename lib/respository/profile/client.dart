@@ -45,7 +45,9 @@ class ProfileClient {
 
   static Future<List<StockChart>> _fetchChart({Uri uri}) async {
     final response = await FetchClient().fetchData(uri: uri);
-    return StockChart.toList(response.data['historical']);
+    final data = response.data['historical'];
+    print(data);
+    return StockChart.toList(data);
   }
 
 }

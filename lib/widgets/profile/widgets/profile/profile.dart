@@ -27,6 +27,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(left: 26, right: 26, top: 26),
       children: <Widget>[
         Column(

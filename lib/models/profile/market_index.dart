@@ -1,14 +1,14 @@
 class MarketIndexModel {
-  final String ticker;
-  final double changes;
+  final String symbol;
+  final double change;
   final double price;
-  final String indexName;
+  final String name;
 
   MarketIndexModel({
-    this.ticker, 
-    this.changes, 
+    this.symbol, 
+    this.change, 
     this.price, 
-    this.indexName
+    this.name
   });
 
   static List<MarketIndexModel> toList(List<dynamic> items) {
@@ -19,10 +19,10 @@ class MarketIndexModel {
 
   factory MarketIndexModel.fromJson(Map<String, dynamic> json) {
     return MarketIndexModel(
-      ticker: json['ticker'],
-      changes: json['changes'],
+      symbol: json['symbol'],
+      change: json['change'],
       price: json['price'],
-      indexName: json['indexName'],
+      name: json['name'],
     );
   }
 }

@@ -21,50 +21,40 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DefaultTabController(
-      length: 1,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(this.profile.stockQuote.symbol),
-          backgroundColor: color,
-          bottom: TabBar(
-            indicatorColor: Color(0X881f1f1f),
-            indicatorPadding: EdgeInsets.symmetric(horizontal: 25),
-            indicatorWeight: 3,
-            tabs: [
-              Tab(text: 'Profile',),
-              // Tab(text: 'News',),
-            ],
-          ),
-          
-          actions: <Widget>[
-            WatchlistButtonWidget(
-              storageModel: StorageModel(
-                symbol: profile.stockQuote.symbol, 
-                companyName: profile.stockProfile.companyName
-              ),
-              isSaved: isSaved,
-              color: Colors.white,
-            )
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: color,
+        centerTitle: true,
+        title: Text(this.profile.stockQuote.symbol),
         
-        backgroundColor: kScaffoldBackground,
-        body: SafeArea(
-          child: TabBarView(
-            children: [
-              Profile(
-                color: color,
-                stockProfile: profile.stockProfile,
-                stockChart: profile.stockChart,
-                stockQuote: profile.stockQuote,
-              ),
 
-              // ProfileNewsScreen(news: profile.stockNews,),
-            ]
-          ),
-        )
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(), 
+        ),
+
+        actions: <Widget>[
+          WatchlistButtonWidget(
+            storageModel: StorageModel(
+              symbol: profile.stockQuote.symbol, 
+              companyName: profile.stockProfile.companyName
+            ),
+            isSaved: isSaved,
+            color: Colors.white,
+          )
+        ],
       ),
+      
+      backgroundColor: kScaffoldBackground,
+      body: SafeArea(
+        child: Profile(
+          color: color,
+          stockProfile: profile.stockProfile,
+          stockChart: profile.stockChart,
+          stockQuote: profile.stockQuote,
+        ),
+        // ProfileNewsScreen(news: profile.stockNews,),
+      )
     );
   }
 }

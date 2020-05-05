@@ -44,18 +44,18 @@ class PortfolioIndexWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
 
-            Text(index.indexName, style: _indexNameStyle, maxLines: 1),      
+            Text(index.name, style: _indexNameStyle, maxLines: 1),      
             Text(formatText(index.price), style: _indexPriceStyle),     
 
             Container(
               decoration: BoxDecoration(
                 borderRadius: kSharpBorder,
-                color: determineColorBasedOnChange(index.changes)
+                color: determineColorBasedOnChange(index.change)
               ),
   
               width: 80,
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              child: Text(determineTextBasedOnChange(index.changes), style: _indexPriceChange,),
+              child: Text(determineTextBasedOnChange(index.change), style: _indexPriceChange,),
             ),
           ]
         ),
