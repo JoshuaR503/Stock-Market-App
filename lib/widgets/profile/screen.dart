@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
           WatchlistButtonWidget(
             storageModel: StorageModel(
               symbol: profile.stockQuote.symbol, 
-              companyName: profile.stockProfile.companyName
+              companyName: profile.stockQuote.name
             ),
             isSaved: isSaved,
             color: Colors.white,

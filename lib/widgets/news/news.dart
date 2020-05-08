@@ -35,8 +35,8 @@ class NewsSectionWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
 
               // Ensure that we don't have empty headlines.
-              if (state.news[index].news.isEmpty) {
-                return Container();
+              if (state.news[index].news.isEmpty ) {
+                return EmptyScreen(message: 'There are no news related to ${state.news[index].keyWord}.');
               }
 
               return NewsCardWidget(
