@@ -37,8 +37,11 @@ class PortfolioStonksSection extends StatelessWidget {
               _buildIndexesSection(indexes: state.indexes),
               
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-                child: EmptyScreen(message: "Start by adding some holdings"),
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height / 5,
+                  horizontal: 4
+                ),
+                child: EmptyScreen(message: 'Looks like you don\'t have any holdings in your watchlist.'),
               ),
             ],
           );

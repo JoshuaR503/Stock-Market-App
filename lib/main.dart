@@ -14,7 +14,6 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-
   runApp(
     MultiBlocProvider(
       providers: [

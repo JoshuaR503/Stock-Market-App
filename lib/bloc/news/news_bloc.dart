@@ -8,15 +8,15 @@ import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/news/news.dart';
 
 import 'package:sma/respository/news/repository.dart';
-import 'package:sma/respository/portfolio/storage/storage.dart';
+import 'package:sma/respository/portfolio/storage/storage_client.dart';
 
 part 'news_event.dart';
 part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
-  final NewsRepository _newsRepository = NewsRepository(); 
-  final PortfolioStorageRepository _databaseRepository = PortfolioStorageRepository();
+  final  _newsRepository = NewsRepository(); 
+  final  _databaseRepository = PortfolioStorageClient();
 
   @override
   NewsState get initialState => NewsInitial();

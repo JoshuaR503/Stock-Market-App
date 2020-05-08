@@ -19,11 +19,13 @@ class ProfileClient {
   }
   
   Future<ProfileModel> fetchStockData({String symbol}) async {
+
+    final DateTime date = DateTime.now();
     final Uri quoteUri = Uri.https(authority, '/api/v3/quote/$symbol');
     final Uri profileUri = Uri.https(authority, '/api/v3/company/profile/$symbol');
     final Uri chartUri = Uri.https(authority, '/api/v3/historical-price-full/$symbol', {
-      'from': '2019-04-01',
-      'to': '2020-04-02'
+      'from': '${date.year - 1}-${date.month}-${date.day}',
+      'to': '${date.year}-${date.month}-${date.day - 1}'
     });
 
     return ProfileModel(
@@ -45,9 +47,7 @@ class ProfileClient {
 
   static Future<List<StockChart>> _fetchChart({Uri uri}) async {
     final response = await FetchClient().fetchData(uri: uri);
-    final data = response.data['historical'];
-    print(data);
+    final data = response.data['historical']; 
     return StockChart.toList(data);
   }
-
 }
