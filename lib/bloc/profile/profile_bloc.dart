@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:sma/helpers/sentry_helper.dart';
 import 'package:sma/models/profile/profile.dart';
 
-import 'package:sma/respository/portfolio/storage/storage_client.dart';
+import 'package:sma/respository/portfolio/storage_client.dart';
 import 'package:sma/respository/profile/client.dart';
 
 part 'profile_event.dart';

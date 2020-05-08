@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sma/helpers/network_helper.dart';
 import 'package:sma/helpers/sentry_helper.dart';
+
 import 'package:sma/models/markets/market_active/market_active_model.dart';
 import 'package:sma/models/markets/sector_performance/sector_performance_model.dart';
-import 'package:sma/respository/market/repository.dart';
+import 'package:sma/respository/market/market_client.dart';
 
 part 'sector_performance_event.dart';
 part 'sector_performance_state.dart';
@@ -21,29 +21,19 @@ class SectorPerformanceBloc extends Bloc<SectorPerformanceEvent, SectorPerforman
 
     if (event is FetchSectorPerformance) {
       yield SectorPerformanceLoading();
-      yield* _connectionMiddleMan();
-    }
-  }
-
-  Stream<SectorPerformanceState> _connectionMiddleMan() async* {
-    final hasConnection = await NetworkHelper().isConnected;
-
-    if (hasConnection) {
       yield* _fetchData();
-    } else {
-      yield SectorPerformanceError(message: 'No Internet Connection');
     }
   }
 
   Stream<SectorPerformanceState> _fetchData() async* {
     try {
-      
-      final repostiory = MarketRepository();
+      final client = MarketClient();
+
       yield SectorPerformanceLoaded(
-        sectorPerformance: await repostiory.fetchSectorPerformance(),
-        marketActive: await repostiory.fetchMarketActive(),
-        marketGainer: await repostiory.fetchMarketGainers(),
-        marketLoser: await repostiory.fetchMarketLosers()
+        sectorPerformance: await client.fetchSectorPerformance(),
+        marketActive: await client.fetchMarketActive(),
+        marketGainer: await client.fetchMarketGainers(),
+        marketLoser: await client.fetchMarketLosers()
       );
       
     } catch (e, stack) {

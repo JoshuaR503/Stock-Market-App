@@ -35,11 +35,3 @@ class PortfolioLoaded extends PortfolioState {
     @required this.indexes,
   });
 }
-
-class ProfileSavingError extends PortfolioState {
-  final dynamic error;
-
-  ProfileSavingError({
-    @required this.error
-  });
-}

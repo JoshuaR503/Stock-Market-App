@@ -8,8 +8,8 @@ import 'package:sma/models/data_overview.dart';
 import 'package:sma/models/profile/market_index.dart';
 import 'package:sma/models/storage/storage.dart';
 
-import 'package:sma/respository/portfolio/repository.dart';
-import 'package:sma/respository/portfolio/storage/storage_client.dart';
+import 'package:sma/respository/portfolio/client.dart';
+import 'package:sma/respository/portfolio/storage_client.dart';
 
 part 'portfolio_event.dart';
 part 'portfolio_state.dart';
@@ -17,7 +17,7 @@ part 'portfolio_state.dart';
 class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   
   final _databaseRepository = PortfolioStorageClient();
-  final _repository = PortfolioRepository();
+  final _repository = PortfolioClient();
 
   @override
   PortfolioState get initialState => PortfolioInitial();

@@ -48,7 +48,11 @@ class NewsSectionWidget extends StatelessWidget {
         }
 
         return Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height / 3,
+            left: 4,
+            right: 4
+          ),
           child: LoadingIndicatorWidget(),
         );
       }

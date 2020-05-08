@@ -23,7 +23,6 @@ class MarketClient extends FetchClient {
     return SectorPerformanceModel(
       performanceModelToday: SectorPerformanceDataModel.fromJson(data['Rank A: Real-Time Performance']),
     );
-
   }
 
   /// Fetches market most active stocks and retuns [MarketMoversModelData].

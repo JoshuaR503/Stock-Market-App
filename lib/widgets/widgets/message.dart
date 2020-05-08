@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:sma/widgets/widgets/empty_screen.dart';
 

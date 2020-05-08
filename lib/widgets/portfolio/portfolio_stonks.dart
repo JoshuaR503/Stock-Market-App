@@ -91,6 +91,4 @@ class PortfolioStonksSection extends StatelessWidget {
       }
     );
   }
-
-
 }

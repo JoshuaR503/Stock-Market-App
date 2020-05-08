@@ -16,11 +16,9 @@ class NewsError extends NewsState {
 }
 
 class NewsLoaded extends NewsState {
-
   final List<NewsDataModel> news;
 
   NewsLoaded({
     @required this.news
   });
-
 }
