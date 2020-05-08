@@ -1,6 +1,6 @@
 name: sma
 description: A new Flutter project.
-version: 5.0.0
+version: 6.0.0
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
