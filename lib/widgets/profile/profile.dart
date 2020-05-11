@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sma/bloc/profile/profile_bloc.dart';
+import 'package:sma/helpers/color/color_helper.dart';
 import 'package:sma/shared/colors.dart';
 
 import 'package:sma/widgets/profile/screen.dart';
+import 'package:sma/widgets/widgets/empty_screen.dart';
 import 'package:sma/widgets/widgets/loading_indicator.dart';
 
 class Profile extends StatelessWidget {
@@ -22,11 +24,13 @@ class Profile extends StatelessWidget {
 
         if (state is ProfileLoadingError) {
           return Scaffold(
-            backgroundColor: kScaffoldBackground,
-            body: Center(child: Text(state.error)),
-            appBar: AppBar(
+            appBar: AppBar( 
               backgroundColor: kNegativeColor,
+              title: Text(':('),
             ),
+            backgroundColor: kScaffoldBackground,
+            body: Center(child: EmptyScreen(message: state.error))
+
           );
         }
 
@@ -34,9 +38,7 @@ class Profile extends StatelessWidget {
           return ProfileScreen(
             isSaved: state.isSymbolSaved,
             profile: state.profileModel,            
-            color: state.profileModel.stockProfile.changes < 0 
-              ? Colors.red
-              : kPositiveColor
+            color: determineColorBasedOnChange(state.profileModel.stockProfile.changes)
           );
         }
 

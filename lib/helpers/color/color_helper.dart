@@ -1,11 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:sma/shared/colors.dart';
 
 Color determineColorBasedOnChange(double change ) {
   return change < 0 
-    ? kRedColor 
+    ? kNegativeColor 
     : kPositiveColor;
+}
+
+TextStyle determineTextStyleBasedOnChange(double change ) {
+  return change < 0 
+    ?  kNegativeChange
+    : kPositiveChange;
 }
 
 const TextStyle kPositiveChange = const TextStyle(
@@ -19,9 +24,3 @@ const TextStyle kNegativeChange = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w800
 );
-
-TextStyle determineTextStyleBasedOnChange(double change ) {
-  return change < 0 
-    ?  kNegativeChange
-    : kPositiveChange;
-}

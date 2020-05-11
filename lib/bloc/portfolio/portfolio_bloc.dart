@@ -65,7 +65,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
       }
     
     } catch (e, stack) {
-      yield PortfolioError(message: 'There was an unkwon error');
+      yield PortfolioError(message: 'There was an unkwon error. Please try again later.');
       await SentryHelper(exception: e, stackTrace: stack).report();
     }
   }

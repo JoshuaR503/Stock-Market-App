@@ -1,15 +1,15 @@
 import 'package:intl/intl.dart';
 
+String displayDefaultTextIfNull(String text) {
+  return text.isEmpty ? '-' : text;
+}
+
 String formatText(dynamic text ) {
-  return text != null 
-  ? NumberFormat().format(text)
-  : '-';
+  return text == null ? '-' : NumberFormat().format(text);
 }
 
 String compactText(dynamic text ) {
-  return text != null
-  ? NumberFormat.compact().format(text)
-  : '-'; 
+  return text == null ? '-' : NumberFormat.compact().format(text);
 }
 
 /// This function will add a + sign to an string

@@ -119,17 +119,19 @@ class StatisticsWidget extends StatelessWidget {
         ),
         Divider(),
 
+        
+
         ListTile(
           contentPadding: EdgeInsets.zero,
           title: Text('CEO', style: subtitleStyle),
-          trailing: Text('${profile.ceo}'),
+          trailing: Text(displayDefaultTextIfNull(profile.ceo)),
         ),
         Divider(),
 
         ListTile(
           contentPadding: EdgeInsets.zero,
           title: Text('Sector', style: subtitleStyle),
-          trailing: Text('${profile.sector}'),
+          trailing: Text(displayDefaultTextIfNull(profile.sector)),
         ),
         Divider(),
 

@@ -29,16 +29,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   Stream<ProfileState> _mapProfileState({String symbol}) async* {
-
     try {
-
       yield ProfileLoaded( 
         profileModel: await this._httpClient.fetchStockData(symbol: symbol),
         isSymbolSaved: await this._storageClient.symbolExists(symbol: symbol)
       );
 
     } catch (e, stack) {
-      yield ProfileLoadingError(error: 'There was an unknown error.');
+      yield ProfileLoadingError(error: 'Symbol not supported.');
       await SentryHelper(exception: e,  stackTrace: stack).report();
     }
   }

@@ -11,16 +11,15 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        message,
-        style: TextStyle(
-          height: 1.5,
-          fontSize: 20, 
-          fontWeight: FontWeight.bold,
-          color: kGray
-        ),
+    return Text(
+      message,
+      style: TextStyle(
+        height: 1.5,
+        fontSize: 20, 
+        fontWeight: FontWeight.bold,
+        color: kGray
       ),
+      textAlign: TextAlign.start,
     );
   }
 }
