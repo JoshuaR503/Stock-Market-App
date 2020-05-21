@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'package:sma/helpers/http_helper.dart';
 import 'package:sma/helpers/variables.dart';
+import 'package:sma/keys/api_keys.dart';
 
 import 'package:sma/models/profile/profile.dart';
 import 'package:sma/models/profile/stock_chart.dart';
@@ -9,7 +10,7 @@ import 'package:sma/models/profile/stock_chart.dart';
 import 'package:sma/models/profile/stock_profile.dart';
 import 'package:sma/models/profile/stock_quote.dart';
 
-class ProfileClient {
+class ProfileClient extends FetchClient {
 
   Future<StockQuote> fetchProfileChanges({String symbol}) async {
     final Uri uri = Uri.https(authority, '/api/v3/quote/$symbol');
@@ -20,34 +21,25 @@ class ProfileClient {
   
   Future<ProfileModel> fetchStockData({String symbol}) async {
 
-    final DateTime date = DateTime.now();
-    final Uri quoteUri = Uri.https(authority, '/api/v3/quote/$symbol');
-    final Uri profileUri = Uri.https(authority, '/api/v3/company/profile/$symbol');
-    final Uri chartUri = Uri.https(authority, '/api/v3/historical-price-full/$symbol', {
-      'from': '${date.year - 1}-${date.month}-${date.day}',
-      'to': '${date.year}-${date.month}-${date.day - 1}'
-    });
+    final Response<dynamic> stockProfile = await super.financialModelRequest('/api/v3/company/profile/$symbol');
+    final Response<dynamic> stockQuote = await super.financialModelRequest('/api/v3/quote/$symbol');
+    final Response<dynamic> stockChart = await _fetchChart(symbol: symbol);
 
     return ProfileModel(
-      stockQuote: await _fetchQuote(uri: quoteUri),
-      stockProfile: await _fetchProfile(uri: profileUri),
-      stockChart: await _fetchChart(uri: chartUri),
+      stockQuote: StockQuote.fromJson(stockQuote.data[0]),
+      stockProfile: StockProfile.fromJson(stockProfile.data['profile']),
+      stockChart: StockChart.toList(stockChart.data['historical']),
     );
   }
 
-  static Future<StockQuote> _fetchQuote({Uri uri}) async {
-    final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
-    return StockQuote.fromJson(response.data[0]);
-  }
+  static Future<Response> _fetchChart({String symbol}) async {
+    final DateTime date = DateTime.now();
+    final Uri uri = Uri.https(authority, '/api/v3/historical-price-full/$symbol', {
+      'from': '${date.year - 1}-${date.month}-${date.day}',
+      'to': '${date.year}-${date.month}-${date.day - 1}',
+      'apikey': kFinancialModelingPrepApi
+    });
 
-  static Future<StockProfile> _fetchProfile({Uri uri}) async {
-    final Response<dynamic> response = await FetchClient().fetchData(uri: uri);
-    return StockProfile.fromJson(response.data['profile']);
-  }
-
-  static Future<List<StockChart>> _fetchChart({Uri uri}) async {
-    final response = await FetchClient().fetchData(uri: uri);
-    final data = response.data['historical']; 
-    return StockChart.toList(data);
+    return await FetchClient().fetchData(uri: uri);
   }
 }
