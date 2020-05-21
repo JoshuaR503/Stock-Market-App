@@ -53,7 +53,7 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
         final stocks =   await Future
         .wait(symbolsStored
-        .map((symbol) async => await _repository.fetchData(symbol: symbol.symbol)));
+        .map((symbol) async => await _repository.fetchStocks(symbol: symbol.symbol)));
       
         yield PortfolioLoaded(
           stocks: stocks, 

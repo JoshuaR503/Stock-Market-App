@@ -1,1 +1,1 @@
-final String authority = 'financialmodelingprep.com';
+final String authority = '';
