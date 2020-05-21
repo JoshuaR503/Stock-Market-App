@@ -24,7 +24,7 @@ const String kFinnhubKey = finnhubKey;
 /// To get your own API key go to: https://newsapi.org.
 const String kNewsKey = newsApi;
 
-/// Financial Modeling Prep API is used to power the Home and U.S Market section.
+/// Financial Modeling Prep API is used to power the Home, U.S Market and Profile Section.
 /// Now an API key is required which means that we won't be able to make infinite requests. :(
 /// To get your own API key go to: https://financialmodelingprep.com/developer/docs/
 const String kFinancialModelingPrepApi = financialAPI;
