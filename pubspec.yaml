@@ -12,10 +12,8 @@ dependencies:
   http: ^0.12.0+2
   dio: ^2.1.16
   intl: "^0.16.1"
-
   charts_flutter: ^0.9.0
   cupertino_icons: ^0.1.2
-  data_connection_checker: ^0.3.4
   path_provider: ^1.6.7
   sembast: ^2.4.0
   sentry: ^3.0.1
@@ -25,6 +23,7 @@ dependencies:
   google_nav_bar: ^2.2.0
   url_launcher: ^5.4.2
   flutter_offline: ^0.3.0
+  data_connection_checker: ^0.3.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.4
