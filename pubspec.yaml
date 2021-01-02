@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
 
   http: ^0.12.0+2
-  dio: ^2.1.16
+  dio: ^3.0.10
   intl: "^0.16.1"
   charts_flutter: ^0.9.0
   cupertino_icons: ^0.1.2
